@@ -1,4 +1,5 @@
 <?php
+use Symfony\Component\HttpKernel\DataCollector\ConfigDataCollector;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,15 @@
 // Route::get('/', ['uses' => 'HomeController@index', 'as' => 'home']);
 
 // Admin
-Route::get('/ppdb/admin', ['uses' => 'AdminController@index', 'as' => 'getAdmin']);
+Route::get('/ppdb/admin/login', ['uses' => 'AdminController@getLoginAdmin', 'as' => 'login', 'middleware' => 'guest']);
+Route::post('/ppdb/admin/login', ['uses' => 'AdminController@postLoginAdmin', 'as' => 'postLoginAdmin']);
+Route::get('/ppdb/admin/logout', ['uses' => 'AdminController@getLogout', 'as' => 'getLogout']);
+Route::get('/ppdb/admin', ['uses' => 'AdminController@index', 'as' => 'getAdmin', 'middleware' => 'auth']);
+
+// Siswa Terdaftar
+Route::get('/ppdb/admin/data/siswa', ['uses' => 'SiswaController@getSiswa', 'as' => 'getSiswa']);
+Route::get('/ppdb/admin/data/getDataSiswa', ['uses' => 'SiswaController@getDataSiswa', 'as' => 'getDataSiswa']);
+// Route::get('ppdb/admin/data/siswa', ['uses' => 'SiswaController@getSiswa', 'as' => 'getSiswa']);
 
 // PPDB
 Route::get('/ppdb/register', ['uses' => 'PpdbController@getRegister', 'as' => 'getPpdb']);

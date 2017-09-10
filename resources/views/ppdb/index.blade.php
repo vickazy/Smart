@@ -41,7 +41,7 @@
                     </li>
                 </ul>
             </div>
-            
+
             <form role="form" class="form-horizontal" action="{{ route('postPpdb') }}" method="post" id="frm-register">
               {{ csrf_field() }}
                 <div class="tab-content">
@@ -143,7 +143,7 @@
                             <div class="form-group">
                               <label for="inputEmail3" class="col-sm-12 col-lg-2 control-label">Kota/Kab</label>
                               <div class="col-lg-8 col-sm-12">
-                                  <input type="text" class="form-control" id="kota" name="siswa[kota]"  data-validation="required">
+                                  <input type="text" class="form-control" id="kota" name="siswa[kota]"  data-validation="required" placeholder="Kota/Kab">
                               </div>
                             </div>
                             <div class="form-group">

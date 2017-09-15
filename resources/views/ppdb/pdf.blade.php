@@ -7,11 +7,7 @@
     <title>Formulir Pendaftaran</title>
 
     <link rel="stylesheet" href="{{ URL::to('node_modules/bootstrap/dist/css/bootstrap.min.css') }}">
-    {{-- <link rel="stylesheet" href="{{ URL::to('node_modules/ppdb/css/custom.css') }}"> --}}
-    <!--[if lt IE 9]>
-      <script src="https://cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+
   </head>
     <body onload="window.print()">
       <div class="page-header">
@@ -102,31 +98,55 @@
                 <td></td>
                 <td></td>
               </tr>
+
+              @if ($data['tinggal_bersama'] == 'orang_tua' || $data['tinggal_bersama'] == 'asrama')
               <tr>
                 <td width=20%>Nama Ayah</td>
-                <td>:</td>
-                <td>{{ $data['orangtua'][1]['nama'] }}</td>
-              </tr>
-              <tr>
-                <td width=20%>Nama Ibu</td>
                 <td>:</td>
                 <td>{{ $data['orangtua'][0]['nama'] }}</td>
               </tr>
               <tr>
+                <td width=20%>Nama Ibu</td>
+                <td>:</td>
+                <td>{{ $data['orangtua'][1]['nama'] }}</td>
+              </tr>
+              <tr>
                 <td width=20%>Pekerjaan Ayah/Ibu</td>
                 <td>:</td>
-                <td>{{ $data['orangtua'][1]['pekerjaan'] . ' & ' . $data['orangtua'][0]['pekerjaan'] }}</td>
+                <td>{{ $data['orangtua'][0]['pekerjaan'] . ' & ' . $data['orangtua'][1]['pekerjaan'] }}</td>
               </tr>
               <tr>
                 <td width=20%>Penghasilan Ayah/Ibu per bulan</td>
                 <td>:</td>
-                <td>{{  'Rp. '.number_format($data['orangtua'][1]['penghasilan']) . ' & ' . 'Rp. '.number_format($data['orangtua'][0]['penghasilan']) }}</td>
+                <td>{{  'Rp. '.number_format($data['orangtua'][0]['penghasilan']) . ' & ' . 'Rp. '.number_format($data['orangtua'][1]['penghasilan']) }}</td>
               </tr>
               <tr>
                 <td width=20%>Pendidikan terakhir Ayah/Ibu</td>
                 <td>:</td>
-                <td>{{ $data['orangtua'][1]['pendidikan_terakhir'] . ' & '. $data['orangtua'][0]['pendidikan_terakhir'] }}</td>
+                <td>{{ $data['orangtua'][0]['pendidikan_terakhir'] . ' & '. $data['orangtua'][1]['pendidikan_terakhir'] }}</td>
               </tr>
+            @else
+              <tr>
+                <td width=20%>Nama Wali</td>
+                <td>:</td>
+                <td>{{ $data['orangtua'][0]['nama'] }}</td>
+              </tr>
+              <tr>
+                <td width=20%>Pekerjaan Wali</td>
+                <td>:</td>
+                <td>{{ $data['orangtua'][0]['pekerjaan']}}</td>
+              </tr>
+              <tr>
+                <td width=20%>Penghasilan Wali per bulan</td>
+                <td>:</td>
+                <td>{{  'Rp. '.number_format($data['orangtua'][0]['penghasilan'])}}</td>
+              </tr>
+              <tr>
+                <td width=20%>Pendidikan terakhir Wali</td>
+                <td>:</td>
+                <td>{{ $data['orangtua'][0]['pendidikan_terakhir']}}</td>
+              </tr>
+            @endif
           </table>
         </div>
   </body>

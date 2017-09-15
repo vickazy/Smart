@@ -14,6 +14,11 @@ class PpdbController extends Controller
       return view('ppdb.index');
     }
 
+    public function getKecamtan(Request $request) {
+      $kecamatan = Indonesia::allDistrict();
+      return response()->json($kecamatan);
+    }
+
     public function postRegister(Request $request) {
       // dd($request->all());
       if ($request) {
@@ -46,7 +51,7 @@ class PpdbController extends Controller
         $riwayat = $request->riwayat;
         $riwayat['siswa_id'] = $siswa_id;
         $simpan_riwayat = RiwayatP::create($riwayat);
-        if ($tinggal_bersama == 'orang_tua') {
+        if ($tinggal_bersama == 'orang_tua' || $tinggal_bersama == 'asrama') {
           // orang tua
           $ayah = $request->ayah;
           $ayah['siswa_id'] = $siswa_id;

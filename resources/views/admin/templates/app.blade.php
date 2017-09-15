@@ -22,7 +22,8 @@
     <link rel="stylesheet" href="{{URL::to('node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css')}}">
     {{-- Daterangepicker --}}
     <link rel="stylesheet" href="{{URL::to('node_modules/bootstrap-daterangepicker/daterangepicker.css')}}">
-
+    {{-- jquery confirm --}}
+    <link rel="stylesheet" href="{{URL::to('node_modules/jquery-confirm/dist/jquery-confirm.min.css')}}">
     <!-- Custom styles for this template -->
     <link href="{{URL::to('admin/css/style.css')}}" rel="stylesheet">
     <link href="{{URL::to('admin/css/style-responsive.css')}}" rel="stylesheet">
@@ -82,8 +83,8 @@
                           <li>
                             <a  href="{{route('getSiswa')}}"><i class="fa fa-users"></i> Siswa Terdaftar</a>
                           </li>
-                          <li><a  href="#!"><i class="fa fa-graduation-cap"></i> Riwayat Pendidikan</a></li>
-                          <li><a  href="#!"><i class="fa fa-user-circle"></i> Orang Tua/Wali</a></li>
+                          {{-- <li><a  href="#!"><i class="fa fa-graduation-cap"></i> Riwayat Pendidikan</a></li>
+                          <li><a  href="#!"><i class="fa fa-user-circle"></i> Orang Tua/Wali</a></li> --}}
                       </ul>
                   </li>
               </ul>
@@ -126,6 +127,13 @@
     <script src="{{URL::to('node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}" charset="utf-8"></script>
     {{-- Daterangepicker --}}
     <script src="{{URL::to('node_modules/bootstrap-daterangepicker/daterangepicker.js')}}" charset="utf-8"></script>
+    {{-- jquery confirm --}}
+    <script src="{{URL::to('node_modules/jquery-confirm/dist/jquery-confirm.min.js')}}" charset="utf-8"></script>
+    {{-- toastr js --}}
+    <script src="{{URL::to('node_modules/toastr/toastr.js')}}" charset="utf-8"></script>
+    {{-- ChartJs --}}
+    <script src="{{URL::to('node_modules/chart.js/dist/Chart.js')}}" charset="utf-8"></script>
+
     <script class="include" type="text/javascript" src="{{URL::to('admin/js/jquery.dcjqaccordion.2.7.js')}}"></script>
     <script src="{{URL::to('admin/js/jquery.scrollTo.min.js')}}"></script>
     <script src="{{URL::to('admin/js/jquery.nicescroll.js')}}" type="text/javascript"></script>
@@ -138,6 +146,7 @@
     <script type="text/javascript" src="{{URL::to('admin/js/gritter/js/jquery.gritter.js')}}"></script>
     <script type="text/javascript" src="{{URL::to('admin/js/gritter-conf.js')}}"></script>
     <script type="text/javascript" src="{{URL::to('admin/custom.js')}}"></script>
+    @yield('customJs')
     <script type="text/javascript">
       $(document).ready(function() {
         var unique_id = $.gritter.add({

@@ -20,6 +20,7 @@ class Siswa extends Model
       'agama',
       'anak_ke',
       'jumlah_saudara',
+      'tinggal_bersama',
       'alamat',
       'rt',
       'rw',

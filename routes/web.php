@@ -23,10 +23,19 @@ Route::get('/ppdb/admin', ['uses' => 'AdminController@index', 'as' => 'getAdmin'
 // Siswa Terdaftar
 Route::get('/ppdb/admin/data/siswa', ['uses' => 'SiswaController@getSiswa', 'as' => 'getSiswa']);
 Route::get('/ppdb/admin/data/getDataSiswa', ['uses' => 'SiswaController@getDataSiswa', 'as' => 'getDataSiswa']);
-// Route::get('ppdb/admin/data/siswa', ['uses' => 'SiswaController@getSiswa', 'as' => 'getSiswa']);
+Route::get('/ppdb/admin/data/siswa/{id}/detail', ['uses' => 'SiswaController@getSiswaDetail', 'as' => 'getSiswaDetail']);
+Route::get('/ppdb/admin/data/siswa/{id}/edit', ['uses' => 'SiswaController@getSiswaEdit', 'as' => 'getSiswaEdit']);
+Route::post('/ppdb/admin/data/siswa/{id}/update', ['uses' => 'SiswaController@postSiswaUpdate', 'as' => 'postSiswaUpdate']);
+Route::get('/ppdb/admin/data/siswa/delete', ['uses' => 'SiswaController@getSiswaDelete', 'as' => 'getSiswaDelete']);
+Route::post('/ppdb/admin/data/siswa/export/{type}', ['uses' => 'SiswaController@exportExcelSiswa', 'as' => 'exportExcelSiswa']);
+Route::post('/ppdb/admin/data/siswa/pdf/export', ['uses' => 'SiswaController@exportPDFSiswa', 'as' => 'exportPDFSiswa']);
+
 
 // PPDB
 Route::get('/ppdb/register', ['uses' => 'PpdbController@getRegister', 'as' => 'getPpdb']);
 Route::post('/ppdb/register', ['uses' => 'PpdbController@postRegister', 'as' => 'postPpdb']);
 Route::get('/ppdb/download/', ['uses' => 'PpdbController@downloadRegister', 'as' => 'downloadRegister']);
 Route::get('/ppdb/download/peserta/{id}', ['uses' => 'PpdbController@downloadPdf', 'as' => 'downloadPdf']);
+
+// ppdb kota
+Route::get('/ppdb/register/getKecamatan', ['uses' => 'SiswaController@getKecamatan', 'as' => 'getKecamatan']);

@@ -24,9 +24,22 @@ $('#asrama').click(function() {
   $('#wali_box').hide();
   $('#ortu').show();
 });
+// select2
+$('.select2').select2();
 
-$('#frm-register').on('submit', function() {
-
+// ppdb kota
+$('#kota').on('click', function() {
+  var id = $this.val();
+  console.log(id);
+  // $.get("{{route('getKelurahan')}}", id, function(kecamatan) {
+  //   console.log(kecamatan);
+  //   $.each(kecamatan, function(k, v) {
+  //     $('#kecamatan').append($("<option/>", {
+  //       value: $(v).val(),
+  //       text: $(v).val()
+  //     }))
+  //   });
+  // });
 });
   // Default wizard
     //Initialize tooltips
@@ -55,20 +68,7 @@ $('#frm-register').on('submit', function() {
         prevTab($active);
 
     });
-});
 
-function nextTab(elem) {
-    $(elem).next().find('a[data-toggle="tab"]').click();
-}
-function prevTab(elem) {
-    $(elem).prev().find('a[data-toggle="tab"]').click();
-}
-
-
-//according menu
-
-$(document).ready(function()
-{
     //Add Inactive Class To All Accordion Headers
     $('.accordion-header').toggleClass('inactive-header');
 
@@ -96,3 +96,10 @@ $(document).ready(function()
 
 	return false;
 });
+
+function nextTab(elem) {
+    $(elem).next().find('a[data-toggle="tab"]').click();
+}
+function prevTab(elem) {
+    $(elem).prev().find('a[data-toggle="tab"]').click();
+}

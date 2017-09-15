@@ -2207,10 +2207,6 @@ label {
     color: #fff;
     padding: 10px 0;
     overflow:hidden;
-    bottom: 0;
-    width: 100%;
-    position: fixed;
-    z-index: -1;
 }
 
 
@@ -2230,4 +2226,22 @@ label {
 
 .site-min-height {
     min-height: 900px;
+}
+
+.list-siswa li {
+  padding: 10px;
+}
+
+.list {
+  min-height: 231px;
+}
+
+.lihat {
+  position: absolute;
+  bottom: 0;
+  width: 94%;
+}
+
+.list-siswa li:nth-of-type(odd){
+  background-color: #f9f9f9;
 }

@@ -7,6 +7,18 @@ $(document).ready(function () {
 
     // datatables
     $('#datatables').DataTable();
-    $('.daterange').daterangepicker();
+    $('.daterange').daterangepicker({
+      "locale": {
+        "format": "DD-MM-YYYY",
+        "separator":" sampai "
+      },
+      "startDate": moment(),
+      "endDate": moment(),
+    }, function(start, end) {
+      $('.start').val(start.format('YYYY-MM-DD'));
+      $('.end').val(end.format('YYYY-MM-DD'));
+    });
     $('.datepicker').datepicker();
+
+
 });

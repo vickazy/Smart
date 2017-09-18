@@ -29,7 +29,12 @@
         <tr>
           <td width=20%>Jenis Kelamin</td>
           <td>:</td>
-          <td><input type="text" name="siswa[jenis_kelamin]" value="{{ $data['jenis_kelamin'] }}" class="form-control"></td>
+          <td>
+            <select class="form-control" name="siswa[jenis_kelamin]">
+              <option value="{{ $data['jenis_kelamin'] }}" {{ $data['jenis_kelamin'] == 'pria' ? ' selected' : ' ' }}>Pria</option>
+              <option value="{{ $data['jenis_kelamin'] }}" {{ $data['jenis_kelamin'] == 'wanita' ? ' selected' : ' ' }}>Wanita</option>
+            </select>
+          </td>
         </tr>
         <tr>
           <td width=20%>Tempat/Tgl Lahir</td>
@@ -139,40 +144,40 @@
           <td width=20%>Nama Ayah</td>
           <td>:</td>
           <td>
-            <input type="text" name="ayah[nama]" value="{{ $data['orangtua'][1]['nama'] }}" class="form-control">
-            <input type="hidden" name="ayah[id]" value="{{$data['orangtua'][1]['id']}}">
+            <input type="text" name="ayah[nama]" value="{{ $data['orangtua'][0]['nama'] }}" class="form-control">
+            <input type="hidden" name="ayah[id]" value="{{$data['orangtua'][0]['id']}}">
           </td>
         </tr>
         <tr>
           <td width=20%>Nama Ibu</td>
           <td>:</td>
           <td>
-            <input type="text" name="ibu[nama]" value="{{ $data['orangtua'][0]['nama'] }}" class="form-control">
-            <input type="hidden" name="ibu[id]" value="{{$data['orangtua'][0]['id']}}">
+            <input type="text" name="ibu[nama]" value="{{ $data['orangtua'][1]['nama'] }}" class="form-control">
+            <input type="hidden" name="ibu[id]" value="{{$data['orangtua'][1]['id']}}">
           </td>
         </tr>
         <tr>
           <td width=20%>Pekerjaan Ayah/Ibu</td>
           <td>:</td>
           <td>
-            <input type="text" name="ayah[pekerjaan]" value="{{$data['orangtua'][1]['pekerjaan']}}" class="form-control" style="width:40%;display:inline-block">
-            <input type="text" name="ibu[pekerjaan]" value="{{$data['orangtua'][0]['pekerjaan']}}" class="form-control" style="width:50%;display:inline-block">
+            <input type="text" name="ayah[pekerjaan]" value="{{$data['orangtua'][0]['pekerjaan']}}" class="form-control" style="width:40%;display:inline-block">
+            <input type="text" name="ibu[pekerjaan]" value="{{$data['orangtua'][1]['pekerjaan']}}" class="form-control" style="width:50%;display:inline-block">
           </td>
         </tr>
         <tr>
           <td width=20%>Penghasilan Ayah/Ibu per bulan</td>
           <td>:</td>
           <td>
-            <input type="text" name="ayah[penghasilan]" value="{{$data['orangtua'][1]['penghasilan']}}" class="form-control" style="width:40%;display:inline-block">
-            <input type="text" name="ibu[penghasilan]" value="{{$data['orangtua'][0]['penghasilan']}}" class="form-control" style="width:50%;display:inline-block">
+            <input type="text" name="ayah[penghasilan]" value="{{$data['orangtua'][0]['penghasilan']}}" class="form-control" style="width:40%;display:inline-block">
+            <input type="text" name="ibu[penghasilan]" value="{{$data['orangtua'][1]['penghasilan']}}" class="form-control" style="width:50%;display:inline-block">
           </td>
         </tr>
         <tr>
           <td width=20%>Pendidikan terakhir Ayah/Ibu</td>
           <td>:</td>
           <td>
-            <input type="text" name="ayah[pendidikan_terakhir]" value="{{$data['orangtua'][1]['pendidikan_terakhir']}}" class="form-control" style="width:40%;display:inline-block">
-            <input type="text" name="ibu[pendidikan_terakhir]" value="{{$data['orangtua'][0]['pendidikan_terakhir']}}" class="form-control" style="width:50%;display:inline-block">
+            <input type="text" name="ayah[pendidikan_terakhir]" value="{{$data['orangtua'][0]['pendidikan_terakhir']}}" class="form-control" style="width:40%;display:inline-block">
+            <input type="text" name="ibu[pendidikan_terakhir]" value="{{$data['orangtua'][1]['pendidikan_terakhir']}}" class="form-control" style="width:50%;display:inline-block">
           </td>
         </tr>
       @else

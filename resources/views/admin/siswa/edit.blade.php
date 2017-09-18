@@ -31,8 +31,8 @@
           <td>:</td>
           <td>
             <select class="form-control" name="siswa[jenis_kelamin]">
-              <option value="{{ $data['jenis_kelamin'] }}" {{ $data['jenis_kelamin'] == 'pria' ? ' selected' : ' ' }}>Pria</option>
-              <option value="{{ $data['jenis_kelamin'] }}" {{ $data['jenis_kelamin'] == 'wanita' ? ' selected' : ' ' }}>Wanita</option>
+              <option value="pria" {{ $data['jenis_kelamin'] == 'pria' ? ' selected' : ' ' }}>Pria</option>
+              <option value="wanita" {{ $data['jenis_kelamin'] == 'wanita' ? ' selected' : ' ' }}>Wanita</option>
             </select>
           </td>
         </tr>

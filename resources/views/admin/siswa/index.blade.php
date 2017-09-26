@@ -2,12 +2,13 @@
 
 @section('content')
   <div class="col-lg-12">
-    <h3><i class="fa fa-angle-right"></i> Data Siswa Terdaftar</h3>
+    <h3><i class="fa fa-angle-right"></i> Data Siswa</h3>
     <div class="content-panel" style="padding:10px 10px;margin-bottom:100px">
-      <div class="menu_header" style="text-align:center">
-        <a href="#modal-excel" class="btn btn-lg btn-flat btn-warning" data-toggle="modal" style="width:200px !important" title="Export Excel"><i class="fa fa-file-excel-o"></i></a>
-        <a href="#modal-pdf" class="btn btn-lg btn btn-danger" data-toggle="modal" style="width:200px !important" title="download pdf"><i class="fa fa-file-pdf-o"></i></a>
+      <div>
+        <a href="#modal-excel" class="btn btn-flat btn-warning" data-toggle="modal"  title="Export Excel"><i class="fa fa-file-excel-o"></i> Excel</a>
+        <a href="#modal-pdf" class="btn btn btn-danger" data-toggle="modal"  title="download pdf"><i class="fa fa-file-pdf-o"></i> PDF</a>
       </div>
+      <hr>
       <div class="row" style="margin-top:10px;">
         <div class="col-xs-12">
           <table id="datatables" class="table table-striped table-bordered" style="text-align:center">

@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Admin Dashboard</title>
 
@@ -24,6 +25,10 @@
     <link rel="stylesheet" href="{{URL::to('node_modules/bootstrap-daterangepicker/daterangepicker.css')}}">
     {{-- jquery confirm --}}
     <link rel="stylesheet" href="{{URL::to('node_modules/jquery-confirm/dist/jquery-confirm.min.css')}}">
+    {{-- Select2 --}}
+    <link rel="stylesheet" type="text/css" href="{{URL::to('node_modules/select2/dist/css/select2.min.css')}}">
+    {{-- Toastr --}}
+    <link rel="stylesheet" type="text/css" href="{{URL::to('node_modules/toastr/build/toastr.min.css')}}">
     <!-- Custom styles for this template -->
     <link href="{{URL::to('admin/css/style.css')}}" rel="stylesheet">
     <link href="{{URL::to('admin/css/style-responsive.css')}}" rel="stylesheet">
@@ -77,15 +82,98 @@
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-address-card"></i>
-                          <span>Data Master</span>
+                          <span>Data Siswa</span>
                       </a>
                       <ul class="sub">
                           <li>
                             <a  href="{{route('getSiswa')}}"><i class="fa fa-users"></i> Siswa Terdaftar</a>
                           </li>
-                          {{-- <li><a  href="#!"><i class="fa fa-graduation-cap"></i> Riwayat Pendidikan</a></li>
-                          <li><a  href="#!"><i class="fa fa-user-circle"></i> Orang Tua/Wali</a></li> --}}
                       </ul>
+                  </li>
+                  <li class="sub-menu">
+                    <a href="{{route('admin.berita')}}">
+                      <i class="fa fa-newspaper-o"></i>
+                      <span>Berita</span>
+                    </a>
+                    {{-- <ul class="sub">
+                      <li>
+                        <a href="{{route('admin.berita')}}">
+                          <i class="fa fa-newspaper-o"></i> Berita
+                        </a>
+                      </li>
+                      <li>
+                        <a href="{{route('admin.berita')}}">
+                          <i class="fa fa-newspaper-o"></i> Kategori Berita
+                        </a>
+                      </li>
+                    </ul> --}}
+                  </li>
+                  <li class="sub-menu">
+                    <a href="{{route('admin.event')}}">
+                      <i class="fa fa-calendar"></i>
+                      <span>Event</span>
+                    </a>
+                  </li>
+                  <li class="sub-menu">
+                    <a href="#!">
+                      <i class="fa fa-picture-o"></i>
+                      <span>Galeri</span>
+                    </a>
+                  </li>
+                  <li class="sub-menu">
+                    <a href="#!">
+                      <i class="fa fa-graduation-cap"></i>
+                      <span>Komite Sekolah</span>
+                    </a>
+                  </li>
+                  <li class="sub-menu">
+                    <a href="javascript:;">
+                      <i class="fa fa-certificate"></i>
+                      <span>Tentang Kami</span>
+                    </a>
+                    <ul class="sub">
+                      <li>
+                        <a  href="{{route('admin.ProfilSekolah')}}"><i class="fa fa-building"></i> Profil Sekolah</a>
+                      </li>
+                      <li>
+                        <a  href="{{route('admin.ProfilGuru')}}"><i class="fa fa-user"></i> Profil Guru</a>
+                      </li>
+                      <li>
+                        <a href="#!"><i class="fa fa-trophy"></i> Prestasi</a>
+                      </li>
+                      <li>
+                        <a href="{{route('admin.sarpras')}}"><i class="fa fa-cubes"></i> Sarpras</a>
+                      </li>
+                      <li>
+                        <a href="#!"><i class="fa fa-list"></i> Tata Tertib</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="sub-menu">
+                    <a href="#!">
+                      <i class="fa fa-podcast"></i>
+                      <span>Program</span>
+                    </a>
+                    <ul class="sub">
+                      <li>
+                        <a  href="#!"><i class="fa fa-users"></i> Osis</a>
+                      </li>
+                      <li>
+                        <a  href="#!"><i class="fa fa-info"></i> Extra Kulikuler</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="sub-menu">
+                    <a href="#!">
+                      <i class="fa fa-file-pdf-o"></i>
+                      <span>E-book</span>
+                    </a>
+                  </li>
+                  <li class="sub-menu">
+                    <a href="#!">
+                      <i class="fa fa-address-book"></i>
+                      <span>Kontak</span>
+                    </a>
                   </li>
               </ul>
               <!-- sidebar menu end-->
@@ -133,12 +221,13 @@
     <script src="{{URL::to('node_modules/toastr/toastr.js')}}" charset="utf-8"></script>
     {{-- ChartJs --}}
     <script src="{{URL::to('node_modules/chart.js/dist/Chart.js')}}" charset="utf-8"></script>
+    {{-- Select2 --}}
+    <script src="{{URL::to('node_modules/select2/dist/js/select2.min.js')}}" charset="utf-8"></script>
 
     <script class="include" type="text/javascript" src="{{URL::to('admin/js/jquery.dcjqaccordion.2.7.js')}}"></script>
     <script src="{{URL::to('admin/js/jquery.scrollTo.min.js')}}"></script>
     <script src="{{URL::to('admin/js/jquery.nicescroll.js')}}" type="text/javascript"></script>
     <script src="{{URL::to('admin/js/jquery.sparkline.js')}}"></script>
-
 
     <!--common script for all pages-->
     <script src="{{URL::to('admin/js/common-scripts.js')}}"></script>
@@ -149,22 +238,12 @@
     @yield('customJs')
     <script type="text/javascript">
       $(document).ready(function() {
-        var unique_id = $.gritter.add({
-            // (string | mandatory) the heading of the notification
-            title: 'Hai admin',
-            // (string | mandatory) the text inside the notification
-            text: 'Selamat datang di halaman dashboard',
-            // (string | optional) the image to display on the left
-            image: '{{URL::to('admin/img/friends/fr-05.jpg')}}',
-            // (bool | optional) if you want it to fade out on its own or just sit there
-            sticky: true,
-            // (int | optional) the time you want it to be alive for before fading out
-            time: '10',
-            // (string | optional) the class name you want to apply to that specific message
-            class_name: 'my-sticky-class'
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
         });
-
-        return false;
+        $('.select2').select2();
       });
     </script>
   </body>

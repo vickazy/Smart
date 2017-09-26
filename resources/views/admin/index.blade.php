@@ -40,3 +40,26 @@
   </div>
 </div>
 @endsection
+
+@section('customJs')
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var unique_id = $.gritter.add({
+            // (string | mandatory) the heading of the notification
+            title: 'Hai admin',
+            // (string | mandatory) the text inside the notification
+            text: 'Selamat datang di halaman dashboard',
+            // (string | optional) the image to display on the left
+            image: '{{URL::to('admin/img/friends/fr-05.jpg')}}',
+            // (bool | optional) if you want it to fade out on its own or just sit there
+            sticky: true,
+            // (int | optional) the time you want it to be alive for before fading out
+            time: '10',
+            // (string | optional) the class name you want to apply to that specific message
+            class_name: 'my-sticky-class'
+        });
+
+        return false;
+    })
+  </script>
+@endsection

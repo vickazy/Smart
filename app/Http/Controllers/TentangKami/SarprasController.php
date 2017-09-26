@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\TentangKami;
 
 use Illuminate\Http\Request;
+use Image, File, DB, DataTables;
+use App\Models\Content\Sarpras;
 use App\Http\Controllers\Controller;
 
 class SarprasController extends Controller
 {
     public function sarpras() {
-    	return view('smart.tentang-kami.sarpras');
+    	$data = Sarpras::get()->toArray();
+    	return view('smart.tentang-kami.sarpras', compact('data'));
     }
 
     public function adminSarpras() {
@@ -17,14 +20,14 @@ class SarprasController extends Controller
 
     public function getDataSarpras() {
     	DB::statement(DB::raw('set @rownum=0'));
-        $data = Guru::orderBy('created_at', 'desc')->get();
+        $data = Sarpras::orderBy('created_at', 'desc')->get();
 
         $datatables = DataTables::of($data)
-          ->editColumn('photo', function($photo) {
-          	return '<img src="/upload/tentang-kami/profil-guru/'. $photo['photo'] .'" class="img-circle" width="80" height="80" />';
+          ->editColumn('isi', function($isi) {
+          	return substr(strip_tags($isi['isi']), 0, 40);
           })
           ->addColumn('action', function($data) {
-            return '<a href="/admin/profil-guru/'.$data->id.'/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a> <a href="#!" class="btn btn-danger delete" data-id="'.$data->id.'"><i class="fa fa-trash"></i></a>';
+            return '<a href="/admin/sarpras/'.$data->id.'/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a> <a href="#!" class="btn btn-danger delete" data-id="'.$data->id.'"><i class="fa fa-trash"></i></a>';
           })
           ->rawColumns(['photo', 'action'])
           ->addIndexColumn();
@@ -36,18 +39,18 @@ class SarprasController extends Controller
       $this->validate($request, [
         'nama' => 'required',
         'photo' => 'image|mimes:jpeg,png,jpg|max:2048',
-        'bidang'   =>  'required'
+        'isi'   =>  'required'
       ]);
 
-      $data = new Guru;
+      $data = new Sarpras;
       $data->nama = $request['nama'];
-      $data->bidang = $request['bidang'];
+      $data->isi = $request['isi'];
       if ($request->hasFile('photo')) {
         $name = $request->file('photo');
         $newName = time() . '.' . $name->getClientOriginalExtension();
         $image = Image::make($name);
         $image->encode('jpg', 75);
-        $image->save(public_path('upload/tentang-kami/profil-guru/' . $newName));
+        $image->save(public_path('upload/tentang-kami/sarpras/' . $newName));
 
         $data->photo = $newName;
       }
@@ -57,31 +60,31 @@ class SarprasController extends Controller
     }
 
     public function getEditSarpras($id) {
-      $data = Guru::findOrFail($id);
-      return view('admin.profil-guru.edit', ['data' => $data]);
+      $data = Sarpras::findOrFail($id);
+      return view('admin.sarpras.edit', ['data' => $data]);
     }
 
     public function postUpdateSarpras(Request $request, $id) {
       $this->validate($request, [
         'nama' => 'required',
         'photo' => 'image|mimes:jpeg,png,jpg|max:2048',
-        'bidang'   =>  'required'
+        'isi'   =>  'required'
       ]);
 
-      $data = Guru::find($id);
+      $data = Sarpras::find($id);
       // dd($data);
       $data->nama = $request['nama'];
-      $data->bidang = $request['bidang'];
+      $data->isi = $request['isi'];
       if ($request->hasFile('photo')) {
         // old file
         $oldPhoto = $data->photo;
-        File::delete(public_path('upload/tentang-kami/profil-guru/'. $oldPhoto));
+        File::delete(public_path('upload/tentang-kami/sarpras/'. $oldPhoto));
 
         $name = $request->file('photo');
         $newName = time() . '.' . $name->getClientOriginalExtension();
         $image = Image::make($name);
         $image->encode('jpg', 75);
-        $image->save(public_path('upload/tentang-kami/profil-guru/' . $newName));
+        $image->save(public_path('upload/tentang-kami/sarpras/' . $newName));
 
         $data->photo = $newName;
       }
@@ -91,7 +94,7 @@ class SarprasController extends Controller
     }
 
     public function getDeleteSarpras(Request $request) {
-      $data = Guru::find($request->id);
+      $data = Sarpras::find($request->id);
       File::delete(public_path('upload/tentang-kami/profil-guru/'.$data['photo']));
       $data->delete();
 

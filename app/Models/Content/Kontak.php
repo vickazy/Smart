@@ -6,12 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kontak extends Model
 {
-    protected $table = 'kontak';
+    protected $table = 'kontaks';
     protected $fillabel = [
     	'alamat',
 		'email',
 		'no_telpon',
-		'lat',
-		'long',
     ];
 }

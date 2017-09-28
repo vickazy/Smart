@@ -36,14 +36,14 @@
 							<span class="help-block">{{$errors->first('photo')}}</span>
 							@endif
 						</div>
-						<button type="submit" class="btn btn-primary btn-block">Tambah Berita</button>
+						<button type="submit" class="btn btn-primary btn-block">Tambah Guru</button>
 					</form>
 				</div>
 			</div>
 		</div>
 		<div class="row" style="margin-top:10px;">
 			<div class="col-xs-12">
-				<h3>Daftar Berita</h3>
+				<h3>Daftar Guru</h3>
 				<table id="datatables" class="table table-striped table-bordered" style="text-align:center">
 					<thead>
 						<th>No</th>

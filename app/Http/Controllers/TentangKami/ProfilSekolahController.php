@@ -45,7 +45,7 @@ class ProfilSekolahController extends Controller
 		      $data->misi = $request['misi'];
 		      if ($request->hasFile('photo')) {
 		      	$oldFile = $data->photo;
-		      	File::delete(public_path('upload/tentang-kami/'. $oldFile));
+		      	File::delete(public_path('upload/tentang-kami/profil-sekolah/'. $oldFile));
 
 		        $name = $request->file('photo');
 		        $newName = time() . '.' . $name->getClientOriginalExtension();

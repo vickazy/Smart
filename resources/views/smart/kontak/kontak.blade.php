@@ -70,7 +70,7 @@
                             <h2 class="subtitle  wow fadeInDown" data-wow-duration="500ms" data-wow-delay=".3s">Find Us</h2>
                            
                             <div class="map">
-                               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3956.0070068817886!2d112.72017811432151!3d-7.464474994615249!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7e6d6cc46ab63%3A0xf728c48c6c0b31ff!2se-Tech+Inc.!5e0!3m2!1sid!2sid!4v1503551373235" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.1851214809235!2d112.7253572147767!3d-7.554783594551603!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xc38a30a746c6773d!2sSMK+Negeri+1+Jabon!5e0!3m2!1sid!2sid!4v1506485116543" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 
                             </div>
                         </div>
@@ -80,19 +80,19 @@
                     <div class="col-md-4">
                         <div class="address wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".5s">
                             <i class="ion-ios-location-outline"></i>
-                            <h5>Jl. Blimbing No.1, Sekardangan, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur 16789, Indonesia</h5>
+                            <h5>{{$data['alamat']}}</h5>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="email wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".7s">
                             <i class="ion-ios-email-outline"></i>
-                            <p>marketing@easytech.co.id</p>
+                            <p>{{$data['email']}}</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="phone wow fadeInLeft" data-wow-duration="500ms" data-wow-delay=".9s">
                             <i class="ion-ios-telephone-outline"></i>
-                            <p>+62 857 4898 3824<br>+62 812 5299 8770</p>
+                            <p>{{$data['no_telpon']}}</p>
                         </div>
                     </div>
                 </div>

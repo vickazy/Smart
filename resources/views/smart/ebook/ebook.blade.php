@@ -33,37 +33,22 @@
                             <li class="list-group-item list-group-body">
                                 <div class="row">
                                     <div class="col-xs-6 text-left">Nama Ebook</div>
-                                    <div class="col-xs-3">Size</div>
-                                    <div class="col-xs-3">Modified</div>
+                                    <div class="col-xs-3">Upload pada tanggal</div>
                                 </div>
                             </li>
                         </ul>
                         <ul class="list-group list-group-body" style="">
+                            @foreach($ebook as $data)
                             <li class="list-group-item">
                                 <div class="row">
-                                    <div class="col-xs-6 text-left" style=" "> <span class="glyphicon glyphicon-file" style="color: #009b4c" aria-hidden="true"></span> Kurikulum 2016/2017 </div>
-                                    <div class="col-xs-2" style="">500Kb</div>
-                                    <div class="col-xs-2" style="">01-06-2017</div>
-                                    <div class="col-xs-2" style=""><a href="#!" class="btn btn-primary btn-flat" style="color:white">Download</a></div>
+                                    <div class="col-xs-6 text-left" style=" "> <span class="glyphicon glyphicon-file" style="color: #4FC3F7" aria-hidden="true"></span> {{$data['nama']}}</div>
+                                    <div class="col-xs-2" style="">{{date('d-m-Y', strtotime($data['created_at']))}}</div>
+                                    <div class="col-xs-2" style=""><a target="_blank" href="{{URL::to('upload/ebook/'. $data['file_path'])}}" class="btn btn-primary btn-flat" style="color:white">Download</a></div>
                                 </div>
                             </li>
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col-xs-6 text-left" style=" "> <span class="glyphicon glyphicon-file" style="color: #009b4c" aria-hidden="true"></span> Kurikulum 2016/2017 </div>
-                                    <div class="col-xs-2" style="">500Kb</div>
-                                    <div class="col-xs-2" style="">01-06-2017</div>
-                                    <div class="col-xs-2" style=""><a href="#!" class="btn btn-primary btn-flat" style="color:white">Download</a></div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col-xs-6 text-left" style=" "> <span class="glyphicon glyphicon-file" style="color: #009b4c" aria-hidden="true"></span> Kurikulum 2016/2017 </div>
-                                    <div class="col-xs-2" style="">500Kb</div>
-                                    <div class="col-xs-2" style="">01-06-2017</div>
-                                    <div class="col-xs-2" style=""><a href="#!" class="btn btn-primary btn-flat" style="color:white">Download</a></div>
-                                </div>
-                            </li>
+                            @endforeach
                         </ul>
+                        <span class="pull-right">{{$ebook->render()}}</span>
                     </div>
                 </div>
             </div>

@@ -28,7 +28,7 @@
                     <ul>
                         @foreach($kategoriEvent as $kategori)
                         <li>
-                            <a href="">{{$kategori['nama']}}</<a href=""></a>>
+                            <a href="">{{$kategori['nama']}}</a>
                         </li>
                         @endforeach
                     </ul>
@@ -53,8 +53,8 @@
                     </li>
                     @endforeach
                 </ul>
-                <span class="pull-right">{{$event->render()}}</span>
             </div>
+                <span class="pull-right">{{$event->render()}}</span>
         </div>
     </div>
     @endsection

@@ -17,6 +17,7 @@ class CreateEkstraKulikulersTable extends Migration
             $table->increments('id');
             $table->string('nama');
             $table->text('isi');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

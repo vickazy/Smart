@@ -23,7 +23,7 @@ class OrangTua extends Migration
             $table->string('pekerjaan', 50);
             $table->string('instansi', 50);
             $table->float('penghasilan');
-            $table->string('pendidikan_terkahir', 30);
+            $table->string('pendidikan_terakhir', 30);
             $table->string('no_hp');
             $table->string('email', 50);
             $table->timestamps();

@@ -14,6 +14,7 @@ Route::get('/osis', 'Program\OsisController@osis')->name('osis');
 Route::get('/extra-kulikuler', 'Program\ExtraKulikulerController@extraKulikuler')->name('extra');
 // Berita
 Route::get('/berita', 'Berita\BeritaController@berita')->name('berita');
+Route::get('/berita/single/title={title}&id={id}', 'Berita\BeritaController@beritaSingle')->name('berita.single');
 // Event
 Route::get('/event', 'Event\EventController@event')->name('event');
 // Galeri
@@ -67,17 +68,64 @@ Route::group(['prefix' => 'admin'], function() {
 	//=== profil guru ===//
 	Route::get('/profil-guru', 'TentangKami\ProfilGuruController@adminProfilGuru')->name('admin.ProfilGuru');
 	Route::post('/profil-guru', 'TentangKami\ProfilGuruController@postProfilGuru')->name('admin.postProfilGuru');
-	Route::get('/profil-guru/getDataBerita', 'TentangKami\ProfilGuruController@getDataProfilGuru')->name('admin.getDataProfilGuru');
+	Route::get('/profil-guru/getDataGuru', 'TentangKami\ProfilGuruController@getDataProfilGuru')->name('admin.getDataProfilGuru');
 	Route::get('/profil-guru/{id}/edit', 'TentangKami\ProfilGuruController@getEditProfilGuru')->name('admin.getEditProfilGuru');
 	Route::post('/profil-guru/{id}/update', 'TentangKami\ProfilGuruController@postUpdateProfilGuru')->name('admin.postUpdateProfilGuru');
 	Route::get('/profil-guru/delete', 'TentangKami\ProfilGuruController@getDeleteProfilGuru')->name('admin.getDeleteProfilGuru');
+	//=== komite ===//
+	Route::get('/komite', 'Komite\KomiteController@adminKomite')->name('admin.komite');
+	Route::post('/komite', 'Komite\KomiteController@postKomite')->name('admin.postKomite');
+	Route::get('/komite/getDataKomite', 'Komite\KomiteController@getDataKomite')->name('admin.getDataKomite');
+	Route::get('/komite/{id}/edit', 'Komite\KomiteController@getEditKomite')->name('admin.getEditKomite');
+	Route::post('/komite/{id}/update', 'Komite\KomiteController@postUpdateKomite')->name('admin.postUpdateKomite');
+	Route::get('/komite/delete', 'Komite\KomiteController@getDeleteKomite')->name('admin.getDeleteKomite');
 	//=== profil Sarpras ===//
 	Route::get('/sarpras', 'TentangKami\SarprasController@adminSarpras')->name('admin.sarpras');
 	Route::post('/sarpras', 'TentangKami\SarprasController@postSarpras')->name('admin.postSarpras');
-	Route::get('/sarpras/getDataBerita', 'TentangKami\SarprasController@getDataSarpras')->name('admin.getDataSarpras');
+	Route::get('/sarpras/getDataSarpras', 'TentangKami\SarprasController@getDataSarpras')->name('admin.getDataSarpras');
 	Route::get('/sarpras/{id}/edit', 'TentangKami\SarprasController@getEditSarpras')->name('admin.getEditSarpras');
 	Route::post('/sarpras/{id}/update', 'TentangKami\SarprasController@postUpdateSarpras')->name('admin.postUpdateSarpras');
 	Route::get('/sarpras/delete', 'TentangKami\SarprasController@getDeleteSarpras')->name('admin.getDeleteSarpras');
+	// === ekstra kulikuler ==//
+	Route::get('/ekstra-kulikuler', 'Program\ExtraKulikulerController@adminEkstra')->name('admin.ekstra');
+	Route::post('/ekstra-kulikuler', 'Program\ExtraKulikulerController@postEkstra')->name('admin.postEkstra');
+	Route::get('/ekstra-kulikuler/getDataEkstra', 'Program\ExtraKulikulerController@getDataEkstra')->name('admin.getDataEkstra');
+	Route::get('/ekstra-kulikuler/{id}/edit', 'Program\ExtraKulikulerController@getEditEkstra')->name('admin.getEditEkstra');
+	Route::post('/ekstra-kulikuler/{id}/update', 'Program\ExtraKulikulerController@postUpdateEkstra')->name('admin.postUpdateEkstra');
+	Route::get('/ekstra-kulikuler/delete', 'Program\ExtraKulikulerController@getDeleteEkstra')->name('admin.getDeleteEkstra');
+	// === Osis ==//
+	Route::get('/osis', 'Program\OsisController@adminOsis')->name('admin.osis');
+	Route::post('/osis', 'Program\OsisController@postOsis')->name('admin.postOsis');
+	Route::get('/osis/getDataOsis', 'Program\OsisController@getDataOsis')->name('admin.getDataOsis');
+	Route::get('/osis/{id}/edit', 'Program\OsisController@getEditOsis')->name('admin.getEditOsis');
+	Route::post('/osis/{id}/update', 'Program\OsisController@postUpdateOsis')->name('admin.postUpdateOsis');
+	Route::get('/osis/delete', 'Program\OsisController@getDeleteOsis')->name('admin.getDeleteOsis');
+	// === tata Tertib ==//
+	Route::get('/tata-tertib', 'TentangKami\TataTertibController@adminTataTertib')->name('admin.tataTertib');
+	Route::post('/tata-tertib', 'TentangKami\TataTertibController@postTataTertib')->name('admin.postTataTertib');
+	// === Kontak ==//
+	Route::get('/kontak', 'Kontak\KontakController@adminKontak')->name('admin.kontak');
+	Route::post('/kontak', 'Kontak\KontakController@postKontak')->name('admin.postKontak');
+	//=== Galeri ===//
+	Route::get('/galeri', 'Galeri\GaleriController@adminGaleri')->name('admin.galeri');
+	Route::post('/galeri', 'Galeri\GaleriController@postGaleri')->name('admin.postGaleri');
+	Route::get('/galeri/delete', 'Galeri\GaleriController@getDeleteGaleri')->name('admin.getDeleteGaleri');
+	//=== Prestasi ===//
+	Route::get('/prestasi', 'TentangKami\PrestasiController@adminPrestasi')->name('admin.prestasi');
+	Route::post('/prestasi', 'TentangKami\PrestasiController@postPrestasi')->name('admin.postPrestasi');
+	Route::get('/prestasi/getDataPrestasi', 'TentangKami\PrestasiController@getDataPrestasi')->name('admin.getDataPrestasi');
+	Route::get('/prestasi/{id}/edit', 'TentangKami\PrestasiController@getEditPrestasi')->name('admin.getEditPrestasi');
+	Route::post('/prestasi/{id}/update', 'TentangKami\PrestasiController@postUpdatePrestasi')->name('admin.postUpdatePrestasi');
+	Route::get('/prestasi/delete', 'TentangKami\PrestasiController@getDeletePrestasi')->name('admin.getDeletePrestasi');
+	//=== Ebook ===//
+	Route::get('/ebook', 'Ebook\EbookController@adminEbook')->name('admin.ebook');
+	Route::post('/ebook', 'Ebook\EbookController@postEbook')->name('admin.postEbook');
+	Route::get('/ebook/delete', 'Ebook\EbookController@getDeleteEbook')->name('admin.getDeleteEbook');
+	Route::get('/ebook/getDataEbook', 'Ebook\EbookController@getDataEbook')->name('admin.getDataEbook');
+	//=== Galeri ===//
+	Route::get('/setting-home', 'BgHome\BgHomeController@adminBgHome')->name('admin.setting-home');
+	Route::post('/setting-home', 'BgHome\BgHomeController@postBgHome')->name('admin.postBgHome');
+
 });
 
 

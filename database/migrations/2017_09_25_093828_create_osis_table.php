@@ -15,8 +15,9 @@ class CreateOsisTable extends Migration
     {
         Schema::create('osis', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('jabatan_osis_id')->unsigned();
-            $table->integer('siswa_id')->unsigned();
+            $table->string('nama');
+            $table->string('photo');
+            $table->string('jabatan');
             $table->timestamps();
         });
     }

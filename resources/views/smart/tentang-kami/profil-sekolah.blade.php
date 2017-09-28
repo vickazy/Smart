@@ -38,25 +38,18 @@
             </div>
           </div>
           <div class="col-lg-12 col-md-12 wow fadeInRight" data-wow-duration="1500ms" style="margin-top: 70px">
-            <div style="background: #4FC3F7; color: white;text-align:right;padding:40px 20px">
+            <div style="background: #4FC3F7; color: white;text-align:right;padding:40px 20px;word-wrap: break-word;">
               <h1 style="margin-bottom: 40px">Visi</h1>
-              <p style="font-size: 20px">{{strip_tags($data['visi'])}}</p>
+              <p>{!! $data['visi'] !!}</p>
             </div>
           </div>
           <div class="col-lg-12 col-md-12 wow fadeInLeft" data-wow-duration="1500ms" style="margin-top: 50px">
-            <div style="background: #4FC3F7; color: white;text-align:left;padding:40px 20px" id="misi">
+            <div style="background: #4FC3F7; color: white;text-align:left;padding:40px 20px;word-wrap: break-word;" id="misi">
               <h1 style="margin-bottom: 40px">Misi</h1>
-              {{strip_tags($data['misi'])}}
+              {!!$data['misi']!!}
             </div>
           </div>
       </div>
       </section>
 
-@endsection
-@section('customJs')
-<script type="text/javascript">
-   CKEDITOR.on( 'misi ', function( ev ) {
-    ev.editor.dataProcessor.writer.selfClosingEnd = '>';
-});
-</script>
 @endsection

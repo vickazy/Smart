@@ -17,6 +17,7 @@ class RiwayatPSiswa extends Migration
             $table->char('id', 36);
             $table->char('siswa_id', 36);
             $table->string('asal_sekolah', 100);
+            $table->string('alamat_sekolah');
             $table->bigInteger('nisn', 12);
             $table->timestamps();
         });

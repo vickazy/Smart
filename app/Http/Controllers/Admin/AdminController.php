@@ -24,7 +24,7 @@ class AdminController extends Controller
 
       $data = ['username' => $request->username, 'password' => $request->password];
       if (Auth::attempt($data)) {
-        return redirect()->route('getAdmin');
+        return redirect()->route('admin.berita');
       }
       return redirect()->back()->with('error', 'username dan password salah');
     }

@@ -31,7 +31,7 @@ Route::get('/kontak-kami', 'Kontak\KontakController@kontak')->name('kontak');
 
 Route::group(['prefix' => 'admin'], function() {
 	// Home
-	Route::get('/home', ['uses' => 'Admin\AdminController@index', 'as' => 'getAdmin', 'middleware' => 'auth']);
+	// Route::get('/home', ['uses' => 'Admin\AdminController@index', 'as' => 'getAdmin', 'middleware' => 'auth']);
 	// Admin
 	Route::get('/login', ['uses' => 'Admin\AdminController@getLoginAdmin', 'as' => 'login', 'middleware' => 'guest']);
 	Route::post('/login', ['uses' => 'Admin\AdminController@postLoginAdmin', 'as' => 'postLoginAdmin']);
@@ -129,11 +129,11 @@ Route::group(['prefix' => 'admin'], function() {
 });
 
 
-// PPDB
-Route::get('/ppdb/register', ['uses' => 'Ppdb\PpdbController@getRegister', 'as' => 'getPpdb']);
-Route::post('/ppdb/register', ['uses' => 'Ppdb\PpdbController@postRegister', 'as' => 'postPpdb']);
-Route::get('/ppdb/download/', ['uses' => 'Ppdb\PpdbController@downloadRegister', 'as' => 'downloadRegister']);
-Route::get('/ppdb/download/peserta/{id}', ['uses' => 'Ppdb\PpdbController@downloadPdf', 'as' => 'downloadPdf']);
-// ppdb kota
-Route::get('/ppdb/register/getKecamatan', ['uses' => 'Siswa\SiswaController@getKecamatan', 'as' => 'getKecamatan']);
+// // PPDB
+// Route::get('/ppdb/register', ['uses' => 'Ppdb\PpdbController@getRegister', 'as' => 'getPpdb']);
+// Route::post('/ppdb/register', ['uses' => 'Ppdb\PpdbController@postRegister', 'as' => 'postPpdb']);
+// Route::get('/ppdb/download/', ['uses' => 'Ppdb\PpdbController@downloadRegister', 'as' => 'downloadRegister']);
+// Route::get('/ppdb/download/peserta/{id}', ['uses' => 'Ppdb\PpdbController@downloadPdf', 'as' => 'downloadPdf']);
+// // ppdb kota
+// Route::get('/ppdb/register/getKecamatan', ['uses' => 'Siswa\SiswaController@getKecamatan', 'as' => 'getKecamatan']);
 

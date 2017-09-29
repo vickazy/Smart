@@ -8,18 +8,19 @@
           <!-- Slider -->
           <section class="cd-intro">
             <h1 class="wow fadeInUp animated cd-headline slide" data-wow-delay=".4s">
-            <span>TEMPLATE WEB PROFILE SEKOLAH SMART</span><br>
+              &nbsp;
+            {{-- <span>TEMPLATE WEB PROFILE SEKOLAH SMART</span><br>
             <span class="cd-words-wrapper">
               <b class="is-visible"><a href="http://easytech.co.id/"></a>e-Tech Inc</b>
-            </span>
+            </span> --}}
             </h1>
           </section>
           <!-- cd-intro -->
           <!-- /.slider -->
-          <h2 class="wow fadeInUp animated" data-wow-delay=".6s">
+          {{-- <h2 class="wow fadeInUp animated" data-wow-delay=".6s">
           Tahun 1946, tepatnya tanggal 13 Maret 1946 dibentuk sekolah pemerintah yang pertama, mula-mula masih menggunakan nama SMT, lalu diubah menjadi SMOA ( Sekolah Menengah Oemoem Atas ) Tahun 1947, dengan adanya agresi Belanda, Sekolah tersebut dibubarkan / dilarang , akan tetapi guru-guru serta pelajarnya tidak menyerah oleh ancaman penjajah Belanda. Pada awal tahun 1950 SMA Kiblik tersebut bergabung kembali tempat belajarnya dan menempati gedung di Jalan Budi Utomo No.7 sampai sekarang.
-          </h2>
-          <a class="btn-lines dark light wow fadeInUp animated smooth-scroll btn btn-default btn-green" style="background-color: #4FC3F7" data-wow-delay=".9s" href="#works" data-section="#works">PRESTASI</a>
+          </h2> --}}
+          {{-- <a class="btn-lines dark light wow fadeInUp animated smooth-scroll btn btn-default btn-green" style="background-color: #4FC3F7" data-wow-delay=".9s" href="#works" data-section="#works">PRESTASI</a> --}}
         </div>
       </div>
     </div>
@@ -50,7 +51,7 @@ Slider Section Start
       </div>
       <div class="col-md-3 col-sm-3">
         <div class="block wow fadeInRight" data-wow-delay=".3s" data-wow-duration="500ms">
-          <img src="{{URL::to('smart/images/about/about.jpg')}}" alt="">
+          <img src="{{URL::to('upload/tentang-kami/profil-sekolah/' . $visiMisi['photo'])}}" alt="" class="img-circle" style="border: 1px solid #333;box-shadow: 6px 3px 10px;">
         </div>
       </div>
     </div>

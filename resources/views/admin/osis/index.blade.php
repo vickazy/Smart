@@ -10,7 +10,7 @@
 					<form action="{{route('admin.postOsis')}}" method="post" enctype="multipart/form-data">
 						{{csrf_field()}}
 						<div class="form-group{{$errors->has('nama') ? ' has-error' : ' '}}">
-							<label>Nama Osis</label>
+							<label>Nama Anggota</label>
 							<input type="text" name="nama" class="form-control">
 							@if($errors->has('nama'))
 							<span class="help-block">{{$errors->first('nama')}}</span>

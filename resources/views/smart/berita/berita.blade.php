@@ -36,7 +36,7 @@
                                 </form>
                             </div>
                             <div class="author widget">
-                                <img class="img-responsive" src="{{URL::to('smart/images/author/author-bg.jpg')}}">
+                            <img class="img-responsive" src="{{URL::to('upload/setting/'. $bgHome['photo'])}}">
                                 <div class="author-body text-center">
                                     <div class="author-img">
                                         <img src="{{URL::to('upload/tentang-kami/profil-sekolah/'. $visiMisi['photo'])}}">

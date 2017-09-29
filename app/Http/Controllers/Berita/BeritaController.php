@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use Image, File;
 use App\Models\Content\Berita;
+use App\Models\Content\BgHome;
 use App\Models\Content\VisiMisi;
 use App\Models\Content\KategoriBerita;
 use DataTables;
@@ -17,8 +18,9 @@ class BeritaController extends Controller
       $recent = Berita::orderBy('created_at', 'desc')->take(4)->get()->toArray();
       $kategoriBerita = KategoriBerita::get()->toArray();
       $visiMisi = VisiMisi::first();
+      $bgHome = BgHome::first();
       // dd($data);
-    	return view('smart.berita.berita', ['data' => $data, 'kategoriBerita' => $kategoriBerita, 'recent' => $recent, 'visiMisi' => $visiMisi]);
+    	return view('smart.berita.berita', ['data' => $data, 'kategoriBerita' => $kategoriBerita, 'recent' => $recent, 'visiMisi' => $visiMisi, 'bgHome' => $bgHome]);
     }
 
     public function beritaSingle($title, $id) {

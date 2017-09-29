@@ -8,6 +8,8 @@
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin Dashboard</title>
+    <link rel="icon" type="image/png" href="{{URL::to('smart/logoku.png')}}">
+
     <!-- Bootstrap core CSS -->
     <link href="{{URL::to('node_modules/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <!--external css-->
@@ -65,7 +67,7 @@
           <div id="sidebar"  class="nav-collapse ">
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
-              <li class="mt">
+              {{-- <li class="mt">
                 <a href="{{route('getAdmin')}}">
                   <i class="fa fa-dashboard"></i>
                   <span>Dashboard</span>
@@ -81,7 +83,7 @@
                     <a  href="{{route('getSiswa')}}"><i class="fa fa-users"></i> Siswa Terdaftar</a>
                   </li>
                 </ul>
-              </li>
+              </li> --}}
               <li class="sub-menu">
                 <a href="{{route('admin.berita')}}">
                   <i class="fa fa-newspaper-o"></i>

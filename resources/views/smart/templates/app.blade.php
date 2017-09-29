@@ -5,7 +5,8 @@
         ================================================== -->
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <link rel="icon" type="image/png" href="{{URL::to('smart/images/favicon.png')}}">
+  <link rel="icon" type="image/png" href="{{URL::to('smart/logoku.png')}}">
+  
   <title>Web Profile Smart Template</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
@@ -33,7 +34,12 @@
   <link rel="stylesheet" href="{{URL::to('smart/css/main.css')}}">
   <!-- responsive css -->
   <link rel="stylesheet" href="{{URL::to('smart/css/responsive.css')}}">
-
+  
+  <style type="text/css">
+    #hero-area:before {
+      background: transparent;
+    }
+  </style>
   <!-- Template Javascript Files
         ================================================== -->
   <!-- modernizr js -->
@@ -73,11 +79,9 @@
         <!-- /responsive nav button -->
 
         <!-- logo -->
-        <div class="navbar-brand">
-          <a href="index.html">
-                            <img src="{{URL::to('smart/images/logo.png')}}" alt="">
+          <a href="{{route('home')}}" style="color: #444;padding-top: 0px;" class="navbar-brand">
+                            <img src="{{URL::to('smart/logoku.png')}}">
                         </a>
-        </div>
         <!-- /logo -->
       </div>
       <!-- main menu -->
@@ -114,7 +118,7 @@
             <li><a href="{{ route('ebook') }}">E-book</a></li>
             <li><a href="{{ route('komite') }}">Komite Sekolah</a></li>
             <li><a href="{{ route('kontak') }}">Kontak</a></li>
-            <li><a href="{{ route('getPpdb') }}" target="_blank">Daftar</a></li>
+            {{-- <li><a href="{{ route('getPpdb') }}" target="_blank">Daftar</a></li> --}}
           </ul>
         </div>
       </nav>

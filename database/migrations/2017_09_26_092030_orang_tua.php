@@ -13,21 +13,21 @@ class OrangTua extends Migration
      */
     public function up()
     {
-        Schema::create('orang_tua', function(Blueprint $table) {
-            $table->char('id', 36);
-            $table->char('siswa_id', 36);
-            $table->string('nama', 40);
-            $table->string('tempat_lahir', 100);
-            $table->date('tgl_lahir');
-            $table->string('alamat', 100);
-            $table->string('pekerjaan', 50);
-            $table->string('instansi', 50);
-            $table->float('penghasilan');
-            $table->string('pendidikan_terakhir', 30);
-            $table->string('no_hp');
-            $table->string('email', 50);
-            $table->timestamps();
-        });
+        // Schema::create('orang_tua', function(Blueprint $table) {
+        //     $table->char('id', 36);
+        //     $table->char('siswa_id', 36);
+        //     $table->string('nama', 40);
+        //     $table->string('tempat_lahir', 100);
+        //     $table->date('tgl_lahir');
+        //     $table->string('alamat', 100);
+        //     $table->string('pekerjaan', 50);
+        //     $table->string('instansi', 50);
+        //     $table->float('penghasilan');
+        //     $table->string('pendidikan_terakhir', 30);
+        //     $table->string('no_hp');
+        //     $table->string('email', 50);
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -37,6 +37,6 @@ class OrangTua extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orang_tua');
+        // Schema::dropIfExists('orang_tua');
     }
 }

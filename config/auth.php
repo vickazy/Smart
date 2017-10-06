@@ -36,9 +36,19 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'admin' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'admin',
+        ],
+
+        'guru' => [
+            'driver' => 'session',
+            'provider' => 'guru',
+        ],
+
+        'kprodi' => [
+            'driver' => 'session',
+            'provider' => 'kprodi',
         ],
 
         'api' => [
@@ -65,9 +75,19 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'admin' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin\User::class,
+        ],
+
+        'guru' => [
+            'driver' => 'eloquent',
+            'model'  => App\Models\Guru\Guru::class,
+        ],
+
+        'kprodi' => [
+            'driver' => 'eloquent',
+            'model'  => App\Models\KProdi\KProdi::class,
         ],
 
         // 'users' => [

@@ -20,6 +20,8 @@ class CreateEventsTable extends Migration
             $table->string('tempat');
             $table->date('tgl_event');
             $table->integer('kategori_event_id')->unsigned();
+            $table->integer('jurusan_id')->unsigned();
+            $table->string('photo');
             $table->timestamps();
         });
     }

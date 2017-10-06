@@ -39,12 +39,16 @@ class ProfilGuruController extends Controller
       $this->validate($request, [
         'nama' => 'required',
         'photo' => 'image|mimes:jpeg,png,jpg|max:2048',
-        'bidang'   =>  'required'
+        'bidang'   =>  'required',
+        'username'   =>  'required',
+        'password'   =>  'required',
       ]);
 
       $data = new Guru;
       $data->nama = $request['nama'];
       $data->bidang = $request['bidang'];
+      $data->username = $request['username'];
+      $data->password = bcrypt($request['password']);
       if ($request->hasFile('photo')) {
         $name = $request->file('photo');
         $newName = time() . '.' . $name->getClientOriginalExtension();
@@ -56,7 +60,7 @@ class ProfilGuruController extends Controller
       }
 
       $data->save();
-      return redirect()->route('admin.ProfilGuru')->with('success', 'Berita berhasil ditambahkan');
+      return redirect()->route('admin.ProfilGuru')->with('success', 'Guru berhasil ditambahkan');
     }
 
     public function getEditProfilGuru($id) {
@@ -68,13 +72,18 @@ class ProfilGuruController extends Controller
       $this->validate($request, [
         'nama' => 'required',
         'photo' => 'image|mimes:jpeg,png,jpg|max:2048',
-        'bidang'   =>  'required'
+        'username'   =>  'required',
+        'bidang'   =>  'required',
       ]);
 
       $data = Guru::find($id);
       // dd($data);
       $data->nama = $request['nama'];
       $data->bidang = $request['bidang'];
+      $data->username = $request['username'];
+      if ($request['password']) {
+        $data->password = bcrypt($request['password']);
+      }
       if ($request->hasFile('photo')) {
         // old file
         $oldPhoto = $data->photo;

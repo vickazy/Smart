@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Event;
 
 use Illuminate\Http\Request;
 use App\Models\Content\Event;
+use App\Models\Kprodi\Kprodi;
 use DB, DataTables;
 use App\Models\Content\KategoriEvent;
 use App\Http\Controllers\Controller;
@@ -17,7 +18,9 @@ class EventController extends Controller
 
     public function adminEvent() {
       $kategoriEvent = KategoriEvent::get()->toArray();
-    	return view('admin.event.index', ['kategoriEvent' => $kategoriEvent]);
+      $jurusan_id = auth()->guard('kprodi')->user()->jurusan_id;
+      $kprodi = Kprodi::with('jurusan')->where('jurusan_id', $jurusan_id)->first();
+    	return view('admin.event.index', ['kategoriEvent' => $kategoriEvent, 'kprodi' => $kprodi]);
     }
 
     public function getDataEvent() {
@@ -44,8 +47,26 @@ class EventController extends Controller
         'isi'   =>  'required',
         'tempat'   =>  'required'
       ]);
-      $data = Event::create($request->all());
-      return redirect()->route('admin.event')->with('success', 'Berita berhasil ditambahkan');
+
+      $data = new Event;
+      $data->judul = $request['judul'];
+      $data->isi = $request['isi'];
+      $data->tempat = $request['tempat'];
+      $data->tgl_event = $request['tgl_event'];
+      $data->kategori_event_id = $request['kategori_event_id'];
+      $data->jurusan_id = $request['jurusan_id'];
+      if ($request->hasFile('photo')) {
+        $name = $request->file('photo');
+        $newName = time() . '.' . $name->getClientOriginalExtension();
+        $image = Image::make($name);
+        $image->encode('jpg', 75);
+        $image->save(public_path('upload/event/' . $newName));
+
+        $data->photo = $newName;
+      }
+
+      $data->save();
+      return redirect()->route('admin.event')->with('success', 'Event berhasil ditambahkan');
     }
 
     public function getEditEvent($id) {
@@ -63,8 +84,23 @@ class EventController extends Controller
         'isi'   =>  'required'
       ]);
       // dd($request->all())
-      $data = Event::find($id)->update($request->all());
-      
+      $data = Event::find($id);
+      $data->judul = $request['judul'];
+      $data->isi = $request['isi'];
+      $data->tempat = $request['tempat'];
+      $data->tgl_event = $request['tgl_event'];
+      $data->kategori_event_id = $request['kategori_event_id'];
+      $data->jurusan_id = $request['jurusan_id'];
+      if ($request->hasFile('photo')) {
+        $name = $request->file('photo');
+        $newName = time() . '.' . $name->getClientOriginalExtension();
+        $image = Image::make($name);
+        $image->encode('jpg', 75);
+        $image->save(public_path('upload/kegiatan/' . $newName));
+
+        $data->photo = $newName;
+      }
+      $data->save();
       return redirect()->back()->with('success', 'Berita berhasil di update');
     }
 

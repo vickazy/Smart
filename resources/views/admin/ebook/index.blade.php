@@ -12,12 +12,13 @@
 						<div class="form-group{{$errors->has('nama') ? ' has-error' : ' '}}">
 							<label>Nama Ebook</label>
 							<input type="text" name="nama" class="form-control">
+							<input type="hidden" name="guru_id" class="form-control" value="{{Auth::guard('guru')->user()->id}}">
 							@if($errors->has('nama'))
 							<span class="help-block">{{$errors->first('nama')}}</span>
 							@endif
 						</div>
 						<div class="form-group{{$errors->has('file_path') ? ' has-error' : ' '}}">
-							<label>Upload File</label>
+							<label>Upload File (pdf only)</label>
 							<input type="file" name="file_path" class="form-control">
 							@if($errors->has('file_path'))
 							<span class="help-block">{{$errors->first('file_path')}}</span>

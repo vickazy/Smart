@@ -11,6 +11,26 @@
 						{{csrf_field()}}
 						<div class="row">
 							<div class="col-lg-6">
+								<div class="form-group{{$errors->has('username') ? ' has-error' : ' '}}">
+									<label>Username</label>
+									<input type="text" name="username" class="form-control">
+									@if($errors->has('username'))
+									<span class="help-block">{{$errors->first('username')}}</span>
+									@endif
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group{{$errors->has('password') ? ' has-error' : ' '}}">
+									<label>Password</label>
+									<input type="password" name="password" class="form-control">
+									@if($errors->has('password'))
+									<span class="help-block">{{$errors->first('password')}}</span>
+									@endif
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-6">
 								<div class="form-group{{$errors->has('nama') ? ' has-error' : ' '}}">
 									<label>Nama Guru</label>
 									<input type="text" name="nama" class="form-control">
@@ -48,8 +68,8 @@
 					<thead>
 						<th>No</th>
 						<th>Photo Guru</th>
+						<th>Username</th>
 						<th>Nama Guru</th>
-						<th>Bidang Guru</th>
 						<th>Action</th>
 					</thead>
 				</table>
@@ -67,8 +87,8 @@
 		columns: [
 			{data: 'DT_Row_Index', orderable: false, searchable: false},
 			{data: 'photo'},
+			{data: 'username'},
 			{data: 'nama'},
-			{data: 'bidang'},
 			{data: 'action', name: 'detail', orderable: false, searchable: false},
 		]
 	});

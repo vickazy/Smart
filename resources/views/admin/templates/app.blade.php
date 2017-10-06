@@ -7,9 +7,17 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Admin Dashboard</title>
+    <title>
+    @if(Auth::guard('admin')->check())
+    Admin
+    @elseif(Auth::guard('kprodi')->check())
+    Ketua Prodi
+    @elseif(Auth::guard('guru')->check())
+    Guru
+    @endif
+    Dashboard
+    </title>
     <link rel="icon" type="image/png" href="{{URL::to('smart/logoku.png')}}">
-
     <!-- Bootstrap core CSS -->
     <link href="{{URL::to('node_modules/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <!--external css-->
@@ -50,7 +58,15 @@
             <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
           </div>
           <!--logo start-->
-          <a href="#!" class="logo"><b>Admin Dashboard</b></a>
+          <a href="#!" class="logo"><b>
+            @if(Auth::guard('admin')->check())
+            Admin
+            @elseif(Auth::guard('kprodi')->check())
+            Ketua Prodi
+            @elseif(Auth::guard('guru')->check())
+            Guru
+            @endif
+          Dashboard</b></a>
           <!--logo end-->
           <div class="top-menu">
             <ul class="nav pull-right top-menu">
@@ -84,6 +100,7 @@
                   </li>
                 </ul>
               </li> --}}
+              @if(Auth::guard('admin')->check())
               <li class="sub-menu">
                 <a href="{{route('admin.berita')}}">
                   <i class="fa fa-newspaper-o"></i>
@@ -101,12 +118,6 @@
                     </a>
                   </li>
                 </ul> --}}
-              </li>
-              <li class="sub-menu">
-                <a href="{{route('admin.event')}}">
-                  <i class="fa fa-calendar"></i>
-                  <span>Event</span>
-                </a>
               </li>
               <li class="sub-menu">
                 <a href="{{route('admin.galeri')}}">
@@ -144,23 +155,9 @@
                 </ul>
               </li>
               <li class="sub-menu">
-                <a href="#!">
-                  <i class="fa fa-podcast"></i>
-                  <span>Program</span>
-                </a>
-                <ul class="sub">
-                  <li>
-                    <a  href="{{route('admin.osis')}}"><i class="fa fa-users"></i> Osis</a>
-                  </li>
-                  <li>
-                    <a  href="{{route('admin.ekstra')}}"><i class="fa fa-info"></i> Extra Kulikuler</a>
-                  </li>
-                </ul>
-              </li>
-              <li class="sub-menu">
-                <a href="{{route('admin.ebook')}}">
-                  <i class="fa fa-file-pdf-o"></i>
-                  <span>E-book</span>
+                <a href="{{route('admin.kprodi')}}">
+                  <i class="fa fa-graduation-cap"></i>
+                  <span>Ketua Prodi</span>
                 </a>
               </li>
               <li class="sub-menu">
@@ -175,6 +172,41 @@
                   <span>Setting Home</span>
                 </a>
               </li>
+
+              @elseif(Auth::guard('kprodi')->check())
+
+              <li class="sub-menu">
+                <a href="{{route('admin.event')}}">
+                  <i class="fa fa-calendar"></i>
+                  <span>Event Jurusan</span>
+                </a>
+              </li>
+              <li class="sub-menu">
+                <a href="{{route('admin.kegiatan')}}">
+                  <i class="fa fa-calendar"></i>
+                  <span>Kegiatan Jurusan</span>
+                </a>
+              </li>
+              <li class="sub-menu">
+                <a href="#!">
+                  <i class="fa fa-users"></i>
+                  <span>Data Siswa</span>
+                </a>
+              </li>
+              <li class="sub-menu">
+                <a href="#!">
+                  <i class="fa fa-picture-o"></i>
+                  <span>Gallery Photo Jurusan</span>
+                </a>
+              </li>
+              @elseif(Auth::guard('guru')->check())
+              <li class="sub-menu">
+                <a href="{{route('admin.ebook')}}">
+                  <i class="fa fa-file-pdf-o"></i>
+                  <span>E-book</span>
+                </a>
+              </li>
+              @endif
             </ul>
             <!-- sidebar menu end-->
           </div>
@@ -241,22 +273,28 @@
         });
         $('.select2').select2();
         });
-
         tinymce.init({
-          selector: 'textarea',
-          height: 500,
-          menubar: false,
-          fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
-          plugins: [
-            'advlist autolink lists link image charmap print preview anchor textcolor',
-            'searchreplace visualblocks code fullscreen',
-            'insertdatetime media table contextmenu paste code help'
-          ],
-          toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | fontsizeselect',
-          content_css: [
-            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-            '//www.tinymce.com/css/codepen.min.css']
+        selector: 'textarea',
+        height: 500,
+        menubar: false,
+        fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
+        plugins: [
+        'advlist autolink lists link image charmap print preview anchor textcolor',
+        'searchreplace visualblocks code fullscreen',
+        'insertdatetime media table contextmenu paste code help'
+        ],
+        toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | fontsizeselect',
+        content_css: [
+        '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+        '//www.tinymce.com/css/codepen.min.css']
         });
         </script>
+        @if (Session::has('denied'))
+        <script type="text/javascript">
+        $(document).ready(function() {
+        toastr.error('Access Denied', '{{Session::get('denied')}}', {timeOut: 5000});
+        });
+        </script>
+        @endif
       </body>
     </html>

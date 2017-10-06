@@ -1,7 +1,7 @@
 @extends('admin.templates.app')
 @section('content')
 <div class="col-lg-12">
-	<h3><i class="fa fa-angle-right"></i> Event Sekolah</h3>
+	<h3><i class="fa fa-angle-right"></i> Event Jurusan {{$kprodi['jurusan']['nama_jurusan']}}</h3>
 	<div class="content-panel" style="padding:10px 10px;margin-bottom:200px">
 		<div>
 			<a href="#tambah-event" data-toggle="collapse" class="btn btn-flat btn-primary"><i class="fa fa-plus"></i> Tambah Event</a>
@@ -14,6 +14,7 @@
 								<div class="form-group{{$errors->has('judul') ? ' has-error' : ' '}}">
 									<label>Judul Event</label>
 									<input type="text" name="judul" class="form-control">
+									<input type="hidden" name="jurusan_id" value="{{$kprodi['jurusan_id']}}">
 									@if($errors->has('judul'))
 									<span class="help-block">{{$errors->first('judul')}}</span>
 									@endif
@@ -34,7 +35,6 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="form-group{{$errors->has('tgl_event') ? ' has-error' : ' '}}">
@@ -54,6 +54,10 @@
 									@endif
 								</div>
 							</div>
+						</div>
+						<div class="form-group">
+							<label>Upload Foto</label>
+							<input type="file" name="photo" class="form-control">
 						</div>
 						<div class="form-group{{$errors->has('isi') ? ' has-error' : ' '}}">
 							<label>Isi Event</label>
@@ -113,51 +117,50 @@
 		$.post("{{route('admin.postKategoriEvent')}}", data, function(data) {
 			toastr.success('Success!', 'Kategori berhasil di tambahkan!');
 				$('#select-kategori').append($('<option />', {
-						value: data.id,
-						text: data.nama,
-					}));
-			$('#modal-kategori').modal('hide');
-		});
-	});
-	$('#datatables').DataTable({
-		processing: true,
-		serverSide: true,
-		ajax: '{{route('admin.getDataEvent')}}',
-		columns: [
-		{data: 'DT_Row_Index', orderable: false, searchable: false},
-		{data: 'judul'},
-		{data: 'tgl_event'},
-		{data: 'action', name: 'detail', orderable: false, searchable: false},
-		]
-	});
-CKEDITOR.replace('isi-berita');
-$('#datatables').on('click','.delete', function(e) {
-		var id = $(this).data('id');
-		$.confirm({
-			icon: 'fa fa-warning',
-			title: 'Alert !',
-			content: 'Apakah anda ingin menghapus data ini ?',
-			type: 'red',
-			typeAnimated: true,
-			buttons: {
-			confirm: function () {
-			$.get("{{ route('admin.getDeleteEvent') }}", {id: id}, function (data) {
-				// console.log(data);
-				location.reload();
+							value: data.id,
+							text: data.nama,
+						}));
+				$('#modal-kategori').modal('hide');
 			});
-			},
-			cancel: function () {
-			
-			},
-			}
 		});
-	});
-</script>
-@if (Session::has('success'))
-<script type="text/javascript">
-	$(document).ready(function() {
-			toastr.success('Success', '{{Session::get('success')}}', {timeOut: 5000});
-	});
-</script>
-@endif
-@endsection
+		$('#datatables').DataTable({
+			processing: true,
+			serverSide: true,
+			ajax: '{{route('admin.getDataEvent')}}',
+			columns: [
+			{data: 'DT_Row_Index', orderable: false, searchable: false},
+			{data: 'judul'},
+			{data: 'tgl_event'},
+			{data: 'action', name: 'detail', orderable: false, searchable: false},
+			]
+		});
+	$('#datatables').on('click','.delete', function(e) {
+			var id = $(this).data('id');
+			$.confirm({
+				icon: 'fa fa-warning',
+				title: 'Alert !',
+				content: 'Apakah anda ingin menghapus data ini ?',
+				type: 'red',
+				typeAnimated: true,
+				buttons: {
+				confirm: function () {
+				$.get("{{ route('admin.getDeleteEvent') }}", {id: id}, function (data) {
+					// console.log(data);
+					location.reload();
+				});
+				},
+				cancel: function () {
+				
+				},
+				}
+			});
+		});
+	</script>
+	@if (Session::has('success'))
+	<script type="text/javascript">
+		$(document).ready(function() {
+				toastr.success('Success', '{{Session::get('success')}}', {timeOut: 5000});
+		});
+	</script>
+	@endif
+	@endsection

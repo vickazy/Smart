@@ -1,5 +1,145 @@
 @extends('smart.templates.app')
+@section('customCss')
+<style type="text/css">
+  .gallery{
+margin-top: 50px;
+padding: 0 0 50% 0px;
+height: 100%;
+}
+[class*='thumbnail-']{
+background: #000;
+width: 33.33%;
+height: auto;
+float: left;
+padding: 5px 5px 3px 5px;
+/*cursor: zoom-in;*/
+}
+[class*='thumbnail-'] img{
+max-width: 100%;
+}
+[class*='large-']{
+background: #000;
+width: 90%;
+margin: 0 auto;
+padding: 30px;
+display: none;
+}
+[class*='large-'] img{
+width: 100%;
+max-width: 100%;
+margin: 0 auto;
+}
+.prev{
+color: #fff;
+font-size: 60px;
+position: absolute;
+top: 45%;
+left: 10px;
+float: left;
+}
+.next{
+color: #fff;
+font-size: 60px;
+position: absolute;
+top: 45%;
+right: 10px;
+float: right;
+}
+.close{
+color: #fff;
+font-size: 30px;
+position: absolute;
+top: 5px;
+right: 10px;
+float: right;
+/*cursor: zoom-out;*/
+}
+[class*='thumbnail-']{
+overflow: hidden;
+padding: 0;
+position: relative;
+/*cursor: zoom-in;*/
+}
+[class*='thumbnail-']:hover img{
+transition: .3s linear;
+transition-delay: 300ms;
+transform:  rotate(5deg)  scale(1.4);
+}
+[class*='thumbnail-'] > .caption{
+display: none;
+position: absolute;
+bottom: 80px;
+text-align: center;
+padding: 15px;
+margin: 30px 70px;
+width: 70%;
+background-color: #BDBDBD;
+color: white;
+opacity: 0.8;
+}
+[class*='thumbnail'] > .caption h3 a {
+  text-decoration: none;
+  color: white;
+}
+[class*='thumbnail-']:hover > .caption{
+display: block;
+
+}
+@media screen and (max-width:480px){
+.caption h3{
+font-size: 12px;
+}
+}
+</style>
+@endsection
 @section('content')
+
+<div class="gallery">
+  <div class="thumbnail-1 wow fadeInLeft">
+    <img src="{{URL::to('smart/images/tkr.png')}}" alt="" />
+    <div class="caption">
+      <h3 class="wow fadeInUp"><a href="">Teknik Kendaraan Ringan</a></h3>
+    </div>  
+  </div>
+  
+  <div class="thumbnail-2 wow fadeInDown">
+    <img src="{{URL::to('smart/images/tei.png')}}" alt="" />
+    <div class="caption">
+      <h3 class="wow fadeInUp"><a href="">Teknik Elektronika Industri</a></h3>  
+    </div> 
+  </div>
+  
+  <div class="thumbnail-3 wow fadeInRight">
+    <img src="{{URL::to('smart/images/mm.png')}}" alt="" />
+    <div class="caption">
+      <h3 class="wow fadeInUp"><a href="">Multi Media</a></h3>  
+    </div> 
+  </div>
+  
+  <div class="thumbnail-1 wow fadeInLeft">
+    <img src="{{URL::to('smart/images/tekstil.png')}}" alt="" />
+    <div class="caption">
+      <h3 class="wow fadeInUp"><a href="">Kriya Tekstil</a></h3>
+    </div>  
+  </div>
+  
+  <div class="thumbnail-2 wow fadeInDown">
+    <img src="{{URL::to('smart/images/kulit.png')}}" alt="" />
+    <div class="caption">
+      <h3 class="wow fadeInUp"><a href="">Kriya Kulit</a></h3>  
+    </div> 
+  </div>
+  
+  <div class="thumbnail-3 wow fadeInRight">
+    <img src="{{URL::to('smart/images/busana.png')}}" alt="" />
+    <div class="caption">
+      <h3 class="wow fadeInUp"><a href="">Tata Busana</a></h3>  
+    </div> 
+  </div>
+  
+</div>
+
+
 <section id="hero-area" style="background: url('{{ URL::to('upload/setting/'.  $bghome['photo'])  }}') no-repeat 50%;">
   <div class="container">
     <div class="row">
@@ -9,18 +149,8 @@
           <section class="cd-intro">
             <h1 class="wow fadeInUp animated cd-headline slide" data-wow-delay=".4s">
               &nbsp;
-            {{-- <span>TEMPLATE WEB PROFILE SEKOLAH SMART</span><br>
-            <span class="cd-words-wrapper">
-              <b class="is-visible"><a href="http://easytech.co.id/"></a>e-Tech Inc</b>
-            </span> --}}
             </h1>
           </section>
-          <!-- cd-intro -->
-          <!-- /.slider -->
-          {{-- <h2 class="wow fadeInUp animated" data-wow-delay=".6s">
-          Tahun 1946, tepatnya tanggal 13 Maret 1946 dibentuk sekolah pemerintah yang pertama, mula-mula masih menggunakan nama SMT, lalu diubah menjadi SMOA ( Sekolah Menengah Oemoem Atas ) Tahun 1947, dengan adanya agresi Belanda, Sekolah tersebut dibubarkan / dilarang , akan tetapi guru-guru serta pelajarnya tidak menyerah oleh ancaman penjajah Belanda. Pada awal tahun 1950 SMA Kiblik tersebut bergabung kembali tempat belajarnya dan menempati gedung di Jalan Budi Utomo No.7 sampai sekarang.
-          </h2> --}}
-          {{-- <a class="btn-lines dark light wow fadeInUp animated smooth-scroll btn btn-default btn-green" style="background-color: #4FC3F7" data-wow-delay=".9s" href="#works" data-section="#works">PRESTASI</a> --}}
         </div>
       </div>
     </div>
@@ -157,3 +287,22 @@ Portfolio Section Start
           </div>
         </section>
         @endsection
+
+@section('customJs')
+<script type="text/javascript">
+  $(document).ready(function(){
+  // $("[class^='thumbnail-']").click(function(){
+  //   $("[class^='thumbnail-']").slideToggle("fast");
+  //   $(this).next("[class^='large-']").slideToggle();
+  // });
+  
+  $(".close").click(function(){
+    $("[class^='large-']:visible").toggle();
+    $("[class^='thumbnail-']").fadeToggle("fast");; 
+  }); 
+  
+});
+
+new WOW().init();
+</script>
+@endsection

@@ -13,14 +13,14 @@ class RiwayatPSiswa extends Migration
      */
     public function up()
     {
-        Schema::create('riwayat_p_siswa', function(Blueprint $table) {
-            $table->char('id', 36);
-            $table->char('siswa_id', 36);
-            $table->string('asal_sekolah', 100);
-            $table->string('alamat_sekolah');
-            $table->bigInteger('nisn', 12);
-            $table->timestamps();
-        });
+        // Schema::create('riwayat_p_siswa', function(Blueprint $table) {
+        //     $table->char('id', 36);
+        //     $table->char('siswa_id', 36);
+        //     $table->string('asal_sekolah', 100);
+        //     $table->string('alamat_sekolah');
+        //     $table->bigInteger('nisn', 12);
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -30,6 +30,6 @@ class RiwayatPSiswa extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('riwayat_p_siswa');
+        // Schema::dropIfExists('riwayat_p_siswa');
     }
 }

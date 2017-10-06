@@ -2,7 +2,6 @@
 
 // Home
 Route::get('/',['uses' => 'Home\HomeController@home', 'as' => 'home']);
-
 // Tentang Kami
 Route::get('/profil-sekolah', 'TentangKami\ProfilSekolahController@profilSekolah')->name('profil-sekolah');
 Route::get('/profil-guru', 'TentangKami\ProfilGuruController@profilGuru')->name('profil-guru');
@@ -26,17 +25,18 @@ Route::get('/komite-sekolah', 'Komite\KomiteController@komite')->name('komite');
 // Kontak
 Route::get('/kontak-kami', 'Kontak\KontakController@kontak')->name('kontak');
 
-
 //==================//
 
 Route::group(['prefix' => 'admin'], function() {
 	// Home
 	// Route::get('/home', ['uses' => 'Admin\AdminController@index', 'as' => 'getAdmin', 'middleware' => 'auth']);
+	
 	// Admin
-	Route::get('/login', ['uses' => 'Admin\AdminController@getLoginAdmin', 'as' => 'login', 'middleware' => 'guest']);
-	Route::post('/login', ['uses' => 'Admin\AdminController@postLoginAdmin', 'as' => 'postLoginAdmin']);
+	Route::get('/login', ['uses' => 'Admin\AdminController@getLoginAdmin', 'as' => 'login'])->middleware('IfAuth');
+	Route::post('/login', ['uses' => 'Admin\AdminController@postLoginAdmin', 'as' => 'postLoginAdmin'])->middleware('IfAuth');
 	Route::get('/logout', ['uses' => 'Admin\AdminController@getLogout', 'as' => 'getLogout']);
 
+Route::group(['middleware' => 'NotAuth'], function() {
 	// Siswa Terdaftar
 	Route::get('/data/siswa', ['uses' => 'Siswa\SiswaController@getSiswa', 'as' => 'getSiswa']);
 	Route::get('/data/getDataSiswa', ['uses' => 'Siswa\SiswaController@getDataSiswa', 'as' => 'getDataSiswa']);
@@ -55,13 +55,15 @@ Route::group(['prefix' => 'admin'], function() {
 	Route::get('/berita/delete', 'Berita\BeritaController@getDeleteBerita')->name('admin.getDeleteBerita');
 	Route::post('/berita/addKategoriBerita', 'Berita\BeritaController@postKategoriBerita')->name('admin.postKategoriBerita');
 	// ==== event === //
-	Route::get('/event', 'Event\EventController@adminEvent')->name('admin.event');
-	Route::post('/event', 'Event\EventController@postEvent')->name('admin.postEvent');
-	Route::get('/event/getDataEvent', 'Event\EventController@getDataEvent')->name('admin.getDataEvent');
-	Route::get('/event/{id}/edit', 'Event\EventController@getEditEvent')->name('admin.getEditEvent');
-	Route::post('/event/{id}/update', 'Event\EventController@postUpdateEvent')->name('admin.postUpdateEvent');
-	Route::get('/event/delete', 'Event\EventController@getDeleteEvent')->name('admin.getDeleteEvent');
-	Route::post('/berita/addKategoriEvent', 'Event\EventController@postKategoriEvent')->name('admin.postKategoriEvent');
+	Route::group(['middleware' => 'kprodi'], function() {
+		Route::get('/event', 'Event\EventController@adminEvent')->name('admin.event');
+		Route::post('/event', 'Event\EventController@postEvent')->name('admin.postEvent');
+		Route::get('/event/getDataEvent', 'Event\EventController@getDataEvent')->name('admin.getDataEvent');
+		Route::get('/event/{id}/edit', 'Event\EventController@getEditEvent')->name('admin.getEditEvent');
+		Route::post('/event/{id}/update', 'Event\EventController@postUpdateEvent')->name('admin.postUpdateEvent');
+		Route::get('/event/delete', 'Event\EventController@getDeleteEvent')->name('admin.getDeleteEvent');
+		Route::post('/event/addKategoriEvent', 'Event\EventController@postKategoriEvent')->name('admin.postKategoriEvent');
+	});
 	// ==== profil sekolah ===/
 	Route::get('/profil-sekolah', 'TentangKami\ProfilSekolahController@adminProfilSekolah')->name('admin.ProfilSekolah');
 	Route::post('/profil-sekolah', 'TentangKami\ProfilSekolahController@postProfilSekolah')->name('admin.postProfilSekolah');
@@ -125,7 +127,21 @@ Route::group(['prefix' => 'admin'], function() {
 	//=== Galeri ===//
 	Route::get('/setting-home', 'BgHome\BgHomeController@adminBgHome')->name('admin.setting-home');
 	Route::post('/setting-home', 'BgHome\BgHomeController@postBgHome')->name('admin.postBgHome');
-
+	// === Ketua Prodi === //
+	Route::get('/kprodi', 'Kprodi\KprodiController@adminKprodi')->name('admin.kprodi');
+	Route::post('/kprodi', 'Kprodi\KprodiController@postKprodi')->name('admin.postKprodi');
+	Route::get('/kprodi/getDataGuru', 'Kprodi\KprodiController@getDataKprodi')->name('admin.getDataKprodi');
+	Route::get('/kprodi/{id}/edit', 'Kprodi\KprodiController@getEditKprodi')->name('admin.getEditKprodi');
+	Route::post('/kprodi/{id}/update', 'Kprodi\KprodiController@postUpdateKprodi')->name('admin.postUpdateKprodi');
+	Route::get('/kprodi/delete', 'Kprodi\KprodiController@getDeleteKprodi')->name('admin.getDeleteKprodi');
+	// === Kegiatan Jurusan === //
+	Route::get('/kegiatan', 'Kprodi\KegiatanController@adminKegiatan')->name('admin.kegiatan');
+	Route::post('/kegiatan', 'Kprodi\KegiatanController@postKegiatan')->name('admin.postKegiatan');
+	Route::get('/kegiatan/getDataGuru', 'Kprodi\KegiatanController@getDataKegiatan')->name('admin.getDataKegiatan');
+	Route::get('/kegiatan/{id}/edit', 'Kprodi\KegiatanController@getEditKegiatan')->name('admin.getEditKegiatan');
+	Route::post('/kegiatan/{id}/update', 'Kprodi\KegiatanController@postUpdateKegiatan')->name('admin.postUpdateKegiatan');
+	Route::get('/kegiatan/delete', 'Kprodi\KegiatanController@getDeleteKegiatan')->name('admin.getDeleteKegiatan');
+ });
 });
 
 

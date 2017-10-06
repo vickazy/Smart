@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Ebook;
 
 use Illuminate\Http\Request;
 use App\Models\Content\Ebook;
-use File, Storage, DB, DataTables;
+use File, Storage, DB, DataTables, Auth;
 use App\Http\Controllers\Controller;
 
 class EbookController extends Controller
@@ -19,8 +19,9 @@ class EbookController extends Controller
     }
 
      public function getDataEbook() {
+      $guru_id = Auth::guard('guru')->user()->id;
     	DB::statement(DB::raw('set @rownum=0'));
-        $data = Ebook::orderBy('created_at', 'desc')->get();
+        $data = Ebook::where('guru_id', $guru_id)->orderBy('created_at', 'desc')->get();
 
         $datatables = DataTables::of($data)
           ->addColumn('action', function($data) {
@@ -34,11 +35,13 @@ class EbookController extends Controller
     public function postEbook(Request $request) {
     	// dd($request->all());
       $this->validate($request, [
-        'file_path' => 'required',
+        'nama' => 'required',
+        'file_path' => 'required|mimes:pdf',
       ]);
 
       $data = new Ebook;
       	$data->nama = $request['nama'];
+        $data->guru_id = $request['guru_id'];
         $name = $request->file('file_path');
         $newName = time() . '.' . $name->getClientOriginalExtension();
         // dd($newName);

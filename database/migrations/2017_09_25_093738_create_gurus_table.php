@@ -15,6 +15,8 @@ class CreateGurusTable extends Migration
     {
         Schema::create('gurus', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('username');
+            $table->string('password');
             $table->string('nama');
             $table->string('bidang');
             $table->string('photo');

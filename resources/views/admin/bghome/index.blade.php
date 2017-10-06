@@ -18,12 +18,18 @@
 			<div class="col-lg-8 col-sm-12 col-lg-offset-2 desc">
 				<div class="project-wrapper">
 					<div class="project">
+						@if($bghome['photo'])
 						<div class="photo-wrapper">
 							<div class="photo">
-								<a class="fancybox" href="{{URL::to('upload/setting/'. $bghome['photo'])}}"><img class="img-thumbnail" src="{{URL::to('upload/setting/'. $bghome['photo'])}}" alt=""></a>
+							<a class="fancybox" href="{{URL::to('upload/setting/'. $bghome['photo'])}}"><img class="img-thumbnail" src="{{URL::to('upload/setting/'. $bghome['photo'])}}" alt=""></a>
 							</div>
 							<div class="overlay"></div>
 						</div>
+						@else
+						<div style="text-align: center;margin-bottom: 90px">
+						<span><b>Image Not Found</b></span>
+						</div>
+						@endif
 					</div>
 				</div>
 				</div>

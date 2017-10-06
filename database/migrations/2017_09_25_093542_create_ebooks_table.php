@@ -16,6 +16,7 @@ class CreateEbooksTable extends Migration
         Schema::create('ebooks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama', 40);
+            $table->integer('guru_id')->unsigned();
             $table->string('file_path');
             $table->timestamps();
         });

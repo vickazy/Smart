@@ -1912,11 +1912,19 @@ label {
 
 /*LOGIN CONFIGURATION PAGE*/
 .form-login {
-	max-width: 330px;
+	max-width: 500px;
 	margin: 100px auto 0;
 	background: #fff;
 	border-radius: 5px;
 	-webkit-border-radius: 5px;
+}
+
+.form-login li {
+    margin-left: 65px;
+}
+
+.form-login li a {
+    color: #009b4c;
 }
 
 .form-login h2.form-login-heading {

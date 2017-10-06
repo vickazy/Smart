@@ -15,6 +15,8 @@ class Event extends Model
       'tempat',
   		'tgl_event',
   		'kategori_event_id',
+      'jurusan_id',
+      'photo',
    	];
 
 

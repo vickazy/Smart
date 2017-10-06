@@ -26,7 +26,7 @@ class BgHomeController extends Controller
             $newName = time() . '.' . $name->getClientOriginalExtension();
             $image = Image::make($name);
             $image->encode('jpg', 100);
-            $img->resize(null, 500, function ($constraint) {
+            $image->resize(null, 500, function ($constraint) {
                 $constraint->aspectRatio();
             });
             $image->save(public_path('upload/setting/' . $newName));

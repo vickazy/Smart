@@ -1,6 +1,6 @@
 @extends('admin.templates.app')
 @section('content')
-  <div class="col-lg-12" style="margin-bottom: 30px">
+  <div class="col-lg-12" style="margin-bottom: 70px">
     <h3><i class="fa fa-angle-right"></i> Edit Siswa <a href="{{route('getSiswaDetail', $id)}}" class="btn btn-danger" style=>Kembali</a></h3>
     <div class="content-panel" style="padding:10px 10px;z-index: -1;">
       <form action="{{route('postSiswaUpdate', $id)}}" method="post">
@@ -12,6 +12,16 @@
           <td><span class="pull-right"><button type="submit" class="btn btn-primary">Simpan <i class="fa fa-save"></i></button></span></td>
         </tr>
         <tr>
+          <td width=20%>NISN</td>
+          <td>:</td>
+          <td>
+            <input type="text" name="siswa[nisn]" class="form-control" value="{{ $data['nisn'] }}">
+            @if ($errors->has('siswa[nisn]'))
+              <span class="help-block"><p class="text-danger">{{ $errors->first('siswa[nisn]') }}</p></span>
+            @endif
+          </td>
+        </tr>
+        <tr>
           <td width=20%>Nama</td>
           <td>:</td>
           <td>
@@ -21,11 +31,11 @@
             @endif
           </td>
         </tr>
-        <tr>
+        {{-- <tr>
           <td width=20%>Nama Panggilan</td>
           <td>:</td>
           <td><input type="text" name="siswa[nama_panggilan]" value="{{ $data['nama_panggilan'] }}" class="form-control"></td>
-        </tr>
+        </tr> --}}
         <tr>
           <td width=20%>Jenis Kelamin</td>
           <td>:</td>
@@ -37,14 +47,23 @@
           </td>
         </tr>
         <tr>
-          <td width=20%>Tempat/Tgl Lahir</td>
+          <td width=20%>Tgl Lahir</td>
           <td>:</td>
           <td>
-            <input type="text" name="siswa[tempat_lahir]" value="{{ $data['tempat_lahir'] }}" class="form-control" style="width: 30%;display:inline-block">
             <input type="text" name="siswa[tgl_lahir]" value="{{ date('d/m/Y', strtotime($data['tgl_lahir'])) }}" class="form-control datepicker" style="width: 50%;display:inline-block">
           </td>
         </tr>
+         <tr>
+          <td width=20%>Kelas</td>
+          <td>:</td>
+          <td><input type="text" name="siswa[kelas]" id="" value="{{ $data['kelas'] }}" class="form-control"></td>
+        </tr>
         <tr>
+          <td width=20%>Jurusan</td>
+          <td>:</td>
+          <td><input type="text" disabled="" name="siswa[jurusan_id]" id="" value="{{ $data['jurusan']['nama_jurusan'] }}" class="form-control"></td>
+        </tr>
+        {{-- <tr>
           <td width=20%>Agama</td>
           <td>:</td>
           <td>
@@ -108,10 +127,10 @@
           <td width=20%>Kode Pos</td>
           <td>:</td>
           <td><input type="text" name="siswa[kode_pos]" value="{{ $data['kode_pos'] }}" class="form-control"></td>
-        </tr>
+        </tr> --}}
 
         {{-- Data Riwayat Pendidikan --}}
-        <tr>
+        {{-- <tr>
           <td><h4><strong>B. Riwayat Pendidikan Siswa</strong></h4></td>
           <td></td>
           <td></td>
@@ -133,7 +152,7 @@
         </tr>
 
         {{-- Data Orang Tua / Wali --}}
-        <tr>
+       {{--  <tr>
           <td width=40%><h4><strong>B. Data Orang Tua / Wali</strong></h4></td>
           <td></td>
           <td></td>
@@ -204,7 +223,7 @@
           <td>:</td>
           <td><input type="text" name="wali[pendidikan_terakhir]" value="{{ $data['orangtua'][0]['pendidikan_terakhir']}}" class="form-control"></td>
         </tr>
-      @endif
+      @endif --}}
     </form>
     </table>
     </div>

@@ -1,39 +1,56 @@
 @extends('admin.templates.app')
 @section('content')
-  <div class="col-lg-12" style="margin-bottom: 30px">
+  <div class="col-lg-12" style="margin-bottom: 180px;">
     <h3><i class="fa fa-angle-right"></i> Detail Siswa <a href="{{route('getSiswa')}}" class="btn btn-danger" style=>Kembali</a></h3>
     <div class="content-panel" style="padding:10px 10px;z-index: -1;">
       <table class="table">
         <tr>
           <td><h4><strong>A. Data Siswa</strong></h4></td>
           <td></td>
-          <td><span class="pull-right"><a href="{{route('getSiswaEdit', $data['id'])}}" class="btn btn-warning">Edit <i class="fa fa-edit"></i></a>&nbsp;<a href="{{route('downloadPdf', $data['id'])}}" class="btn btn-info">Print <i class="fa fa-print"></i></a></span></td>
+          <td><span class="pull-right"><a href="{{route('getSiswaEdit', $data['id'])}}" class="btn btn-warning">Edit <i class="fa fa-edit"></i></a>
+            {{-- &nbsp;<a href="{{route('downloadPdf', $data['id'])}}" class="btn btn-info">Print <i class="fa fa-print"></i></a></span></td> --}}
+        </tr>
+        <tr>
+          <td width=20%>NISN</td>
+          <td>:</td>
+          <td>{{ $data['nisn'] }}</td>
         </tr>
         <tr>
           <td width=20%>Nama</td>
           <td>:</td>
           <td>{{ $data['nama'] }}</td>
         </tr>
-        <tr>
+        {{-- <tr>
           <td width=20%>Nama Panggilan</td>
           <td>:</td>
           <td>{{ $data['nama_panggilan'] }}</td>
-        </tr>
+        </tr> --}}
         <tr>
           <td width=20%>Jenis Kelamin</td>
           <td>:</td>
           <td>{{ $data['jenis_kelamin'] }}</td>
         </tr>
         <tr>
-          <td width=20%>Tempat/Tgl Lahir</td>
+          <td width=20%>Tgl Lahir</td>
           <td>:</td>
-          <td>{{ $data['tempat_lahir'] . ',' . $data['tgl_lahir'] }}</td>
+          <td>{{ date('d-m-Y', strtotime($data['tgl_lahir'])) }}</td>
         </tr>
         <tr>
+          <td width=20%>Kelas</td>
+          <td>:</td>
+          <td>{{ $data['kelas'] }}</td>
+        </tr>
+        <tr>
+          <td width=20%>Jurusan</td>
+          <td>:</td>
+          <td>{{ $data['jurusan']['nama_jurusan'] }}</td>
+        </tr>
+       {{--  <tr>
           <td width=20%>Agama</td>
           <td>:</td>
           <td>{{ $data['agama'] }}</td>
         </tr>
+        <tr>
           <td width=20%>Anak Ke</td>
           <td>:</td>
           <td>{{ $data['anak_ke'] }} dari {{ $data['jumlah_saudara'] }} Bersaudara</td>
@@ -52,9 +69,9 @@
           <td width=20%>Kode Pos</td>
           <td>:</td>
           <td>{{ $data['kode_pos'] }}</td>
-        </tr>
+        </tr> --}}
 
-        {{-- Data Riwayat Pendidikan --}}
+        {{-- Data Riwayat Pendidikan
         <tr>
           <td><h4><strong>B. Riwayat Pendidikan Siswa</strong></h4></td>
           <td></td>
@@ -74,10 +91,10 @@
           <td width=20%>Alamat Sekolah</td>
           <td>:</td>
           <td>{{ $data['riwayat'][0]['alamat_sekolah'] }}</td>
-        </tr>
+        </tr> --}}
 
         {{-- Data Orang Tua / Wali --}}
-        <tr>
+       {{--  <tr>
           <td width=40%><h4><strong>B. Data Orang Tua / Wali</strong></h4></td>
           <td></td>
           <td></td>
@@ -130,7 +147,7 @@
           <td>:</td>
           <td>{{ $data['orangtua'][0]['pendidikan_terakhir']}}</td>
         </tr>
-      @endif
+      @endif --}}
     </table>
     </div>
   </div>

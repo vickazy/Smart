@@ -12,22 +12,25 @@ class Siswa extends Model
     public $incrementing = false;
     protected $fillable = [
       'id',
+      'nisn',
       'nama',
-      'nama_panggilan',
+      // 'nama_panggilan',
       'jenis_kelamin',
-      'tempat_lahir',
+      'kelas',
+      'jurusan_id',
+      // 'tempat_lahir',
       'tgl_lahir',
-      'agama',
-      'anak_ke',
-      'jumlah_saudara',
-      'tinggal_bersama',
-      'alamat',
-      'rt',
-      'rw',
-      'kelurahan',
-      'kecamatan',
-      'kota',
-      'kode_pos',
+      // 'agama',
+      // 'anak_ke',
+      // 'jumlah_saudara',
+      // 'tinggal_bersama',
+      // 'alamat',
+      // 'rt',
+      // 'rw',
+      // 'kelurahan',
+      // 'kecamatan',
+      // 'kota',
+      // 'kode_pos',
     ];
 
     // uuid setup
@@ -39,11 +42,15 @@ class Siswa extends Model
         });
     }
 
-    public function riwayat() {
-      return $this->hasMany('App\Models\Ppdb\RiwayatP');
+    public function jurusan() {
+      return $this->belongsTo('App\Models\KProdi\Jurusan');
     }
 
-    public function orangtua() {
-      return $this->hasMany('App\Models\Ppdb\OrangTua');
-    }
+    // public function riwayat() {
+    //   return $this->hasMany('App\Models\Ppdb\RiwayatP');
+    // }
+
+    // public function orangtua() {
+    //   return $this->hasMany('App\Models\Ppdb\OrangTua');
+    // }
 }

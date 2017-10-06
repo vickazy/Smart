@@ -188,13 +188,13 @@
                 </a>
               </li>
               <li class="sub-menu">
-                <a href="#!">
+                <a href="{{route('getSiswa')}}">
                   <i class="fa fa-users"></i>
                   <span>Data Siswa</span>
                 </a>
               </li>
               <li class="sub-menu">
-                <a href="#!">
+                <a href="{{route('admin.PhotoJurusan')}}">
                   <i class="fa fa-picture-o"></i>
                   <span>Gallery Photo Jurusan</span>
                 </a>

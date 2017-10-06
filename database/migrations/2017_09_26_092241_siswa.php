@@ -15,11 +15,12 @@ class Siswa extends Migration
     {
         Schema::create('siswa', function(Blueprint $table){
             $table->char('id', 36);
+            $table->integer('nisn')->unsigned();
             $table->string('nama', 100);
             // $table->string('nama_panggilan', 20);
             $table->enum('jenis_kelamin', ['pria', 'wanita']);
             // $table->string('tempat_lahir', 40);
-            // $table->date('tgl_lahir');
+            $table->date('tgl_lahir');
             // $table->string('agama', 30);
             // $table->integer('anak_ke');
             // $table->integer('jumlah_saudara');

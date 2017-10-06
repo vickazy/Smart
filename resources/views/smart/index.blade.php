@@ -73,7 +73,7 @@ text-align: center;
 padding: 15px;
 margin: 30px 70px;
 width: 70%;
-background-color: #BDBDBD;
+background-color: #00f076;
 color: white;
 opacity: 0.8;
 }

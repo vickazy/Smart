@@ -1,12 +1,13 @@
 @extends('admin.templates.app')
 
 @section('content')
-  <div class="col-lg-12">
+  <div class="col-lg-12" style="margin-bottom: 110px">
     <h3><i class="fa fa-angle-right"></i> Data Siswa</h3>
     <div class="content-panel" style="padding:10px 10px;margin-bottom:100px">
       <div>
-        <a href="#modal-excel" class="btn btn-flat btn-warning" data-toggle="modal"  title="Export Excel"><i class="fa fa-file-excel-o"></i> Excel</a>
-        <a href="#modal-pdf" class="btn btn btn-danger" data-toggle="modal"  title="download pdf"><i class="fa fa-file-pdf-o"></i> PDF</a>
+        <a href="#modal-excel" class="btn btn-flat btn-warning" data-toggle="modal"  title="Export Excel"><i class="fa fa-file-excel-o"></i> Import Data</a>
+        <a href="{{URL::to('upload/excel/Format.xls')}}" class="btn btn-flat btn-primary"><i class="fa fa-download"></i> Download Format Data</a>
+        {{-- <a href="#modal-pdf" class="btn btn btn-danger" data-toggle="modal"  title="download pdf"><i class="fa fa-file-pdf-o"></i> PDF</a> --}}
       </div>
       <hr>
       <div class="row" style="margin-top:10px;">
@@ -17,7 +18,7 @@
               <th>NISN</th>
               <th>Nama</th>
               <th>Jenis Kelamin</th>
-              <th>Daftar Pada Tanggal</th>
+              <th>Tanggal Lahir</th>
               <th>Action</th>
             </thead>
           </table>
@@ -32,15 +33,13 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title" id="">Export data ke Excel</h4>
+          <h4 class="modal-title" id="">Import Data Siswa</h4>
         </div>
         <div class="modal-body">
-          <form action="{{route('exportExcelSiswa', 'xls')}}" method="post" id="frm-excel" >
+          <form action="{{route('ImportSiswa')}}" method="post" id="frm-excel" enctype="multipart/form-data">
             {{csrf_field()}}
               <div class="form-group">
-                <input type="text" name="tanggal" value="" class="form-control daterange">
-                <input type="hidden" name="start" value="" class="start">
-                <input type="hidden" name="end" value="" class="end">
+                <input type="file" name="import_file" id="" class="form-control">
               </div>
         </div>
         <div class="modal-footer">
@@ -51,32 +50,8 @@
       </div>
     </div>
   </div>
-
-  {{-- PDF modal --}}
-    <div class="modal fade" id="modal-pdf" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="">Export data ke PDF</h4>
-          </div>
-          <div class="modal-body">
-            <form action="{{route('exportPDFSiswa')}}" method="post" id="frm-excel" >
-              {{csrf_field()}}
-                <div class="form-group">
-                  <input type="text" name="tanggal" value="" class="form-control daterange">
-                  <input type="hidden" name="start" value="" class="start">
-                  <input type="hidden" name="end" value="" class="end">
-                </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Simpan</button>
-          </form>
-          </div>
-        </div>
-      </div>
-    </div>
+  </div>
+  
 @endsection
 
 @section('customJs')
@@ -87,10 +62,10 @@
         ajax: '{{route('getDataSiswa')}}',
         columns: [
             {data: 'DT_Row_Index', orderable: false, searchable: false},
-            {data: 'riwayat.0.nisn'},
+            {data: 'nisn'},
             {data: 'nama'},
             {data: 'jenis_kelamin'},
-            {data: 'created_at'},
+            {data: 'tgl_lahir'},
             {data: 'action', name: 'detail', orderable: false, searchable: false},
         ]
     });

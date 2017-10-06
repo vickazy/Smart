@@ -2,10 +2,10 @@
 
 @section('content')
 	<div class="col-lg-12">
-    <h3><i class="fa fa-angle-right"></i>Edit Berita</h3>
+    <h3><i class="fa fa-angle-right"></i>Edit Event</h3>
     <div class="content-panel" style="padding:10px 10px;margin-bottom:100px">
       	<a href="{{route('admin.event')}}" class="btn btn-danger" style="margin-bottom: 10px;"><i class="fa fa-arrow-left"></i> Kembali</a>
-		    <form action="{{route('admin.postUpdateEvent', $data['id'])}}" method="post">
+		    <form action="{{route('admin.postUpdateEvent', $data['id'])}}" method="post" enctype="multipart/form-data">
 		    	{{csrf_field()}}
 			    	<div class="row">
 							<div class="col-lg-6">
@@ -49,6 +49,10 @@
 									@endif
 								</div>
 							</div>
+						</div>
+						<div class="form-group">
+							<label>Upload Foto</label>
+							<input type="file" name="photo" id="" class="form-control">
 						</div>
 						<div class="form-group{{$errors->has('isi') ? ' has-error' : ' '}}">
 							<label>Isi Event</label>

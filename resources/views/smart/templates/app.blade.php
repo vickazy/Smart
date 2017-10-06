@@ -95,16 +95,19 @@
                 </div>
               </li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Program<span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jurusan<span class="caret"></span></a>
                 <div class="dropdown-menu">
                   <ul>
-                    <li><a href="{{ route('osis') }}">Osis</a></li>
-                    <li><a href="{{ route('extra') }}">Extra Kurikuler</a></li>
+                    <li><a href="">Teknik Kendaraan Ringan</a></li>
+                    <li><a href="">Teknik Elektronika Industri</a></li>
+                    <li><a href="">MultiMedia</a></li>
+                    <li><a href="">Kriya Tekstil</a></li>
+                    <li><a href="">Kriya Kulit</a></li>
+                    <li><a href="">Tata Busana</a></li>
                   </ul>
                 </div>
               </li>
               <li><a href="{{ route('berita') }}">Berita</a></li>
-              <li><a href="{{ route('event') }}">Event</a></li>
               <li><a href="{{ route('galeri') }}">Galeri</a></li>
               <li><a href="{{ route('ebook') }}">E-book</a></li>
               <li><a href="{{ route('komite') }}">Komite Sekolah</a></li>

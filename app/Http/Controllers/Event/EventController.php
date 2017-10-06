@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Event;
 use Illuminate\Http\Request;
 use App\Models\Content\Event;
 use App\Models\Kprodi\Kprodi;
-use DB, DataTables;
+use DB, DataTables, Image, File;
 use App\Models\Content\KategoriEvent;
 use App\Http\Controllers\Controller;
 

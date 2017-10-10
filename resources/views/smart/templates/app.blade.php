@@ -98,12 +98,9 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jurusan<span class="caret"></span></a>
                 <div class="dropdown-menu">
                   <ul>
-                    <li><a href="">Teknik Kendaraan Ringan</a></li>
-                    <li><a href="">Teknik Elektronika Industri</a></li>
-                    <li><a href="">MultiMedia</a></li>
-                    <li><a href="">Kriya Tekstil</a></li>
-                    <li><a href="">Kriya Kulit</a></li>
-                    <li><a href="">Tata Busana</a></li>
+                    @foreach($jurusan as $data)
+                    <li><a href="{{route('jurusan', str_slug($data['nama_jurusan']))}}">{{$data['nama_jurusan']}}</a></li>
+                    @endforeach
                   </ul>
                 </div>
               </li>
@@ -134,7 +131,7 @@
         <div class="col-md-8">
           <p class="copyright">Copyright: <span>2017</span> . Design and Developed by <a href="http://www.easytech.co.id">e-Tech Inc</a></p>
         </div>
-        <div class="col-md-4">
+        {{-- <div class="col-md-4">
           <!-- Social Media -->
           <ul class="social">
             <li>
@@ -158,8 +155,9 @@
               </a>
             </li>
           </ul>
-        </div>
+        </div> --}}
       </div>
       </footer> <!-- /#footer -->
+      @yield('customJs')
     </body>
   </html>

@@ -24,7 +24,6 @@ class EventController extends Controller
     }
 
     public function getDataEvent() {
-    	DB::statement(DB::raw('set @rownum=0'));
         $data = Event::with('kategoriEvent')->orderBy('created_at', 'desc')->get();
 
         $datatables = DataTables::of($data)

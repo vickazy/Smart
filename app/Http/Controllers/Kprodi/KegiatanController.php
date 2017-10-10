@@ -60,6 +60,7 @@ class KegiatanController extends Controller
       $data->tgl_kegiatan = $request['tgl_kegiatan'];
       $data->tempat = $request['tempat'];
       $data->isi = $request['isi'];
+      $data->jurusan_id = auth()->guard('kprodi')->user()->jurusan_id;
       if ($request->hasFile('photo')) {
         $name = $request->file('photo');
         $newName = time() . '.' . $name->getClientOriginalExtension();
@@ -94,6 +95,7 @@ class KegiatanController extends Controller
       $data->tgl_kegiatan = $request['tgl_kegiatan'];
       $data->tempat = $request['tempat'];
       $data->isi = $request['isi'];
+      $data->jurusan_id = auth()->guard('kprodi')->user()->jurusan_id;
      
       if ($request->hasFile('photo')) {
         // old file

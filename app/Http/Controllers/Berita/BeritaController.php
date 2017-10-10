@@ -56,7 +56,7 @@ class BeritaController extends Controller
         'photo' => 'image|mimes:jpeg,png,jpg|max:2048',
         'isi'   =>  'required'
       ]);
-
+      
       $data = new Berita;
       $data->judul = $request['judul'];
       $data->kategori_berita_id = $request['kategori_id'];

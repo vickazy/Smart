@@ -98,42 +98,42 @@ font-size: 12px;
   <div class="thumbnail-1 wow fadeInLeft">
     <img src="{{URL::to('smart/images/tkr.png')}}" alt="" />
     <div class="caption">
-      <h3 class="wow fadeInUp"><a href="">Teknik Kendaraan Ringan</a></h3>
+      <h3 class="wow fadeInUp"><a href="{{route('jurusan', str_slug($jurusan[0]['nama_jurusan']))}}">Teknik Kendaraan Ringan</a></h3>
     </div>  
   </div>
   
   <div class="thumbnail-2 wow fadeInDown">
     <img src="{{URL::to('smart/images/tei.png')}}" alt="" />
     <div class="caption">
-      <h3 class="wow fadeInUp"><a href="">Teknik Elektronika Industri</a></h3>  
+      <h3 class="wow fadeInUp"><a href="{{route('jurusan', str_slug($jurusan[1]['nama_jurusan']))}}">Teknik Elektronika Industri</a></h3>  
     </div> 
   </div>
   
   <div class="thumbnail-3 wow fadeInRight">
     <img src="{{URL::to('smart/images/mm.png')}}" alt="" />
     <div class="caption">
-      <h3 class="wow fadeInUp"><a href="">Multi Media</a></h3>  
+      <h3 class="wow fadeInUp"><a href="{{route('jurusan', str_slug($jurusan[2]['nama_jurusan']))}}">Multi Media</a></h3>  
     </div> 
   </div>
   
   <div class="thumbnail-1 wow fadeInLeft">
     <img src="{{URL::to('smart/images/tekstil.png')}}" alt="" />
     <div class="caption">
-      <h3 class="wow fadeInUp"><a href="">Kriya Tekstil</a></h3>
+      <h3 class="wow fadeInUp"><a href="{{route('jurusan', str_slug($jurusan[3]['nama_jurusan']))}}">Kriya Tekstil</a></h3>
     </div>  
   </div>
   
   <div class="thumbnail-2 wow fadeInDown">
     <img src="{{URL::to('smart/images/kulit.png')}}" alt="" />
     <div class="caption">
-      <h3 class="wow fadeInUp"><a href="">Kriya Kulit</a></h3>  
+      <h3 class="wow fadeInUp"><a href="{{route('jurusan', str_slug($jurusan[4]['nama_jurusan']))}}">Kriya Kulit</a></h3>  
     </div> 
   </div>
   
   <div class="thumbnail-3 wow fadeInRight">
     <img src="{{URL::to('smart/images/busana.png')}}" alt="" />
     <div class="caption">
-      <h3 class="wow fadeInUp"><a href="">Tata Busana</a></h3>  
+      <h3 class="wow fadeInUp"><a href="{{route('jurusan', str_slug($jurusan[5]['nama_jurusan']))}}">Tata Busana</a></h3>  
     </div> 
   </div>
   

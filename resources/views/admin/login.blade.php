@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-    <title>Login Admin PPDB</title>
+    <title>Login Admin</title>
     <!-- Bootstrap core CSS -->
     <link href="{{ URL::to('node_modules/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!--external css-->

@@ -2,36 +2,97 @@
 
 namespace App\Http\Controllers\Kprodi;
 
-use Illuminate\Http\Request;
-use App\Models\KProdi\KProdi;
-use App\Models\KProdi\Jurusan;
-use Image, File, DB, DataTables;
 use App\Http\Controllers\Controller;
+use App\Models\Content\Event;
+use App\Models\Content\KategoriEvent;
+use App\Models\KProdi\Jurusan;
+use App\Models\KProdi\KProdi;
+use App\Models\KProdi\KegiatanJurusan;
+use App\Models\Ppdb\Siswa;
+use DataTables;
+use Illuminate\Http\Request;
 
 class JurusanController extends Controller
 {
 
   // =========== For Admin =========== //
-    // public function Kprodi() {
-    // 	$data = KProdi::get();
-    // 	return view('smart.kprodi.index', compact('data'));
-    // }
-
-    public function adminKprodi() {
-      $jurusan = Jurusan::get()->toArray();
-    	return view('admin.kprodi.index', compact('jurusan'));
+    public function jurusan($nama_jurusan) {
+      $unslug = preg_replace('#[-]#', ' ',$nama_jurusan);
+      // dd($unslug);
+    	$data = Jurusan::with('photo')->where('nama_jurusan', $unslug)->get()->toArray();
+      // dd($data);
+      $kategoriEvent = KategoriEvent::get()->toArray();
+      $kegiatan = KegiatanJurusan::where('jurusan_id', $data[0]['id'])->paginate(5);
+      // dd($kegiatan);
+      $nama = strtoupper($unslug);
+    	return view('smart.jurusan.jurusan', compact(['data', 'nama', 'event', 'kategoriEvent', 'kegiatan']));
     }
 
-    public function getDataKprodi() {
-    	DB::statement(DB::raw('set @rownum=0'));
-        $data = KProdi::orderBy('created_at', 'desc')->get();
+    public function getSiswaJurusan($jurusan_id) {
+        $data = Siswa::where('jurusan_id', $jurusan_id)->orderBy('nama')->get();
 
         $datatables = DataTables::of($data)
-          ->editColumn('photo', function($photo) {
-          	return '<img src="/upload/kprodi/'. $photo['photo'] .'" class="img-circle" width="80" height="80" />';
+          ->addIndexColumn();
+
+        return $datatables->make(true);
+    }
+
+    public function event($nama_jurusan) {
+      $unslug = preg_replace('#[-]#', ' ',$nama_jurusan);
+      $nama = strtoupper($unslug);
+
+      $data = Jurusan::where('nama_jurusan', $unslug)->get()->toArray();
+      // dd($data);
+      $event = Event::where('jurusan_id', $data[0]['id'])->paginate(5);
+      return view('smart.jurusan.event', compact(['nama', 'event']));
+    }
+
+    public function kegiatan($nama_jurusan) {
+      $unslug = preg_replace('#[-]#', ' ',$nama_jurusan);
+      $nama = strtoupper($unslug);
+
+      $data = Jurusan::where('nama_jurusan', $unslug)->get()->toArray();
+      // dd($data);
+      $kegiatan = KegiatanJurusan::where('jurusan_id', $data[0]['id'])->paginate(5);
+      return view('smart.jurusan.kegiatan', compact(['nama', 'kegiatan']));
+    }
+
+    public function siswa($nama_jurusan) {
+      $unslug = preg_replace('#[-]#', ' ',$nama_jurusan);
+      $nama = strtoupper($unslug);
+
+      $data = Jurusan::where('nama_jurusan', $unslug)->get()->toArray();
+      // dd($data);
+      $siswa = Siswa::where('jurusan_id', $data[0]['id'])->paginate(5);
+      return view('smart.jurusan.siswa', compact(['nama', 'siswa', 'data']));
+    }
+
+    // Single
+    public function singleEvent($nama_jurusan, $nama_event, $id) {
+      $event = Event::find($id);
+      return view('smart.jurusan.single-event', compact('event'));
+    }
+
+    public function singleKegiatan($nama_jurusan, $nama_kegiatan, $id) {
+      $kegiatan = KegiatanJurusan::find($id);
+      return view('smart.jurusan.single-kegiatan', compact('kegiatan'));
+    }
+
+
+    public function adminJurusan() {
+      $jurusan = Jurusan::get()->toArray();
+    	return view('admin.jurusan.index', compact('jurusan'));
+    }
+
+    public function getDataJurusan() {
+        $data = Jurusan::orderBy('created_at', 'desc')->get();
+
+        $datatables = DataTables::of($data)
+          ->editColumn('deskripsi', function($deskripsi) {
+          	return substr(strip_tags($deskripsi['deskripsi']), 0, 100);
           })
           ->addColumn('action', function($data) {
-            return '<a href="/admin/kprodi/'.$data->id.'/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a> <a href="#!" class="btn btn-danger delete" data-id="'.$data->id.'"><i class="fa fa-trash"></i></a>';
+            return '<a href="/admin/jurusan/'.$data->id.'/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a> <a href="#!" class="btn btn-danger delete" data-id="'.$data->id.'"><i class="fa fa-trash"></i></a>';
           })
           ->rawColumns(['photo', 'action'])
           ->addIndexColumn();
@@ -39,78 +100,42 @@ class JurusanController extends Controller
         return $datatables->make(true);
     }
 
-    public function postKprodi(Request $request) {
+    public function postJurusan(Request $request) {
       $this->validate($request, [
-        'nama' => 'required',
-        'photo' => 'image|mimes:jpeg,png,jpg|max:2048',
-        'jurusan_id'   =>  'required',
-        'username'   =>  'required',
-        'password'   =>  'required',
+        'nama_jurusan' => 'required',
+        'deskripsi' => 'required',
       ]);
 
-      $data = new Kprodi;
-      $data->nama = $request['nama'];
-      $data->username = $request['username'];
-      $data->password = bcrypt($request['password']);
-      $data->jurusan_id = $request['jurusan_id'];
-      if ($request->hasFile('photo')) {
-        $name = $request->file('photo');
-        $newName = time() . '.' . $name->getClientOriginalExtension();
-        $image = Image::make($name);
-        $image->encode('jpg', 75);
-        $image->save(public_path('upload/kprodi/' . $newName));
-
-        $data->photo = $newName;
-      }
+      $data = new Jurusan;
+      $data->nama_jurusan = strtolower($request['nama_jurusan']);
+      $data->deskripsi = $request['deskripsi'];
 
       $data->save();
-      return redirect()->route('admin.kprodi')->with('success', 'Ketua Prodi berhasil ditambahkan');
+      return redirect()->route('admin.jurusan')->with('success', 'Jurusan berhasil ditambahkan');
     }
 
-    public function getEditKprodi($id) {
-      $data = KProdi::findOrFail($id);
-      $jurusan = Jurusan::get()->toArray();
-      return view('admin.kprodi.edit', ['data' => $data, 'jurusan' => $jurusan]);
+    public function getEditJurusan($id) {
+      $data = Jurusan::find($id);
+      return view('admin.jurusan.edit', ['data' => $data]);
     }
 
-    public function postUpdateKprodi(Request $request, $id) {
+    public function postUpdateJurusan(Request $request, $id) {
       $this->validate($request, [
-        'nama' => 'required',
-        'photo' => 'image|mimes:jpeg,png,jpg|max:2048',
-        'username'   =>  'required',
-        'jurusan_id'   =>  'required',
+        'nama_jurusan' => 'required',
+        'deskripsi' => 'required',
       ]);
 
-      $data = KProdi::find($id);
+      $data = Jurusan::find($id);
       // dd($data);
-      $data->nama = $request['nama'];
-      $data->username = $request['username'];
-      $data->jurusan_id = $request['jurusan_id'];
-      $data->username = $request['username'];
-      if ($request['password']) {
-        $data->password = bcrypt($request['password']);
-      }
-      if ($request->hasFile('photo')) {
-        // old file
-        $oldPhoto = $data->photo;
-        File::delete(public_path('upload/kprodi/'. $oldPhoto));
-
-        $name = $request->file('photo');
-        $newName = time() . '.' . $name->getClientOriginalExtension();
-        $image = Image::make($name);
-        $image->encode('jpg', 75);
-        $image->save(public_path('upload/kprodi/' . $newName));
-
-        $data->photo = $newName;
-      }
-      // dd($data);
+      $data->nama_jurusan = $request['nama_jurusan'];
+      $data->deskripsi = $request['deskripsi'];
+      
       $data->save();
-      return redirect()->back()->with('success', 'Ketua Prodi berhasil di update');
+      return redirect()->back()->with('success', 'Jurusan berhasil di update');
     }
 
-    public function getDeleteKprodi(Request $request) {
-      $data = KProdi::find($request->id);
-      File::delete(public_path('upload/kprodi/'.$data['photo']));
+    public function getDeleteJurusan(Request $request) {
+      $data = Jurusan::find($request->id);
       $data->delete();
 
       return response()->json($data);

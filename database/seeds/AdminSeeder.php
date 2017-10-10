@@ -68,6 +68,7 @@ class AdminSeeder extends Seeder
         for ($i=0; $i <6 ; $i++) { 
             $jurusan = new Jurusan;
             $jurusan->nama_jurusan = $data[$i];
+            $jurusan->deskripsi = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit numquam blanditiis eaque accusamus esse consequuntur aspernatur deleniti enim facilis, tenetur odio nam nemo aperiam illum eligendi ullam atque, cum distinctio.';
             $jurusan->save();
         }
 

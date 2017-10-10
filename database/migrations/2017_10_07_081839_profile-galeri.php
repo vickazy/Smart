@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJurusansTable extends Migration
+class ProfileGaleri extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateJurusansTable extends Migration
      */
     public function up()
     {
-        Schema::create('jurusans', function (Blueprint $table) {
+        Schema::create('profile_galeri', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama_jurusan');
-            $table->text('deskripsi');
+            $table->string('file');
+            $table->enum('type', ['photo', 'video']);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateJurusansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jurusans');
+        Schema::dropIfExists('profile_galeri');
     }
 }

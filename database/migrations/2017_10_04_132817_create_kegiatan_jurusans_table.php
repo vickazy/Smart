@@ -20,6 +20,7 @@ class CreateKegiatanJurusansTable extends Migration
             $table->text('isi');
             $table->string('photo')->nullable();
             $table->string('tempat');
+            $table->integer('jurusan_id')->unsigned();
             $table->timestamps();
         });
     }

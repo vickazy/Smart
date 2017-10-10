@@ -20,7 +20,7 @@ class SiswaController extends Controller
 
     public function getDataSiswa(Request $request) {
         DB::statement(DB::raw('set @rownum=0'));
-        $id = auth()->guard('kprodi')->user()->id;
+        $id = auth()->guard('kprodi')->user()->jurusan_id;
         $data = Siswa::where('jurusan_id', $id)->get();
 
         $datatables = DataTables::of($data)

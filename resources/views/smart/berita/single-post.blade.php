@@ -25,7 +25,7 @@
                     <div class="post-content">
                         {!! $berita['isi'] !!}
                         </div>
-                        <ul class="social-share">
+                        {{-- <ul class="social-share">
                             <h4>Share this article</h4>
                             <li>
                                 <a href="#" class="Facebook">
@@ -47,7 +47,7 @@
                                     <i class="ion-social-googleplus"></i>
                                 </a>
                             </li>
-                        </ul>
+                        </ul> --}}
                     </div>
                 </div>
             </section>

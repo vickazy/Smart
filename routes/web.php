@@ -8,14 +8,15 @@ Route::get('/profil-guru', 'TentangKami\ProfilGuruController@profilGuru')->name(
 Route::get('/prestasi', 'TentangKami\PrestasiController@prestasi')->name('prestasi');
 Route::get('/sarana-dan-prasarana', 'TentangKami\SarprasController@sarpras')->name('sarpras');
 Route::get('/tata-tertib', 'TentangKami\TataTertibController@tataTertib')->name('tertib');
+
 // Program
-Route::get('/osis', 'Program\OsisController@osis')->name('osis');
-Route::get('/extra-kulikuler', 'Program\ExtraKulikulerController@extraKulikuler')->name('extra');
+// Route::get('/osis', 'Program\OsisController@osis')->name('osis');
+// Route::get('/extra-kulikuler', 'Program\ExtraKulikulerController@extraKulikuler')->name('extra');
 // Berita
 Route::get('/berita', 'Berita\BeritaController@berita')->name('berita');
 Route::get('/berita/single/title={title}&id={id}', 'Berita\BeritaController@beritaSingle')->name('berita.single');
 // Event
-Route::get('/event', 'Event\EventController@event')->name('event');
+// Route::get('/event', 'Event\EventController@event')->name('event');
 // Galeri
 Route::get('/galeri', 'Galeri\GaleriController@galeri')->name('galeri');
 // Ebook
@@ -24,6 +25,16 @@ Route::get('/ebook', 'Ebook\EbookController@ebook')->name('ebook');
 Route::get('/komite-sekolah', 'Komite\KomiteController@komite')->name('komite');
 // Kontak
 Route::get('/kontak-kami', 'Kontak\KontakController@kontak')->name('kontak');
+// === Smart Jurusan === //
+Route::get('/jurusan/{nama_jurusan}', 'Kprodi\JurusanController@jurusan')->name('jurusan');
+Route::get('/jurusan/{nama_jurusan}/event', 'Kprodi\JurusanController@event')->name('event');
+Route::get('/jurusan/{nama_jurusan}/kegiatan', 'Kprodi\JurusanController@kegiatan')->name('kegiatan');
+Route::get('/jurusan/{nama_jurusan}/siswa', 'Kprodi\JurusanController@siswa')->name('siswa');
+Route::get('/getSiswaJurusan/{jurusan_id}', 'Kprodi\JurusanController@getSiswaJurusan')->name('getSiswaJurusan');
+// single event
+Route::get('/jurusan/{nama_jurusan}/event/title={nama_event}&id={id}', 'Kprodi\JurusanController@singleEvent')->name('single-event');
+Route::get('/jurusan/{nama_jurusan}/kegiatan/title={nama_kegiatan}&id={id}', 'Kprodi\JurusanController@singleKegiatan')->name('single-kegiatan');
+
 
 //==================//
 
@@ -59,6 +70,8 @@ Route::group(['middleware' => 'NotAuth'], function() {
 		// ==== profil sekolah ===/
 		Route::get('/profil-sekolah', 'TentangKami\ProfilSekolahController@adminProfilSekolah')->name('admin.ProfilSekolah');
 		Route::post('/profil-sekolah', 'TentangKami\ProfilSekolahController@postProfilSekolah')->name('admin.postProfilSekolah');
+		Route::post('/profil-sekolah/upload-file', 'TentangKami\ProfilSekolahController@galeriProfile')->name('admin.uploadFile');
+		Route::get('/profil-sekolah/delete-file', 'TentangKami\ProfilSekolahController@deleteFile')->name('admin.deleteFile');
 		//=== profil guru ===//
 		Route::get('/profil-guru', 'TentangKami\ProfilGuruController@adminProfilGuru')->name('admin.ProfilGuru');
 		Route::post('/profil-guru', 'TentangKami\ProfilGuruController@postProfilGuru')->name('admin.postProfilGuru');
@@ -107,6 +120,14 @@ Route::group(['middleware' => 'NotAuth'], function() {
 		Route::get('/kprodi/{id}/edit', 'Kprodi\KprodiController@getEditKprodi')->name('admin.getEditKprodi');
 		Route::post('/kprodi/{id}/update', 'Kprodi\KprodiController@postUpdateKprodi')->name('admin.postUpdateKprodi');
 		Route::get('/kprodi/delete', 'Kprodi\KprodiController@getDeleteKprodi')->name('admin.getDeleteKprodi');
+		
+		// === Jurusan === //
+		Route::get('/jurusan', 'Kprodi\JurusanController@adminJurusan')->name('admin.jurusan');
+		Route::post('/jurusan', 'Kprodi\JurusanController@postJurusan')->name('admin.postJurusan');
+		Route::get('/jurusan/getDataGuru', 'Kprodi\JurusanController@getDataJurusan')->name('admin.getDataJurusan');
+		Route::get('/jurusan/{id}/edit', 'Kprodi\JurusanController@getEditJurusan')->name('admin.getEditJurusan');
+		Route::post('/jurusan/{id}/update', 'Kprodi\JurusanController@postUpdateJurusan')->name('admin.postUpdateJurusan');
+		Route::get('/jurusan/delete', 'Kprodi\JurusanController@getDeleteJurusan')->name('admin.getDeleteJurusan');
 	});
 
 	// ==== event === //

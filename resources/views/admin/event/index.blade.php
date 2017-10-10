@@ -109,7 +109,6 @@
 </div>
 @endsection
 @section('customJs')
-<script type="text/javascript" src="{{URL::to('node_modules/ckeditor/ckeditor.js')}}"></script>
 <script type="text/javascript">
 	$('#frm-kategori').on('submit', function(e){
 		e.preventDefault();

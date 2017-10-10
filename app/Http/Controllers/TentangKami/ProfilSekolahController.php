@@ -2,21 +2,25 @@
 
 namespace App\Http\Controllers\TentangKami;
 
-use Illuminate\Http\Request;
-use App\Models\Content\VisiMisi;
-use Image, File;
 use App\Http\Controllers\Controller;
+use App\Models\Content\Profile;
+use App\Models\Content\VisiMisi;
+use Illuminate\Http\Request;
+use Image, File;
 
 class ProfilSekolahController extends Controller
 {
     public function profilSekolah() {
     	$data = VisiMisi::first();
-    	return view("smart.tentang-kami.profil-sekolah", compact('data'));
+    	$photo = Profile::where('type', 'photo')->take(8)->get();
+    	$video = Profile::where('type', 'video')->take(8)->get();
+    	return view("smart.tentang-kami.profil-sekolah", compact(['data', 'photo', 'video']));
     }
 
     public function adminProfilSekolah() {
     	$data = VisiMisi::first();
-    	return view('admin.profil-sekolah.index', compact('data'));
+    	$galeri = Profile::paginate(8);
+    	return view('admin.profil-sekolah.index', compact(['data', 'galeri']));
     }
 
     public function postProfilSekolah(Request $request) {
@@ -59,5 +63,40 @@ class ProfilSekolahController extends Controller
 	     		 $data->save();
     	  }
     	return redirect()->back()->with('success', 'Profil berhasil disimpan');
+    }
+
+    public function galeriProfile(Request $request) {
+    	$this->validate($request, [
+    		'type' => 'required',
+    		'file' => 'required|mimes:jpg,jpeg,gif,png,mp4,3gp,avi',
+    	]);
+
+    	if ($request->hasFile('file')) {
+    		$data = new Profile;
+    		$name = $request->file('file');
+		    $newName = time() . '.' . $name->getClientOriginalExtension();
+		    if ($request['type'] == 'photo') {
+		    	$image = Image::make($name);
+			    $image->encode('jpg', 75);
+			    $image->save(public_path('upload/tentang-kami/galeri-profile/' . $newName));
+		    }else{
+		      $newName = $name->getClientOriginalName();
+		      $path = public_path('upload/tentang-kami/galeri-profile/');
+		      $name->move($path, $newName);
+		    }
+		    $data->type = $request['type'];
+		    $data->file = $newName;
+		    $data->save();
+
+		    return redirect()->back()->with('success', 'Upload berhasil');
+    	}
+    }
+
+    public function deleteFile(Request $request) {
+    	$data = Profile::find($request->id);
+      	File::delete(public_path('upload/tentang-kami/galeri-profile/'.$data['file']));
+      	$data->delete();
+
+      	return redirect()->back()->with('success', 'File Berhasil di hapus');
     }
 }

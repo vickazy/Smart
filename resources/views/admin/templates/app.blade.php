@@ -167,6 +167,12 @@
                 </a>
               </li>
               <li class="sub-menu">
+                <a href="{{route('admin.jurusan')}}">
+                  <i class="fa fa-list"></i>
+                  <span>Jurusan</span>
+                </a>
+              </li>
+              <li class="sub-menu">
                 <a href="{{route('admin.setting-home')}}">
                   <i class="fa fa-gears"></i>
                   <span>Setting Home</span>
@@ -226,8 +232,8 @@
           <!--main content end-->
           <!--footer start-->
           <footer class="site-footer">
-            <div class="pull-right" style="margin-right:10px">
-              Developed with <i class="fa fa-heart" style="color:red"></i> by <a href="http://easytech.co.id/">EasyTech</a>
+            <div style="margin-right:10px;text-align: center;padding-left: 150px">
+               <img src="{{URL::to('smart/logoku.png')}}" width="30">   <b>SMKN 1 JABON </b></a>
             </div>
           </footer>
           <!--footer end-->

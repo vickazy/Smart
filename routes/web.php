@@ -11,7 +11,7 @@ Route::get('/tata-tertib', 'TentangKami\TataTertibController@tataTertib')->name(
 
 // Program
 // Route::get('/osis', 'Program\OsisController@osis')->name('osis');
-// Route::get('/extra-kulikuler', 'Program\ExtraKulikulerController@extraKulikuler')->name('extra');
+Route::get('/extra-kulikuler', 'Program\ExtraKulikulerController@extraKulikuler')->name('extra');
 // Berita
 Route::get('/berita', 'Berita\BeritaController@berita')->name('berita');
 Route::get('/berita/single/title={title}&id={id}', 'Berita\BeritaController@beritaSingle')->name('berita.single');
@@ -103,6 +103,10 @@ Route::group(['middleware' => 'NotAuth'], function() {
 		Route::get('/galeri', 'Galeri\GaleriController@adminGaleri')->name('admin.galeri');
 		Route::post('/galeri', 'Galeri\GaleriController@postGaleri')->name('admin.postGaleri');
 		Route::get('/galeri/delete', 'Galeri\GaleriController@getDeleteGaleri')->name('admin.getDeleteGaleri');
+		//=== Slider ===//
+		Route::get('/slider', 'Slider\SliderController@adminSlider')->name('admin.slider');
+		Route::post('/slider', 'Slider\SliderController@postSlider')->name('admin.postSlider');
+		Route::get('/slider/delete', 'Slider\SliderController@getDeleteSlider')->name('admin.getDeleteSlider');
 		//=== Prestasi ===//
 		Route::get('/prestasi', 'TentangKami\PrestasiController@adminPrestasi')->name('admin.prestasi');
 		Route::post('/prestasi', 'TentangKami\PrestasiController@postPrestasi')->name('admin.postPrestasi');
@@ -128,6 +132,14 @@ Route::group(['middleware' => 'NotAuth'], function() {
 		Route::get('/jurusan/{id}/edit', 'Kprodi\JurusanController@getEditJurusan')->name('admin.getEditJurusan');
 		Route::post('/jurusan/{id}/update', 'Kprodi\JurusanController@postUpdateJurusan')->name('admin.postUpdateJurusan');
 		Route::get('/jurusan/delete', 'Kprodi\JurusanController@getDeleteJurusan')->name('admin.getDeleteJurusan');
+
+		// === ekstra kulikuler ==//
+		Route::get('/ekstra-kulikuler', 'Program\ExtraKulikulerController@adminEkstra')->name('admin.ekstra');
+		Route::post('/ekstra-kulikuler', 'Program\ExtraKulikulerController@postEkstra')->name('admin.postEkstra');
+		Route::get('/ekstra-kulikuler/getDataEkstra', 'Program\ExtraKulikulerController@getDataEkstra')->name('admin.getDataEkstra');
+		Route::get('/ekstra-kulikuler/{id}/edit', 'Program\ExtraKulikulerController@getEditEkstra')->name('admin.getEditEkstra');
+		Route::post('/ekstra-kulikuler/{id}/update', 'Program\ExtraKulikulerController@postUpdateEkstra')->name('admin.postUpdateEkstra');
+		Route::get('/ekstra-kulikuler/delete', 'Program\ExtraKulikulerController@getDeleteEkstra')->name('admin.getDeleteEkstra');
 	});
 
 	// ==== event === //
@@ -152,13 +164,7 @@ Route::group(['middleware' => 'NotAuth'], function() {
 		Route::get('/photo-jurusan/delete', 'Kprodi\PhotoJurusanController@getDeletePhotoJurusan')->name('admin.getDeletePhotoJurusan');
 	});
 	
-	// // === ekstra kulikuler ==//
-	// Route::get('/ekstra-kulikuler', 'Program\ExtraKulikulerController@adminEkstra')->name('admin.ekstra');
-	// Route::post('/ekstra-kulikuler', 'Program\ExtraKulikulerController@postEkstra')->name('admin.postEkstra');
-	// Route::get('/ekstra-kulikuler/getDataEkstra', 'Program\ExtraKulikulerController@getDataEkstra')->name('admin.getDataEkstra');
-	// Route::get('/ekstra-kulikuler/{id}/edit', 'Program\ExtraKulikulerController@getEditEkstra')->name('admin.getEditEkstra');
-	// Route::post('/ekstra-kulikuler/{id}/update', 'Program\ExtraKulikulerController@postUpdateEkstra')->name('admin.postUpdateEkstra');
-	// Route::get('/ekstra-kulikuler/delete', 'Program\ExtraKulikulerController@getDeleteEkstra')->name('admin.getDeleteEkstra');
+	
 	// // === Osis ==//
 	// Route::get('/osis', 'Program\OsisController@adminOsis')->name('admin.osis');
 	// Route::post('/osis', 'Program\OsisController@postOsis')->name('admin.postOsis');

@@ -63,7 +63,7 @@
     ==================================================
     Header Section Start
     ================================================== -->
-    <header id="top-bar" class="navbar-fixed-top animated-header">
+    <header id="top-bar" class="navbar-fixed-top animated-header" style="background: #00F076">
       <div class="container">
         <div class="navbar-header">
           <!-- responsive nav button -->
@@ -88,6 +88,7 @@
                   <ul>
                     <li><a href="{{ route('profil-sekolah') }}">Profil Sekolah</a></li>
                     <li><a href="{{ route('profil-guru') }}">Profil Guru</a></li>
+                    <li><a href="{{ route('komite') }}">Komite Sekolah</a></li>
                     <li><a href="{{ route('prestasi') }}">Prestasi</a></li>
                     <li><a href="{{ route('sarpras') }}">Sarana & Prasarana</a></li>
                     <li><a href="{{ route('tertib') }}">Tata Tertib</a></li>
@@ -101,13 +102,13 @@
                     @foreach($jurusan as $data)
                     <li><a href="{{route('jurusan', str_slug($data['nama_jurusan']))}}">{{$data['nama_jurusan']}}</a></li>
                     @endforeach
+                    <li><a href="{{route('extra')}}">Ekstra Kulikuler</a></li>
                   </ul>
                 </div>
               </li>
               <li><a href="{{ route('berita') }}">Berita</a></li>
               <li><a href="{{ route('galeri') }}">Galeri</a></li>
               <li><a href="{{ route('ebook') }}">E-book</a></li>
-              <li><a href="{{ route('komite') }}">Komite Sekolah</a></li>
               <li><a href="{{ route('kontak') }}">Kontak</a></li>
               {{-- <li><a href="{{ route('getPpdb') }}" target="_blank">Daftar</a></li> --}}
             </ul>
@@ -115,10 +116,10 @@
         </nav>
         <!-- /main nav -->
         <!-- logo -->
-          <a href="{{route('home')}}" style="color: #444;font-weight: bold;" class="navbar-brand navbar-right">
-            SMKN 1 JABON
-          </a>
-          <!-- /logo -->
+        <a href="{{route('home')}}" style="color: #444;font-weight: bold;display: block;padding:0; width: 20%" class="navbar-brand navbar-right">
+          <img src="{{URL::to('smart/header.png')}}" style="width:80%">
+        </a>
+        <!-- /logo -->
       </div>
     </header>
     @yield('content')
@@ -128,8 +129,14 @@
     ================================================== -->
     <footer id="footer">
       <div class="container">
-        <div class="col-md-8">
+        <div class="col-md-5">
           <p class="copyright">Copyright: <span>2017</span> . Design and Developed by <a href="http://www.easytech.co.id">e-Tech Inc</a></p>
+        </div>
+        <div class="col-md-7">
+          <span class="pull-right">
+            <img src="{{URL::to('smart/logoku.png')}}" width="50px">
+            &nbsp;<strong>SMKN 1 JABON</strong>
+          </span>
         </div>
         {{-- <div class="col-md-4">
           <!-- Social Media -->

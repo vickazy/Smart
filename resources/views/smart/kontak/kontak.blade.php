@@ -109,17 +109,35 @@
             Call To Action Section Start
         ================================================== -->
         <section id="call-to-action">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="block">
-                            <h2 class="title wow fadeInDown" data-wow-delay=".3s" data-wow-duration="500ms">INTERESTED IN WORKING TOGETHER? ?</h1>
-                            <p class="wow fadeInDown" data-wow-delay=".5s" data-wow-duration="500ms">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis,</br>possimus commodi, fugiat magnam temporibus vero magni recusandae? Dolore, maxime praesentium.</p>
-                            <a href="contact.html" class="btn btn-default btn-contact wow fadeInDown" data-wow-delay=".7s" data-wow-duration="500ms">Contact With Me</a>
-                        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div id="carousel-id" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="item active">
+                    <div style="width: 50%;margin:0 auto;font-size: 20px;">
+                      <p>
+                        "Apapun yang dikerjakan oleh seseorang itu, harusnya bisa bermanfaat bagi dirinya sendiri, bermanfaat bagi bangsanya, juga bermanfaat bagi manusia di dunia pada umumnya"
+                      </p>
+                      <span><small>Ki Hajar Dewantara</small></span>
                     </div>
-
+                  </div>
+                  <div class="item">
+                    <div style="width: 50%;margin:0 auto;font-size: 20px;">
+                      <p>"Gantungkan cita-cita mu setinggi langit! Bermimpilah setinggi langit. Jika engkau jatuh, engkau akan jatuh di antara bintang-bintang."</p>
+                      <span><small>Ir. Soekarno</small></span>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div style="width: 50%;margin:0 auto;font-size: 20px;">
+                      <p>"Tujuan pendidikan itu untuk mempertajam kecerdasan, memperkukuh kemauan serta memperhalus perasaan."</p>
+                      <span><small>Tan Malaka</small></span>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 @endsection

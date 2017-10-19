@@ -24,7 +24,7 @@ class ExtraKulikulerController extends Controller
 
         $datatables = DataTables::of($data)
           ->editColumn('photo', function($photo) {
-          	return '<img src="/upload/program/ekstra/'. $photo['photo'] .'" class="img-thumbnail" width="250" height="250" />';
+          	return '<img src="/upload/program/ekstra/'. $photo['photo'] .'" class="img-thumbnail" width="100" height="100" />';
           })
           ->addColumn('action', function($data) {
             return '<a href="/admin/ekstra-kulikuler/'.$data->id.'/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a> <a href="#!" class="btn btn-danger delete" data-id="'.$data->id.'"><i class="fa fa-trash"></i></a>';

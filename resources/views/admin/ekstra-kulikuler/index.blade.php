@@ -65,7 +65,6 @@
 				{data: 'action', name: 'detail', orderable: false, searchable: false},
 			]
 		});
-			CKEDITOR.replace('isi-berita');
 	$('#datatables').on('click','.delete', function(e) {
 			var id = $(this).data('id');
 			$.confirm({

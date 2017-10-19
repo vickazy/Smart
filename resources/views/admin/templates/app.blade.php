@@ -126,6 +126,12 @@
                 </a>
               </li>
               <li class="sub-menu">
+                <a href="{{route('admin.slider')}}">
+                  <i class="fa fa-image"></i>
+                  <span>Slider Home</span>
+                </a>
+              </li>
+              <li class="sub-menu">
                 <a href="{{route('admin.komite')}}">
                   <i class="fa fa-graduation-cap"></i>
                   <span>Komite Sekolah</span>
@@ -158,6 +164,12 @@
                 <a href="{{route('admin.kprodi')}}">
                   <i class="fa fa-graduation-cap"></i>
                   <span>Ketua Prodi</span>
+                </a>
+              </li>
+              <li class="sub-menu">
+                <a href="{{route('admin.ekstra')}}">
+                  <i class="fa fa-trophy"></i>
+                  <span>Ekstra Kulikuler</span>
                 </a>
               </li>
               <li class="sub-menu">

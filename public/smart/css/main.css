@@ -125,7 +125,7 @@ a:hover {
   text-transform: uppercase;
 }
 #top-bar .main-menu li a:hover {
-  color: #00f076;
+  color: #fff;
 }
 .navbar-custom .nav li > a {
   position: relative;
@@ -144,15 +144,18 @@ a:hover {
 #hero-area {
   background-size: cover;
   background-attachment: fixed;
-  padding: 230px 0;
+  padding-top: 420px;
+  /* padding-bottom: 200px; */
+  margin-top: 50px;
+  margin-bottom: 10px;
   color: #fff;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+   box-shadow: 0 0 8px rgba(0, 0, 0, 0.3); 
   position: relative;
 }
 #hero-area:before {
   content: '';
   z-index: 9;
-  background: rgba(255, 255, 255, 0.78);
+  background: ;
   position: absolute;
   top: 0;
   left: 0;

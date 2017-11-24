@@ -19,6 +19,7 @@ class CreateBeritasTable extends Migration
             $table->integer('kategori_berita_id')->unsigned();
             $table->text('isi');
             $table->string('photo')->nullable();
+            $table->enum('type_file', ['photo', 'video']);
             $table->timestamps();
         });
     }

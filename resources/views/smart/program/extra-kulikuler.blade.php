@@ -25,17 +25,19 @@
     <div class="row" style="margin-top:50px">
       @foreach($ekstra as $value)
       <div class="col-sm-4 col-xs-12">
+        @if(!empty($value['photo']))
         <figure class="wow fadeInLeft animated portfolio-item" data-wow-duration="500ms" data-wow-delay="0ms">
           <div class="img-wrapper">
-            <img src="{{URL::to('upload/program/ekstra/'. $value['photo'])}}" class="img-responsive" alt="this is a title">
+            <img src="{{URL::to('upload/program/ekstra/'. $value['photo'])}}" class="img-responsive" style="max-width: 480px;max-height: 360px" alt="this is a title">
             <div class="overlay">
-              <div class="buttons">
-                <a rel="gallery" class="fancybox" href="{{URL::to('upload/program/ekstra/'. $value['photo'])}}">Demo</a>
+              <div class="buttons" style="margin-left: 60px;">
+                <a rel="gallery" class="fancybox" href="{{URL::to('upload/program/ekstra/'. $value['photo'])}}"><i class="fa fa-search"></i></a>
                 
               </div>
             </div>
           </div>
           <figcaption>
+            @endif
           <h4>
           <a href="#">{{$value['nama']}}</a>
           </h4>

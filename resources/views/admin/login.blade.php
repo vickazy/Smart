@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-    <title>Login Admin</title>
+    <title>Login Area</title>
     <!-- Bootstrap core CSS -->
     <link href="{{ URL::to('node_modules/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!--external css-->
@@ -28,6 +28,7 @@
               <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Admin</a></li>
               <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Ketua Prodi</a></li>
               <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Guru</a></li>
+              <li role="presentation"><a href="#berita" aria-controls="berita" role="tab" data-toggle="tab">Berita</a></li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
@@ -127,6 +128,38 @@
                   </div>
                 </form>
               </div>
+              <div role="tabpanel" class="tab-pane" id="berita">
+                <form action="{{ route('postLoginAdmin') }}" method="post">
+                  {{csrf_field()}}
+                  <input type="hidden" name="level" value="Berita">
+                  <div class="login-wrap">
+                    @if (Session::has('error'))
+                    <div class="alert alert-danger">
+                      <span><strong>{{ Session::get('error') }}</strong></span>
+                    </div>
+                    @endif
+                    <div class="form-group{{ $errors->has('username') ? ' has-error' : ' ' }}">
+                      <input type="text" name="username" class="form-control" placeholder="username" autofocus>
+                      @if ($errors->has('username'))
+                      <span class="help-block">{{ $errors->first('username') }}</span>
+                      @endif
+                    </div>
+                    <div class="form-group{{ $errors->has('password') ? ' has-error' : ' ' }}">
+                      <input type="password" name="password" class="form-control" placeholder="Password">
+                      @if ($errors->has('password'))
+                      <span class="help-block">{{ $errors->first('password') }}</span>
+                      @endif
+                    </div>
+                    <label class="checkbox">
+                    </label>
+                    <button class="btn btn-theme btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i> Log In</button>
+                    <hr>
+                    <div class="registration">
+                      Developed with <i class="fa fa-heart" style="color:red"></i> By <a href="http://easytech.co.id/">EasyTech</a>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -144,11 +177,11 @@
     $.backstretch("https://images.pexels.com/photos/373488/pexels-photo-373488.jpeg?w=940&h=650&auto=compress&cs=tinysrgb", {speed: 500});
     </script>
     @if (Session::has('denied'))
-        <script type="text/javascript">
-        $(document).ready(function() {
-        toastr.error('Access Denied', '{{Session::get('denied')}}', {timeOut: 5000});
-        });
-        </script>
-        @endif
+    <script type="text/javascript">
+    $(document).ready(function() {
+    toastr.error('Access Denied', '{{Session::get('denied')}}', {timeOut: 5000});
+    });
+    </script>
+    @endif
   </body>
 </html>

@@ -4,10 +4,11 @@
     <!-- Basic Page Needs
     ================================================== -->
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="icon" type="image/png" href="{{URL::to('smart/logoku.png')}}">
     
-    <title>Web Profile Smart Template</title>
+    <title>SMKN 1 JABON SIDOARJO</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="">
@@ -19,6 +20,7 @@
     ================================================== -->
     <!-- Twitter Bootstrs CSS -->
     <link rel="stylesheet" href="{{URL::to('smart/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Ionicons Fonts Css -->
     <link rel="stylesheet" href="{{URL::to('smart/css/ionicons.min.css')}}">
     <!-- animate css -->
@@ -129,10 +131,15 @@
     ================================================== -->
     <footer id="footer">
       <div class="container">
-        <div class="col-md-5">
+        <div class="col-md-4">
           <p class="copyright">Copyright: <span>2017</span> . Design and Developed by <a href="http://www.easytech.co.id">e-Tech Inc</a></p>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-4" style="padding:0px 0px 0px 100px;">
+          <a href="/" alt="page hit counter" target="_blank" >
+          <embed src="http://s10.histats.com/339.swf"  flashvars="jver=1&acsid=3942243&domi=4"  quality="high"  width="112" height="48" name="339.swf"  align="middle" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" wmode="transparent" /></a>
+          <img  src="//sstatic1.histats.com/0.gif?3942243&101" alt="free page hit counter" border="0">
+        </div>
+        <div class="col-md-4">
           <span class="pull-right">
             <img src="{{URL::to('smart/logoku.png')}}" width="50px">
             &nbsp;<strong>SMKN 1 JABON</strong>
@@ -165,6 +172,5 @@
         </div> --}}
       </div>
       </footer> <!-- /#footer -->
-      @yield('customJs')
     </body>
   </html>

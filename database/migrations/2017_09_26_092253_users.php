@@ -17,6 +17,7 @@ class Users extends Migration
             $table->increments('id',3);
             $table->string('username');
             $table->string('password');
+            $table->string('level');
             $table->rememberToken();
             $table->timestamps();
         });

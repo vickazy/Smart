@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Kontak;
 
-use Illuminate\Http\Request;
-use App\Models\Content\Kontak;
 use App\Http\Controllers\Controller;
+use App\Mail\EmailSending;
+use App\Models\Content\Kontak;
+use Illuminate\Http\Request;
+use Mail;
 
 class KontakController extends Controller
 {
@@ -12,6 +14,14 @@ class KontakController extends Controller
     	$data = Kontak::first();
     	return view('smart.kontak.kontak', compact('data'));
     }
+
+    public function sendEmail(Request $request) {
+        // dd($request->all());
+        Mail::to('smkn1jabons@gmail.com')->send(new EmailSending($request));
+        return response()->json(true);
+    }
+
+
 
     public function adminKontak() {
     	$data = Kontak::first();
@@ -27,6 +37,7 @@ class KontakController extends Controller
     	  ]);
 
     	  $data = Kontak::find($request->id);
+          dd($data);
     	  if ($data == null) {
     	  	  $baru = new Kontak;
 		      $baru->alamat = $request['alamat'];

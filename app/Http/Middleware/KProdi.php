@@ -18,6 +18,6 @@ class KProdi
         if (auth()->guard('kprodi')->check()) {
             return $next($request);
         }
-        return redirect()->back()->with('denied', 'Anda tidak berhak mengakses halaman tersebut');
+        return redirect()->back()->with('error', 'Anda tidak berhak mengakses halaman tersebut');
     }
 }

@@ -38,8 +38,7 @@
                                  consectetur adipisicing elit. Dolore, ea!
                             </p>-->
                             <div class="contact-form">
-                                <form id="contact-form" method="post" action="sendmail.php" role="form">
-
+                                <form id="contact-form" method="post" role="form">
                                     <div class="form-group wow fadeInDown" data-wow-duration="500ms" data-wow-delay=".6s">
                                         <input type="text" placeholder="Your Name" class="form-control" name="name" id="name">
                                     </div>
@@ -58,9 +57,9 @@
 
 
                                     <div id="submit" class="wow fadeInDown" data-wow-duration="500ms" data-wow-delay="1.4s">
-                                        <input type="submit" id="contact-submit" class="btn btn-default btn-send" value="Send Message">
+                                        <button type="submit" id="contact-submit" class="btn btn-default btn-send">Send Message</button>
                                     </div>
-
+    
                                 </form>
                             </div>
                         </div>
@@ -140,4 +139,27 @@
           </div>
         </div>
       </section>
+@endsection
+
+@section('customJs')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.ajaxSetup({
+              headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+            });
+            $('#contact-form').on('submit', function(e) {
+                e.preventDefault();
+                const data = $(this).serialize();
+                $.post("{{route('sendEmail')}}", data, function (data) {
+                    if (data == true) {
+                        alert('Pesan Berhasil terkirim !');
+                    }else {
+                        alert('Pesan Gagal terkirim');
+                    }
+                })
+            })
+        })
+    </script>
 @endsection

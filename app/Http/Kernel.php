@@ -56,6 +56,7 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'admin' => \App\Http\Middleware\Admin::class,
+        'berita' => \App\Http\Middleware\Berita::class,
         'kprodi' => \App\Http\Middleware\KProdi::class,
         'guru' => \App\Http\Middleware\Guru::class,
         'NotAuth' => \App\Http\Middleware\NotAuth::class,

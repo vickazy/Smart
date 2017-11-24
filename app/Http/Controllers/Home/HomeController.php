@@ -16,7 +16,7 @@ class HomeController extends Controller
     public function home() {
       $visiMisi = VisiMisi::first();
       $bghome = BgHome::first();
-      $berita = Berita::orderBy('created_at', 'desc')->take(4)->get();
+      $berita = Berita::orderBy('created_at', 'desc')->take(4)->get()->toArray();
       $prestasi = Prestasi::get()->take(6);
       $slider = Slider::get()->toArray();
       return view('smart.index', compact(['visiMisi', 'prestasi', 'berita', 'bghome', 'slider']));

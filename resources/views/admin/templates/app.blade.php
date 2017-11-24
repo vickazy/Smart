@@ -65,6 +65,8 @@
             Ketua Prodi
             @elseif(Auth::guard('guru')->check())
             Guru
+            @elseif(Auth::guard('berita')->check())
+            Admin Berita
             @endif
           Dashboard</b></a>
           <!--logo end-->
@@ -102,22 +104,22 @@
               </li> --}}
               @if(Auth::guard('admin')->check())
               <li class="sub-menu">
-                <a href="{{route('admin.berita')}}">
+                <a href="javascript:;">
                   <i class="fa fa-newspaper-o"></i>
                   <span>Berita</span>
                 </a>
-                {{-- <ul class="sub">
+                <ul class="sub">
                   <li>
                     <a href="{{route('admin.berita')}}">
                       <i class="fa fa-newspaper-o"></i> Berita
                     </a>
                   </li>
                   <li>
-                    <a href="{{route('admin.berita')}}">
-                      <i class="fa fa-newspaper-o"></i> Kategori Berita
+                    <a href="{{route('admin.berita.akun')}}">
+                      <i class="fa fa-user"></i> Akun Berita
                     </a>
                   </li>
-                </ul> --}}
+                </ul>
               </li>
               <li class="sub-menu">
                 <a href="{{route('admin.galeri')}}">
@@ -185,14 +187,26 @@
                 </a>
               </li>
               <li class="sub-menu">
-                <a href="{{route('admin.setting-home')}}">
+                <a href="javascript:;">
                   <i class="fa fa-gears"></i>
-                  <span>Setting Home</span>
+                  <span>Setting Admin</span>
                 </a>
+                <ul class="sub">
+                  <li>
+                    <a href="{{route('getAkun')}}">
+                      <i class="fa fa-lock"></i>
+                      <span>Akun Admin</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{route('admin.setting-home')}}">
+                      <i class="fa fa-image"></i>
+                      <span>Photo Sampul</span>
+                    </a>
+                  </li>
+                </ul>
               </li>
-
               @elseif(Auth::guard('kprodi')->check())
-
               <li class="sub-menu">
                 <a href="{{route('admin.event')}}">
                   <i class="fa fa-calendar"></i>
@@ -224,6 +238,13 @@
                   <span>E-book</span>
                 </a>
               </li>
+              @elseif(Auth::guard('berita')->check())
+              <li class="sub-menu">
+                <a href="{{route('admin.berita')}}">
+                  <i class="fa fa-newspaper-o"></i>
+                  <span>Berita</span>
+                </a>
+              </li>
               @endif
             </ul>
             <!-- sidebar menu end-->
@@ -244,75 +265,75 @@
           <!--main content end-->
           <!--footer start-->
           <footer class="site-footer">
-            <div style="margin-right:10px;text-align: center;padding-left: 150px">
-               <img src="{{URL::to('smart/logoku.png')}}" width="30">   <b>SMKN 1 JABON </b></a>
-            </div>
+              <div style="margin-right:10px;text-align: center;padding-left: 150px">
+                <img src="{{URL::to('smart/logoku.png')}}" width="30">   <b>SMKN 1 JABON </b></a>
+              </div>
           </footer>
-          <!--footer end-->
-        </section>
-        <!-- js placed at the end of the document so the pages load faster -->
-        <script src="{{URL::to('node_modules/jquery/dist/jquery.min.js')}}"></script>
-        <script type="text/javascript" src="{{URL::to('node_modules/bootstrap-daterangepicker/moment.min.js')}}"></script>
-        <script src="{{URL::to('node_modules/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-        {{-- DataTables --}}
-        <script src="{{URL::to('node_modules/datatables.net/js/jquery.dataTables.js')}}"></script>
-        <script src="{{URL::to('admin/js/datatables.bootstrap.min.js')}}"></script>
-        {{-- Datepicker --}}
-        <script src="{{URL::to('node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}" charset="utf-8"></script>
-        {{-- Daterangepicker --}}
-        <script src="{{URL::to('node_modules/bootstrap-daterangepicker/daterangepicker.js')}}" charset="utf-8"></script>
-        {{-- jquery confirm --}}
-        <script src="{{URL::to('node_modules/jquery-confirm/dist/jquery-confirm.min.js')}}" charset="utf-8"></script>
-        {{-- toastr js --}}
-        <script src="{{URL::to('node_modules/toastr/toastr.js')}}" charset="utf-8"></script>
-        {{-- ChartJs --}}
-        <script src="{{URL::to('node_modules/chart.js/dist/Chart.js')}}" charset="utf-8"></script>
-        {{-- Select2 --}}
-        <script src="{{URL::to('node_modules/select2/dist/js/select2.min.js')}}" charset="utf-8"></script>
-        {{-- tinymce --}}
-        <script type="text/javascript" src="{{URL::to('node_modules/tinymce/tinymce.min.js')}}"></script>
-        
-        <script class="include" type="text/javascript" src="{{URL::to('admin/js/jquery.dcjqaccordion.2.7.js')}}"></script>
-        <script src="{{URL::to('admin/js/jquery.scrollTo.min.js')}}"></script>
-        <script src="{{URL::to('admin/js/jquery.nicescroll.js')}}" type="text/javascript"></script>
-        <script src="{{URL::to('admin/js/jquery.sparkline.js')}}"></script>
-        <!--common script for all pages-->
-        <script src="{{URL::to('admin/js/common-scripts.js')}}"></script>
-        <script type="text/javascript" src="{{URL::to('admin/js/gritter/js/jquery.gritter.js')}}"></script>
-        <script type="text/javascript" src="{{URL::to('admin/js/gritter-conf.js')}}"></script>
-        <script type="text/javascript" src="{{URL::to('admin/custom.js')}}"></script>
-        @yield('customJs')
-        <script type="text/javascript">
-        $(document).ready(function() {
-        $.ajaxSetup({
-        headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-        });
-        $('.select2').select2();
-        });
-        tinymce.init({
-        selector: 'textarea',
-        height: 500,
-        menubar: false,
-        fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
-        plugins: [
-        'advlist autolink lists link image charmap print preview anchor textcolor',
-        'searchreplace visualblocks code fullscreen',
-        'insertdatetime media table contextmenu paste code help'
-        ],
-        toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | fontsizeselect',
-        content_css: [
-        '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-        '//www.tinymce.com/css/codepen.min.css']
-        });
-        </script>
-        @if (Session::has('denied'))
-        <script type="text/javascript">
-        $(document).ready(function() {
-        toastr.error('Access Denied', '{{Session::get('denied')}}', {timeOut: 5000});
-        });
-        </script>
-        @endif
-      </body>
-    </html>
+        <!--footer end-->
+      </section>
+      <!-- js placed at the end of the document so the pages load faster -->
+      <script src="{{URL::to('node_modules/jquery/dist/jquery.min.js')}}"></script>
+      <script type="text/javascript" src="{{URL::to('node_modules/bootstrap-daterangepicker/moment.min.js')}}"></script>
+      <script src="{{URL::to('node_modules/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+      {{-- DataTables --}}
+      <script src="{{URL::to('node_modules/datatables.net/js/jquery.dataTables.js')}}"></script>
+      <script src="{{URL::to('admin/js/datatables.bootstrap.min.js')}}"></script>
+      {{-- Datepicker --}}
+      <script src="{{URL::to('node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}" charset="utf-8"></script>
+      {{-- Daterangepicker --}}
+      <script src="{{URL::to('node_modules/bootstrap-daterangepicker/daterangepicker.js')}}" charset="utf-8"></script>
+      {{-- jquery confirm --}}
+      <script src="{{URL::to('node_modules/jquery-confirm/dist/jquery-confirm.min.js')}}" charset="utf-8"></script>
+      {{-- toastr js --}}
+      <script src="{{URL::to('node_modules/toastr/toastr.js')}}" charset="utf-8"></script>
+      {{-- ChartJs --}}
+      <script src="{{URL::to('node_modules/chart.js/dist/Chart.js')}}" charset="utf-8"></script>
+      {{-- Select2 --}}
+      <script src="{{URL::to('node_modules/select2/dist/js/select2.min.js')}}" charset="utf-8"></script>
+      {{-- tinymce --}}
+      <script type="text/javascript" src="{{URL::to('node_modules/tinymce/tinymce.min.js')}}"></script>
+      
+      <script class="include" type="text/javascript" src="{{URL::to('admin/js/jquery.dcjqaccordion.2.7.js')}}"></script>
+      <script src="{{URL::to('admin/js/jquery.scrollTo.min.js')}}"></script>
+      <script src="{{URL::to('admin/js/jquery.nicescroll.js')}}" type="text/javascript"></script>
+      <script src="{{URL::to('admin/js/jquery.sparkline.js')}}"></script>
+      <!--common script for all pages-->
+      <script src="{{URL::to('admin/js/common-scripts.js')}}"></script>
+      <script type="text/javascript" src="{{URL::to('admin/js/gritter/js/jquery.gritter.js')}}"></script>
+      <script type="text/javascript" src="{{URL::to('admin/js/gritter-conf.js')}}"></script>
+      <script type="text/javascript" src="{{URL::to('admin/custom.js')}}"></script>
+      @yield('customJs')
+      <script type="text/javascript">
+      $(document).ready(function() {
+      $.ajaxSetup({
+      headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+      });
+      $('.select2').select2();
+      });
+      tinymce.init({
+      selector: 'textarea',
+      height: 500,
+      menubar: false,
+      fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
+      plugins: [
+      'advlist autolink lists link image charmap print preview anchor textcolor',
+      'searchreplace visualblocks code fullscreen',
+      'insertdatetime media table contextmenu paste code help'
+      ],
+      toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | fontsizeselect',
+      content_css: [
+      '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+      '//www.tinymce.com/css/codepen.min.css']
+      });
+      </script>
+      @if (Session::has('denied'))
+      <script type="text/javascript">
+      $(document).ready(function() {
+      toastr.error('Access Denied', '{{Session::get('denied')}}', {timeOut: 5000});
+      });
+      </script>
+      @endif
+    </body>
+  </html>

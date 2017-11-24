@@ -34,7 +34,7 @@
         <div class="col-sm-4 col-xs-12">
           <figure class="wow fadeInLeft animated portfolio-item" data-wow-duration="500ms" data-wow-delay="0ms">
             <div class="img-wrapper">
-              <img src="{{URL::to('upload/prestasi/'.$value['photo'])}}" class="img-responsive" alt="this is a title">
+              <img src="{{URL::to('upload/prestasi/'.$value['photo'])}}" class="img-responsive" style="max-width: 480px;max-height: 360px" alt="this is a title">
               <div class="overlay">
                 <div class="buttons">
                   <a rel="gallery" class="fancybox img-responsive" href="{{URL::to('upload/prestasi/'.$value['photo'])}}">Demo</a>

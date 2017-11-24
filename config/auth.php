@@ -51,6 +51,11 @@ return [
             'provider' => 'kprodi',
         ],
 
+        'berita' => [
+            'driver' => 'session',
+            'provider' => 'berita',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -88,6 +93,11 @@ return [
         'kprodi' => [
             'driver' => 'eloquent',
             'model'  => App\Models\KProdi\KProdi::class,
+        ],
+
+        'berita' => [
+            'driver' => 'eloquent',
+            'model'  => App\Models\Admin\AkunBerita::class,
         ],
 
         // 'users' => [

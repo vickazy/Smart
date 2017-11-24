@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Admin\User;
+use App\Models\Ppdb\Siswa;
 use Auth;
 use DB, Session;
-use App\Models\Ppdb\Siswa;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -46,7 +47,13 @@ class AdminController extends Controller
             }
             return redirect()->back()->with('error', 'username atau password salah !');
           break;
-        
+        case 'Berita':
+           if(Auth::guard('berita')->attempt($data)) {
+            // dd(auth()->guard('berita')->user());
+              return redirect()->route('admin.berita');
+            }
+            return redirect()->back()->with('error', 'username atau password salah !');
+          break;
         default:
           return redirect()->back()->with('error', 'username dan password salah');
           break;
@@ -56,6 +63,19 @@ class AdminController extends Controller
     public function getLogout() {
       Session::flush();
       return redirect()->route('login');
+    }
+
+    public function getAkun() {
+      $admin = User::first();
+      return view('admin.akun.index', compact('admin'));
+    }
+
+    public function postAkun(Request $request) {
+      $user = User::find($request->id);
+      $user->username = $request['username'];
+      $user->password = bcrypt($request['password']);
+      $user->save();
+      return redirect()->back()->with('success', 'Akun berhasil di perbarui !');
     }
 
     // // Admin Dashboard

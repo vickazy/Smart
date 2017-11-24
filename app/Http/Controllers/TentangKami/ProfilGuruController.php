@@ -28,7 +28,7 @@ class ProfilGuruController extends Controller
           })
           ->addColumn('action', function($data) {
             return '<a href="/admin/profil-guru/'.$data->id.'/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a> <a href="#!" class="btn btn-danger delete" data-id="'.$data->id.'"><i class="fa fa-trash"></i></a>';
-          })
+          }) 
           ->rawColumns(['photo', 'action'])
           ->addIndexColumn();
 

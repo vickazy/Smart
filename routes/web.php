@@ -25,12 +25,15 @@ Route::get('/ebook', 'Ebook\EbookController@ebook')->name('ebook');
 Route::get('/komite-sekolah', 'Komite\KomiteController@komite')->name('komite');
 // Kontak
 Route::get('/kontak-kami', 'Kontak\KontakController@kontak')->name('kontak');
+Route::post('/kontak-kami', 'Kontak\KontakController@sendEmail')->name('sendEmail');
 // === Smart Jurusan === //
 Route::get('/jurusan/{nama_jurusan}', 'Kprodi\JurusanController@jurusan')->name('jurusan');
 Route::get('/jurusan/{nama_jurusan}/event', 'Kprodi\JurusanController@event')->name('event');
 Route::get('/jurusan/{nama_jurusan}/kegiatan', 'Kprodi\JurusanController@kegiatan')->name('kegiatan');
 Route::get('/jurusan/{nama_jurusan}/siswa', 'Kprodi\JurusanController@siswa')->name('siswa');
-Route::get('/getSiswaJurusan/{jurusan_id}', 'Kprodi\JurusanController@getSiswaJurusan')->name('getSiswaJurusan');
+Route::get('/getSiswaJurusan/{jurusan_id}/kelas-12', 'Kprodi\JurusanController@getSiswaKelas12')->name('getSiswaKelas12');
+Route::get('/getSiswaJurusan/{jurusan_id}/kelas-11', 'Kprodi\JurusanController@getSiswaKelas11')->name('getSiswaKelas11');
+Route::get('/getSiswaJurusan/{jurusan_id}/kelas-10', 'Kprodi\JurusanController@getSiswaKelas10')->name('getSiswaKelas10');
 // single event
 Route::get('/jurusan/{nama_jurusan}/event/title={nama_event}&id={id}', 'Kprodi\JurusanController@singleEvent')->name('single-event');
 Route::get('/jurusan/{nama_jurusan}/kegiatan/title={nama_kegiatan}&id={id}', 'Kprodi\JurusanController@singleKegiatan')->name('single-kegiatan');
@@ -43,11 +46,14 @@ Route::group(['prefix' => 'admin'], function() {
 	// Route::get('/home', ['uses' => 'Admin\AdminController@index', 'as' => 'getAdmin', 'middleware' => 'auth']);
 	
 	// Admin
-	Route::get('/login', ['uses' => 'Admin\AdminController@getLoginAdmin', 'as' => 'login'])->middleware('IfAuth');
-	Route::post('/login', ['uses' => 'Admin\AdminController@postLoginAdmin', 'as' => 'postLoginAdmin'])->middleware('IfAuth');
-	Route::get('/logout', ['uses' => 'Admin\AdminController@getLogout', 'as' => 'getLogout']);
+	Route::get('/page/login', ['uses' => 'Admin\AdminController@getLoginAdmin', 'as' => 'login'])->middleware('IfAuth');
+	Route::post('/page/login', ['uses' => 'Admin\AdminController@postLoginAdmin', 'as' => 'postLoginAdmin'])->middleware('IfAuth');
+	Route::get('/page/logout', ['uses' => 'Admin\AdminController@getLogout', 'as' => 'getLogout']);
 
 Route::group(['middleware' => 'NotAuth'], function() {
+	// Admin Account
+		Route::get('/akun', 'Admin\AdminController@getAkun')->name('getAkun');
+		Route::post('/akun', 'Admin\AdminController@postAkun')->name('postAkun');
 	// Siswa Terdaftar
 	Route::get('/data/siswa', ['uses' => 'Siswa\SiswaController@getSiswa', 'as' => 'getSiswa']);
 	Route::get('/data/getDataSiswa', ['uses' => 'Siswa\SiswaController@getDataSiswa', 'as' => 'getDataSiswa']);
@@ -59,7 +65,7 @@ Route::group(['middleware' => 'NotAuth'], function() {
 	// Route::get('/data/siswa/export/{type}', ['uses' => 'Siswa\SiswaController@exportExcelSiswa', 'as' => 'exportExcelSiswa']);
 	// Route::post('/data/siswa/pdf/export', ['uses' => 'Siswa\SiswaController@exportPDFSiswa', 'as' => 'exportPDFSiswa']);
 	// ==== Berita ==== //
-	Route::group(['middleware' => 'admin'], function() {
+	Route::group(['middleware' => 'berita'], function() {
 		Route::get('/berita', 'Berita\BeritaController@adminBerita')->name('admin.berita');
 		Route::post('/berita', 'Berita\BeritaController@postBerita')->name('admin.postBerita');
 		Route::get('/berita/getDataBerita', 'Berita\BeritaController@getDataBerita')->name('admin.getDataBerita');
@@ -67,6 +73,10 @@ Route::group(['middleware' => 'NotAuth'], function() {
 		Route::post('/berita/{id}/update', 'Berita\BeritaController@postUpdateBerita')->name('admin.postUpdateBerita');
 		Route::get('/berita/delete', 'Berita\BeritaController@getDeleteBerita')->name('admin.getDeleteBerita');
 		Route::post('/berita/addKategoriBerita', 'Berita\BeritaController@postKategoriBerita')->name('admin.postKategoriBerita');
+		Route::get('/berita/akun', 'Berita\BeritaController@getViewBeritaAkun')->name('admin.berita.akun');
+		Route::post('/berita/akun', 'Berita\BeritaController@postAkunBerita')->name('postAkunBerita');
+	});
+	Route::group(['middleware' => 'admin'], function() {
 		// ==== profil sekolah ===/
 		Route::get('/profil-sekolah', 'TentangKami\ProfilSekolahController@adminProfilSekolah')->name('admin.ProfilSekolah');
 		Route::post('/profil-sekolah', 'TentangKami\ProfilSekolahController@postProfilSekolah')->name('admin.postProfilSekolah');
@@ -186,8 +196,8 @@ Route::group(['middleware' => 'NotAuth'], function() {
 
 
 // // PPDB
-// Route::get('/ppdb/register', ['uses' => 'Ppdb\PpdbController@getRegister', 'as' => 'getPpdb']);
-// Route::post('/ppdb/register', ['uses' => 'Ppdb\PpdbController@postRegister', 'as' => 'postPpdb']);
+Route::get('/ppdb/register', ['uses' => 'Ppdb\PpdbController@getRegister', 'as' => 'getPpdb']);
+Route::post('/ppdb/register', ['uses' => 'Ppdb\PpdbController@postRegister', 'as' => 'postPpdb']);
 // Route::get('/ppdb/download/', ['uses' => 'Ppdb\PpdbController@downloadRegister', 'as' => 'downloadRegister']);
 // Route::get('/ppdb/download/peserta/{id}', ['uses' => 'Ppdb\PpdbController@downloadPdf', 'as' => 'downloadPdf']);
 // // ppdb kota

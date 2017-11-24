@@ -1,5 +1,5 @@
   @extends('ppdb.templates.app')
-
+ 
   @section('content')
       	<section>
           <div class="wizard">

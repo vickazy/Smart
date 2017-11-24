@@ -1,15 +1,16 @@
 <?php
 namespace App\Http\Controllers\Berita;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use DB;
-use Image, File;
+use App\Models\Admin\AkunBerita;
 use App\Models\Content\Berita;
 use App\Models\Content\BgHome;
-use App\Models\Content\VisiMisi;
 use App\Models\Content\KategoriBerita;
+use App\Models\Content\VisiMisi;
+use DB;
 use DataTables;
+use Illuminate\Http\Request;
+use Image, File;
 
 class BeritaController extends Controller
 {
@@ -53,7 +54,7 @@ class BeritaController extends Controller
     public function postBerita(Request $request) {
       $this->validate($request, [
         'judul' => 'required',
-        'photo' => 'image|mimes:jpeg,png,jpg|max:2048',
+        'photo' => 'mimes:jpeg,png,jpg,3gp,mp4,avi,mkv',
         'isi'   =>  'required'
       ]);
       
@@ -64,10 +65,18 @@ class BeritaController extends Controller
       if ($request->hasFile('photo')) {
         $name = $request->file('photo');
         $newName = time() . '.' . $name->getClientOriginalExtension();
-        $image = Image::make($name);
-        $image->encode('jpg', 75);
-        $image->save(public_path('upload/berita/' . $newName));
-
+        // dd($name->getClientOriginalExtension());
+        if ($name->getClientOriginalExtension() == 'mp4' || $name->getClientOriginalExtension() == '3gp' || $name->getClientOriginalExtension() == 'avi' || $name->getClientOriginalExtension() == 'mkv') {
+          $newName = time() . '.' . $name->getClientOriginalExtension();
+            $path = public_path('upload/berita/');
+            $name->move($path, $newName);
+            $data->type_file = 'video';
+        }else {
+          $image = Image::make($name);
+          $image->encode('jpg', 75);
+          $image->save(public_path('upload/berita/' . $newName));
+          $data->type_file = 'photo';
+        }
         $data->photo = $newName;
       }
 
@@ -85,7 +94,7 @@ class BeritaController extends Controller
     public function postUpdateBerita(Request $request, $id) {
       $this->validate($request, [
         'judul' => 'required',
-        'photo' => 'image|mimes:jpeg,png,jpg|max:2048',
+        'photo' => 'image|mimes:jpeg,png,jpg',
         'isi'   =>  'required'
       ]);
 
@@ -124,4 +133,27 @@ class BeritaController extends Controller
       $data = KategoriBerita::create($request->all());
       return response()->json($data);
     }
+
+    public function getViewBeritaAkun() {
+      $akun = AkunBerita::first();
+      return view('admin.berita.akun', compact('akun'));
+    }
+
+    public function postAkunBerita(Request $request) {
+      $akun = AkunBerita::first();
+      if (!$akun == null) {
+        $akun->update([
+          'username' => $request['username'],
+          'password' => bcrypt($request['password']),
+        ]);
+        return redirect()->back()->with('success', 'Akun berhasil di update');
+      }
+      AkunBerita::create([
+          'username' => $request['username'],
+          'password' => bcrypt($request['password']),
+        ]);
+      return redirect()->back()->with('success', 'Akun berhasil di buat');
+    }
+
+
 }

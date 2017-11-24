@@ -4,9 +4,13 @@ namespace App\Models\Content;
 
 use Illuminate\Database\Eloquent\Model;
 use Webpatser\Uuid\Uuid;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Berita extends Model
+class Berita extends Authenticatable
 {
+    use Notifiable;
+    
     protected $table = 'beritas';
     public $incrementing = false; 
     

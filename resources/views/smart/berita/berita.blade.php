@@ -74,7 +74,15 @@
                         @foreach($data as $berita)
                         <article class="wow fadeInDown" data-wow-delay=".3s" data-wow-duration="500ms">
                             <div class="blog-post-image">
-                                <a href="#!"><img class="img-responsive" src="{{URL::to("upload/berita/". $berita['photo'])}}" alt="" /></a>
+                                @if($berita['type_file'] == 'photo')
+                                    <a href="#!"><img class="img-responsive" src="{{URL::to("upload/berita/". $berita['photo'])}}" alt="" /></a>
+                                @else 
+                                    <video width="100%">
+                                        <source src="{{URL::to('upload/berita/'.$berita['photo'])}}" type="video/mp4">
+                                        <source src="{{URL::to('upload/berita/'.$berita['photo'])}}" type="video/3gp">
+                                        <source src="{{URL::to('upload/berita/'.$berita['photo'])}}" type="video/avi">
+                                      </video>
+                                @endif
                             </div>
                             <div class="blog-content">
                                 <h2 class="blogpost-title">

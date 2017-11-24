@@ -13,6 +13,8 @@ class Guru extends Authenticatable
 
     protected $fillable = [
 		'nama',
+        'username',
+        'password',
 		'bidang',
 		'photo',
     ];

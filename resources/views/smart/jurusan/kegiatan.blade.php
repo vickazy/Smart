@@ -16,9 +16,9 @@
                 <div class="block">
                     <h2>{{ $nama }}</h2>
                     <ul class="menu">
-                        <li><a href="{{route('event', strtolower(str_slug($nama)))}}" class="btn btn-default" target="_blank">Event</a></li>
-                        <li><a href="{{route('kegiatan', strtolower(str_slug($nama)))}}" class="btn btn-default" target="_blank">Kegiatan</a></li>
-                        <li><a href="{{route('siswa', strtolower(str_slug($nama)))}}" class="btn btn-default" target="_blank">Siswa</a></li>
+                        <li><a href="{{route('event', strtolower(str_slug($nama)))}}" class="btn btn-default">Event</a></li>
+                        <li><a href="{{route('kegiatan', strtolower(str_slug($nama)))}}" class="btn btn-default">Kegiatan</a></li>
+                        <li><a href="{{route('siswa', strtolower(str_slug($nama)))}}" class="btn btn-default">Siswa</a></li>
                     </ul>
                 </div>
             </div>

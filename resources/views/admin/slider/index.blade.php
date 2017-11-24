@@ -5,6 +5,7 @@
 	<div class="content-panel" style="padding:10px 10px;margin-bottom:200px">
 		<div>
 			<a href="#tambah-galeri" data-toggle="collapse" class="btn btn-flat btn-primary"><i class="fa fa-plus"></i> Tambah Photo</a>
+			<span style="text-align: center;"><h4>(Note: Ukuran Photo 1600px X 550px)</h4></span>
 			<div class="collapse" id="tambah-galeri" style="margin-top:5px;margin-bottom: 50px">
 				<div class="well">
 					<form action="{{route('admin.postSlider')}}" method="post" enctype="multipart/form-data">

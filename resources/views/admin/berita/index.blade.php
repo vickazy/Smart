@@ -35,7 +35,7 @@
 							</div>
 						</div>
 						<div class="form-group{{$errors->has('photo') ? ' has-error' : ' '}}">
-							<label>Upload Gambar</label>
+							<label>Upload Gambar/Video <small>(max: 20mb)</small></label>
 							<input type="file" name="photo" class="form-control">
 							@if($errors->has('photo'))
 							<span class="help-block">{{$errors->first('photo')}}</span>

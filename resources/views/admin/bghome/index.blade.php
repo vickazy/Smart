@@ -1,12 +1,12 @@
 @extends('admin.templates.app')
 @section('content')
 <div class="col-lg-12">
-	<h3><i class="fa fa-angle-right"></i> Setting Home Background</h3>
+	<h3><i class="fa fa-angle-right"></i> Photo Sampul Profile Berita </h3>
 	<div class="content-panel" style="padding:10px 10px;margin-bottom:200px">
 		<form action="{{route('admin.postBgHome')}}" method="post" enctype="multipart/form-data">
 			{{csrf_field()}}
 			<div class="form-group">
-				<label>Ganti Photo Terbaru</label>
+				<label>Ganti Photo Terbaru <small>(Note: ukuran 1600px X 550px)</small></label>
 				<input type="file" name="photo" class="form-control">
 				<input type="hidden" name="id" class="form-control" value="{{$bghome['id']}}">
 				<br>

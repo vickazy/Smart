@@ -11,6 +11,7 @@
 						<div class="form-group{{$errors->has('alamat') ? ' has-error' : ' '}}">
 							<label>Alamat</label>
 							<input type="text" name="alamat" class="form-control" value="{{$data['alamat']}}">
+							<input type="hidden" name="id" value="{{$data['id']}}">
 							@if($errors->has('alamat'))
 								<span class="help-block">{{$errors->first('alamat')}}</span>
 							@endif

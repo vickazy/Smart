@@ -29,10 +29,10 @@
                         <div class="col-sm-4 col-xs-12">
                             <figure class="wow fadeInLeft animated portfolio-item animated" data-wow-duration="500ms" data-wow-delay="0ms" style="visibility: visible; animation-duration: 300ms; -webkit-animation-duration: 300ms; animation-delay: 0ms; -webkit-animation-delay: 0ms; animation-name: fadeInLeft; -webkit-animation-name: fadeInLeft;">
                                 <div class="img-wrapper">
-                                    <img src="{{URL::to('upload/galeri/'. $value['photo'])}}" class="img-responsive" alt="this is a title">
+                                    <img src="{{URL::to('upload/galeri/'. $value['photo'])}}" style="max-width: 480px;max-height: 360px" class="img-responsive" alt="this is a title">
                                     <div class="overlay">
                                         <div class="buttons">
-                                            <a rel="gallery" class="fancybox" href="{{URL::to('upload/galeri/'. $value['photo'])}}">Demo</a>
+                                            <a rel="gallery" class="fancybox" href="{{URL::to('upload/galeri/'. $value['photo'])}}"><i class="fa fa-search"></i></a>
                                         </div>
                                     </div>
                                 </div>

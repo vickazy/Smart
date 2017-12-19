@@ -17,5 +17,9 @@ class Guru extends Authenticatable
         'password',
 		'bidang',
 		'photo',
+		'nim',
+		'jam_mengajar',
+		'golongan',
+		'terhitung_mulai_tgl',
     ];
 }

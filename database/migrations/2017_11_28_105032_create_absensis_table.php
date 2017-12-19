@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateKomitesTable extends Migration
+class CreateAbsensisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateKomitesTable extends Migration
      */
     public function up()
     {
-        Schema::create('komites', function (Blueprint $table) {
+        Schema::create('absensis', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama');
-            $table->string('bidang');
-            $table->string('photo');
+            $table->char('siswa_id', 36);
+            // $table->integer('nisn')->unsigned();
+            $table->integer('jurusan_id')->unsigned();
+            $table->string('keterangan', 50);
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateKomitesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('komites');
+        Schema::dropIfExists('absensis');
     }
 }

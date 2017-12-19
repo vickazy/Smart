@@ -31,6 +31,12 @@ Route::get('/jurusan/{nama_jurusan}', 'Kprodi\JurusanController@jurusan')->name(
 Route::get('/jurusan/{nama_jurusan}/event', 'Kprodi\JurusanController@event')->name('event');
 Route::get('/jurusan/{nama_jurusan}/kegiatan', 'Kprodi\JurusanController@kegiatan')->name('kegiatan');
 Route::get('/jurusan/{nama_jurusan}/siswa', 'Kprodi\JurusanController@siswa')->name('siswa');
+Route::get('/jurusan/{nama_jurusan}/absensi', 'Kprodi\JurusanController@absensi')->name('absensi');
+
+Route::get('/jurusan/{nama_jurusan}/getDataAbsensi', 'Kprodi\JurusanController@getDataAbsensi')->name('getDataAbsensi');
+
+Route::get('/jurusan/{nama_jurusan}/{tgl}/getAbsensiDetail', 'Kprodi\JurusanController@getAbsensiDetail')->name('getAbsensiDetail');
+
 Route::get('/getSiswaJurusan/{jurusan_id}/kelas-12', 'Kprodi\JurusanController@getSiswaKelas12')->name('getSiswaKelas12');
 Route::get('/getSiswaJurusan/{jurusan_id}/kelas-11', 'Kprodi\JurusanController@getSiswaKelas11')->name('getSiswaKelas11');
 Route::get('/getSiswaJurusan/{jurusan_id}/kelas-10', 'Kprodi\JurusanController@getSiswaKelas10')->name('getSiswaKelas10');
@@ -44,7 +50,7 @@ Route::get('/jurusan/{nama_jurusan}/kegiatan/title={nama_kegiatan}&id={id}', 'Kp
 Route::group(['prefix' => 'admin'], function() {
 	// Home
 	// Route::get('/home', ['uses' => 'Admin\AdminController@index', 'as' => 'getAdmin', 'middleware' => 'auth']);
-	
+
 	// Admin
 	Route::get('/page/login', ['uses' => 'Admin\AdminController@getLoginAdmin', 'as' => 'login'])->middleware('IfAuth');
 	Route::post('/page/login', ['uses' => 'Admin\AdminController@postLoginAdmin', 'as' => 'postLoginAdmin'])->middleware('IfAuth');
@@ -134,7 +140,7 @@ Route::group(['middleware' => 'NotAuth'], function() {
 		Route::get('/kprodi/{id}/edit', 'Kprodi\KprodiController@getEditKprodi')->name('admin.getEditKprodi');
 		Route::post('/kprodi/{id}/update', 'Kprodi\KprodiController@postUpdateKprodi')->name('admin.postUpdateKprodi');
 		Route::get('/kprodi/delete', 'Kprodi\KprodiController@getDeleteKprodi')->name('admin.getDeleteKprodi');
-		
+
 		// === Jurusan === //
 		Route::get('/jurusan', 'Kprodi\JurusanController@adminJurusan')->name('admin.jurusan');
 		Route::post('/jurusan', 'Kprodi\JurusanController@postJurusan')->name('admin.postJurusan');
@@ -172,9 +178,20 @@ Route::group(['middleware' => 'NotAuth'], function() {
 		Route::get('/photo-jurusan', 'Kprodi\PhotoJurusanController@adminPhotoJurusan')->name('admin.PhotoJurusan');
 		Route::post('/photo-jurusan', 'Kprodi\PhotoJurusanController@postPhotoJurusan')->name('admin.postPhotoJurusan');
 		Route::get('/photo-jurusan/delete', 'Kprodi\PhotoJurusanController@getDeletePhotoJurusan')->name('admin.getDeletePhotoJurusan');
+		// === Absensi === //
+		Route::get('/absensi', 'AbsensiController@index')->name('absensi.index');
+		Route::get('/absensi/dataAbsensi', 'AbsensiController@getDataAbsensi')->name('absensi.getDataAbsensi');
+		Route::post('/absensi', 'AbsensiController@postAbsensi')->name('admin.postAbsensi');
+		Route::get('/absensi/{tgl}/detail', 'AbsensiController@getAbsensiDetail')->name('absensi.getAbsensiDetail');
+		Route::get('/absensi/{tgl}/getDataAbsensiDetail', 'AbsensiController@getDataAbsensiDetail')->name('absensi.getDataAbsensiDetail');
+		Route::get('/absensi/{tgl}/detail/getDeleteAbsensiSiswa', 'AbsensiController@getDeleteAbsensiSiswa')->name('absensi.getDeleteAbsensiSiswa');
+		Route::post('/absensi/{tgl}/update', 'AbsensiController@postAbsensiUpdate')->name('absensi.postAbsensiUpdate');
+		Route::post('/absensi/importAbsensi', 'AbsensiController@importAbsensi')->name('absensi.importAbsensi');
+		Route::get('/absensi/getDeleteAbsensi', 'AbsensiController@getDeleteAbsensi')->name('absensi.getDeleteAbsensi');
+		Route::get('/absensi/getDeleteAbsensiAll', 'AbsensiController@getDeleteAbsensiAll')->name('absensi.getDeleteAbsensiAll');
 	});
-	
-	
+
+
 	// // === Osis ==//
 	// Route::get('/osis', 'Program\OsisController@adminOsis')->name('admin.osis');
 	// Route::post('/osis', 'Program\OsisController@postOsis')->name('admin.postOsis');
@@ -182,7 +199,7 @@ Route::group(['middleware' => 'NotAuth'], function() {
 	// Route::get('/osis/{id}/edit', 'Program\OsisController@getEditOsis')->name('admin.getEditOsis');
 	// Route::post('/osis/{id}/update', 'Program\OsisController@postUpdateOsis')->name('admin.postUpdateOsis');
 	// Route::get('/osis/delete', 'Program\OsisController@getDeleteOsis')->name('admin.getDeleteOsis');
-	
+
 	//=== Ebook ===//
 	Route::group(['middleware' => 'guru'], function() {
 		Route::get('/ebook', 'Ebook\EbookController@adminEbook')->name('admin.ebook');
@@ -190,7 +207,7 @@ Route::group(['middleware' => 'NotAuth'], function() {
 		Route::get('/ebook/delete', 'Ebook\EbookController@getDeleteEbook')->name('admin.getDeleteEbook');
 		Route::get('/ebook/getDataEbook', 'Ebook\EbookController@getDataEbook')->name('admin.getDataEbook');
 	});
-	
+
  });
 });
 

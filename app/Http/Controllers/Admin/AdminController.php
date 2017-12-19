@@ -23,7 +23,7 @@ class AdminController extends Controller
         'password' => 'required'
       ]);
 
-      $data = ['username' => $request->username, 
+      $data = ['username' => $request->username,
                'password' => $request->password,
       ];
       $level = $request->level;
@@ -37,7 +37,7 @@ class AdminController extends Controller
           break;
         case 'KProdi':
             if(Auth::guard('kprodi')->attempt($data)) {
-              return redirect()->route('admin.event');
+              return redirect()->route('absensi.index');
             }
             return redirect()->back()->with('error', 'username atau password salah !');
           break;

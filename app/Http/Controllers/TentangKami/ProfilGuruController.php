@@ -28,7 +28,7 @@ class ProfilGuruController extends Controller
           })
           ->addColumn('action', function($data) {
             return '<a href="/admin/profil-guru/'.$data->id.'/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a> <a href="#!" class="btn btn-danger delete" data-id="'.$data->id.'"><i class="fa fa-trash"></i></a>';
-          }) 
+          })
           ->rawColumns(['photo', 'action'])
           ->addIndexColumn();
 
@@ -42,13 +42,22 @@ class ProfilGuruController extends Controller
         'bidang'   =>  'required',
         'username'   =>  'required',
         'password'   =>  'required',
+        'nim' => 'required',
+        'jam_mengajar' => 'required',
+        'golongan' => 'required',
+        'terhitung_mulai_tgl' => 'required',
       ]);
 
       $data = new Guru;
       $data->nama = $request['nama'];
       $data->bidang = $request['bidang'];
+      $data->nim = $request['nim'];
+      $data->jam_mengajar = $request['jam_mengajar'];
+      $data->golongan = $request['golongan'];
+      $data->terhitung_mulai_tgl = date('Y-m-d', strtotime($request['terhitung_mulai_tgl']));
       $data->username = $request['username'];
       $data->password = bcrypt($request['password']);
+
       if ($request->hasFile('photo')) {
         $name = $request->file('photo');
         $newName = time() . '.' . $name->getClientOriginalExtension();
@@ -74,12 +83,19 @@ class ProfilGuruController extends Controller
         'photo' => 'image|mimes:jpeg,png,jpg|max:2048',
         'username'   =>  'required',
         'bidang'   =>  'required',
+        'nim' => 'required',
+        'jam_mengajar' => 'required',
+        'golongan' => 'required',
+        'terhitung_mulai_tgl' => 'required',
       ]);
 
       $data = Guru::find($id);
-      // dd($data);
       $data->nama = $request['nama'];
       $data->bidang = $request['bidang'];
+      $data->nim = $request['nim'];
+      $data->jam_mengajar = $request['jam_mengajar'];
+      $data->golongan = $request['golongan'];
+      $data->terhitung_mulai_tgl = date('Y-m-d', strtotime($request['terhitung_mulai_tgl']));
       $data->username = $request['username'];
       if ($request['password']) {
         $data->password = bcrypt($request['password']);
@@ -99,7 +115,7 @@ class ProfilGuruController extends Controller
       }
       // dd($data);
       $data->save();
-      return redirect()->back()->with('success', 'Berita berhasil di update');
+      return redirect()->back()->with('success', 'Data berhasil di update');
     }
 
     public function getDeleteProfilGuru(Request $request) {

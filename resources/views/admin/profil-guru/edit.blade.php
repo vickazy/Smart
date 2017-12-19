@@ -7,6 +7,44 @@
 		<form action="{{route('admin.postUpdateProfilGuru', $data['id'])}}" method="post" enctype="multipart/form-data">
 			{{csrf_field()}}
 			<div class="row">
+				<div class="col-lg-3 col-xs-12">
+					<div class="form-group{{$errors->has('nim') ? ' has-error' : ' '}}">
+						<label>NIM</label>
+						<input type="text" name="nim" class="form-control" placeholder="No NIM" value="{{$data['nim']}}">
+						@if($errors->has('nim'))
+						<span class="help-block">{{$errors->first('nim')}}</span>
+						@endif
+					</div>
+				</div>
+				<div class="col-lg-3 col-xs-12">
+					<div class="form-group{{$errors->has('golongan') ? ' has-error' : ' '}}">
+						<label>Status Golongan</label>
+						<input type="text" name="golongan" class="form-control" placeholder="status golongan" value="{{$data['golongan']}}">
+						@if($errors->has('golongan'))
+						<span class="help-block">{{$errors->first('golongan')}}</span>
+						@endif
+					</div>
+				</div>
+				<div class="col-lg-3 col-xs-12">
+					<div class="form-group{{$errors->has('jam_mengajar') ? ' has-error' : ' '}}">
+						<label>Jam Mengajar</label>
+						<input type="text" name="jam_mengajar" class="form-control" placeholder="09.00 - 13.00" value="{{$data['jam_mengajar']}}">
+						@if($errors->has('jam_mengajar'))
+						<span class="help-block">{{$errors->first('jam_mengajar')}}</span>
+						@endif
+					</div>
+				</div>
+				<div class="col-lg-3 col-xs-12">
+					<div class="form-group{{$errors->has('terhitung_mulai_tgl') ? ' has-error' : ' '}}">
+						<label>Terhitung Mulai tgl</label>
+						<input type="text" name="terhitung_mulai_tgl" class="form-control datepicker" placeholder="terhitung mulai tgl" value="{{$data['terhitung_mulai_tgl']}}">
+						@if($errors->has('terhitung_mulai_tgl'))
+						<span class="help-block">{{$errors->first('terhitung_mulai_tgl')}}</span>
+						@endif
+					</div>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-lg-6">
 					<div class="form-group{{$errors->has('username') ? ' has-error' : ' '}}">
 						<label>Username</label>
@@ -18,7 +56,7 @@
 				</div>
 				<div class="col-lg-6">
 					<div class="form-group{{$errors->has('password') ? ' has-error' : ' '}}">
-						<label>Password</label>
+						<label>Password Baru</label>
 						<input type="password" name="password" class="form-control">
 						@if($errors->has('password'))
 						<span class="help-block">{{$errors->first('password')}}</span>

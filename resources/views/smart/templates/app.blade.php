@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="icon" type="image/png" href="{{URL::to('smart/logoku.png')}}">
-    
+
     <title>SMKN 1 JABON SIDOARJO</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
@@ -26,6 +26,9 @@
     <!-- animate css -->
     <link rel="stylesheet" href="{{URL::to('smart/css/animate.css')}}">
     <!-- Hero area slider css-->
+    <link rel="stylesheet" href="{{URL::to('smart/css/slider.css')}}">
+    {{-- Datatables --}}
+    <link rel="stylesheet" href="{{URL::to('admin/css/datatables.bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{URL::to('smart/css/slider.css')}}">
     <!-- owl craousel css -->
     <link rel="stylesheet" href="{{URL::to('smart/css/owl.carousel.css')}}">
@@ -47,6 +50,9 @@
     <script src="{{URL::to('smart/js/vendor/modernizr-2.6.2.min.js')}}"></script>
     <!-- jquery -->
     <script src="{{URL::to('smart/js/jquery.min.js')}}"></script>
+    {{-- DataTables --}}
+      <script src="{{URL::to('node_modules/datatables.net/js/jquery.dataTables.js')}}"></script>
+      <script src="{{URL::to('admin/js/datatables.bootstrap.min.js')}}"></script>
     <!-- owl carouserl js -->
     <script src="{{URL::to('smart/js/owl.carousel.min.js')}}"></script>
     <!-- bootstrap js -->

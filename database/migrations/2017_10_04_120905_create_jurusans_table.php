@@ -13,12 +13,12 @@ class CreateJurusansTable extends Migration
      */
     public function up()
     {
-        Schema::create('jurusans', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nama_jurusan');
-            $table->text('deskripsi');
-            $table->timestamps();
-        });
+        // Schema::create('jurusans', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('nama_jurusan');
+        //     $table->text('deskripsi');
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -28,6 +28,6 @@ class CreateJurusansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jurusans');
+        // Schema::dropIfExists('jurusans');
     }
 }

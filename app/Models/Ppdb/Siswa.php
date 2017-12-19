@@ -31,6 +31,7 @@ class Siswa extends Model
       // 'kecamatan',
       // 'kota',
       // 'kode_pos',
+      'created_at'
     ];
 
     // uuid setup

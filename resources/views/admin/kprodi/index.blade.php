@@ -113,7 +113,7 @@ $('#datatables').on('click','.delete', function(e) {
 			});
 			},
 			cancel: function () {
-			
+
 			},
 			}
 		});

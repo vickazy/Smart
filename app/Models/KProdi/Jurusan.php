@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Jurusan extends Model
 {
-    protected $table = 'jurusans';
+    // protected $table = 'jurusans';
 
     public function photo() {
     	return $this->hasMany('App\Models\KProdi\PhotoJurusan', 'jurusan_id', 'id');

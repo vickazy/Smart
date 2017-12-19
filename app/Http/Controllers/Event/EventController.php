@@ -24,7 +24,8 @@ class EventController extends Controller
     }
 
     public function getDataEvent() {
-        $data = Event::with('kategoriEvent')->orderBy('created_at', 'desc')->get();
+        $jurusan_id = auth()->guard('kprodi')->user()->jurusan_id;
+        $data = Event::with('kategoriEvent')->where('jurusan_id', $jurusan_id)->orderBy('created_at', 'desc')->get();
 
         $datatables = DataTables::of($data)
           ->editColumn('tgl_event', function($tgl_event) {

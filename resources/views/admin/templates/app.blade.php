@@ -208,6 +208,12 @@
               </li>
               @elseif(Auth::guard('kprodi')->check())
               <li class="sub-menu">
+                <a href="{{route('absensi.index')}}">
+                  <i class="fa fa-clipboard"></i>
+                  <span>Absensi Jurusan</span>
+                </a>
+              </li>
+              <li class="sub-menu">
                 <a href="{{route('admin.event')}}">
                   <i class="fa fa-calendar"></i>
                   <span>Event Jurusan</span>
@@ -292,7 +298,7 @@
       <script src="{{URL::to('node_modules/select2/dist/js/select2.min.js')}}" charset="utf-8"></script>
       {{-- tinymce --}}
       <script type="text/javascript" src="{{URL::to('node_modules/tinymce/tinymce.min.js')}}"></script>
-      
+
       <script class="include" type="text/javascript" src="{{URL::to('admin/js/jquery.dcjqaccordion.2.7.js')}}"></script>
       <script src="{{URL::to('admin/js/jquery.scrollTo.min.js')}}"></script>
       <script src="{{URL::to('admin/js/jquery.nicescroll.js')}}" type="text/javascript"></script>

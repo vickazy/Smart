@@ -100,6 +100,7 @@
                     <li><a href="{{ route('prestasi') }}">Prestasi</a></li>
                     <li><a href="{{ route('sarpras') }}">Sarana & Prasarana</a></li>
                     <li><a href="{{ route('tertib') }}">Tata Tertib</a></li>
+                    <li><a href="{{ route('pengumuman') }}">Pengumuman</a></li>
                   </ul>
                 </div>
               </li>

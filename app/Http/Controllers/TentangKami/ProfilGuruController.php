@@ -4,7 +4,8 @@ namespace App\Http\Controllers\TentangKami;
 
 use Illuminate\Http\Request;
 use App\Models\Guru\Guru;
-use Image, File, DB, DataTables;
+use Image, File, DB;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 
 class ProfilGuruController extends Controller
@@ -124,5 +125,23 @@ class ProfilGuruController extends Controller
       $data->delete();
 
       return response()->json($data);
+    }
+
+    public function getDataGuru() {
+      $guru = Guru::orderBy('created_at', 'desc')->get()->toArray();
+      $datatables = DataTables::of($guru)
+        ->editColumn('nama', function($guru) {
+          return $guru['nama'];
+        })
+        ->editColumn('mata_pelajaran', function($guru) {
+          return $guru['bidang'];
+        })
+        ->addColumn('action', function($guru) {
+              $tgl = date('d-m-Y', strtotime($guru['terhitung_mulai_tgl']));
+              return '<a href="#modal-detail" data-toggle="modal" class="btn btn-info detail" data-nim="'.$guru['nim'].'" data-bidang="'.$guru['bidang'].'" data-nama="'.$guru['nama'].'" data-jam_mengajar="'.$guru['jam_mengajar'].'" data-status_golongan="'.$guru['golongan'].'"  data-img="'.$guru['photo'].'" data-terhitung_mulai_tgl="'.$tgl.'">Detail <i class="fa fa-search"></i></a>';
+            })
+        ->addIndexColumn();
+
+        return $datatables->make(true);
     }
 }

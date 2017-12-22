@@ -6,6 +6,7 @@ use App\Models\KProdi\Absensi;
 use App\Models\KProdi\Jurusan;
 use App\Models\Ppdb\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
@@ -150,5 +151,33 @@ class AbsensiController extends Controller
     public function getDeleteAbsensiSiswa(Request $request) {
         $absensiSiswa = Absensi::where('id', $request['id'])->delete();
         return response()->json($request['id']);
+    }
+
+    public function history() {
+        return view('admin.absensi.history');
+    }
+
+    public function getDataHistory() {
+        $kprodi_jurusan_id = $this->getJurusanId();
+        $absensi = Absensi::with('siswa')->where('jurusan_id', $kprodi_jurusan_id)->groupBy('siswa_id')->get()->toArray();
+        $datatables = DataTables::of($absensi)
+            ->editColumn('nama', function($absensi) {
+                return $absensi['siswa']['nama'];
+            })
+            ->editColumn('kelas', function($absensi) {
+                return $absensi['siswa']['kelas'];
+            })
+            ->addColumn('action', function($absensi) {
+                return '<a class="btn btn-info" href="/admin/absensi/history/id='.$absensi['siswa_id'].'&detail">Detail <i class="fa fa-search"></i></a>';
+            })
+            ->addIndexColumn();
+
+        return $datatables->make(true);
+    }
+
+    public function getDetailHistoryAbsensi($id) {
+        $absensi = Absensi::with('siswa')->where('siswa_id', $id)->get()->toArray();
+        // dd($absensi);
+        return view('admin.absensi.detailHistory', compact('absensi'));
     }
 }

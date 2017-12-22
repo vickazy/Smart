@@ -172,6 +172,7 @@ $('#datatables').on('click','.delete', function(e) {
 							"<option value='alpha'>Alpha</option>"+
 							"<option value='sakit'>Sakit</option>"+
 							"<option value='ijin'>Ijin</option>"+
+							"<option value='terlambat'>Terlambat</option>"+
 							"</select></td>"+
 							"<td><a href='#!delete' class='btn btn-danger btn-delete'> <i class='fa fa-trash'></i> </a></td>"
 						 	"</tr>";

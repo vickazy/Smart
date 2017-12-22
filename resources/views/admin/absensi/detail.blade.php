@@ -45,6 +45,7 @@
 								<option value='alpha'>Alpha</option>
 								<option value='sakit'>Sakit</option>
 								<option value='ijin'>Ijin</option>
+								<option value='terlambat'>Terlambat</option>
 							</select>
 						</div>
 				</div>

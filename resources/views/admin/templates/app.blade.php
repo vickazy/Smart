@@ -122,15 +122,29 @@
                 </ul>
               </li>
               <li class="sub-menu">
-                <a href="{{route('admin.galeri')}}">
+                <a href="javascript:;">
                   <i class="fa fa-picture-o"></i>
-                  <span>Galeri</span>
+                  <span>Setting Galeri</span>
                 </a>
+                <ul class="sub">
+                  <li>
+                    <a href="{{route('admin.galeri')}}">
+                      <i class="fa fa-picture-o"></i>
+                      <span>Galeri</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{route('admin.slider')}}">
+                      <i class="fa fa-image"></i>
+                      <span>Slider Home</span>
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li class="sub-menu">
-                <a href="{{route('admin.slider')}}">
-                  <i class="fa fa-image"></i>
-                  <span>Slider Home</span>
+                <a href="{{route('admin.inventaris')}}">
+                  <i class="fa fa-legal"></i>
+                  <span>Inventaris</span>
                 </a>
               </li>
               <li class="sub-menu">
@@ -175,9 +189,9 @@
                 </a>
               </li>
               <li class="sub-menu">
-                <a href="{{route('admin.kontak')}}">
-                  <i class="fa fa-address-book"></i>
-                  <span>Kontak</span>
+                <a href="{{route('admin.pengumuman')}}">
+                  <i class="fa fa-bullhorn"></i>
+                  <span>Pengumuman</span>
                 </a>
               </li>
               <li class="sub-menu">
@@ -199,6 +213,12 @@
                     </a>
                   </li>
                   <li>
+                    <a href="{{route('admin.kontak')}}">
+                      <i class="fa fa-address-book"></i>
+                      <span>Kontak</span>
+                    </a>
+                  </li>
+                  <li>
                     <a href="{{route('admin.setting-home')}}">
                       <i class="fa fa-image"></i>
                       <span>Photo Sampul</span>
@@ -208,10 +228,24 @@
               </li>
               @elseif(Auth::guard('kprodi')->check())
               <li class="sub-menu">
-                <a href="{{route('absensi.index')}}">
+                <a href="javascript:;">
                   <i class="fa fa-clipboard"></i>
-                  <span>Absensi Jurusan</span>
+                  <span>Absensi</span>
                 </a>
+                <ul class="sub">
+                  <li>
+                    <a href="{{route('absensi.index')}}">
+                      <i class="fa fa-clipboard"></i>
+                      <span>Absensi Jurusan</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{route('absensi.history')}}">
+                      <i class="fa fa-history"></i>
+                      <span>History Absensi</span>
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li class="sub-menu">
                 <a href="{{route('admin.event')}}">

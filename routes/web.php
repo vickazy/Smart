@@ -5,9 +5,12 @@ Route::get('/',['uses' => 'Home\HomeController@home', 'as' => 'home']);
 // Tentang Kami
 Route::get('/profil-sekolah', 'TentangKami\ProfilSekolahController@profilSekolah')->name('profil-sekolah');
 Route::get('/profil-guru', 'TentangKami\ProfilGuruController@profilGuru')->name('profil-guru');
+Route::get('/profil-guru/getDataGuru', 'TentangKami\ProfilGuruController@getDataGuru')->name('smart.getDataGuru');
 Route::get('/prestasi', 'TentangKami\PrestasiController@prestasi')->name('prestasi');
 Route::get('/sarana-dan-prasarana', 'TentangKami\SarprasController@sarpras')->name('sarpras');
 Route::get('/tata-tertib', 'TentangKami\TataTertibController@tataTertib')->name('tertib');
+Route::get('/pengumuman', 'Pengumuman\PengumumanController@pengumuman')->name('pengumuman');
+Route::get('/pengumuman/id={id}&single', 'Pengumuman\PengumumanController@pengumumanSingle')->name('pengumumanSingle');
 
 // Program
 // Route::get('/osis', 'Program\OsisController@osis')->name('osis');
@@ -156,6 +159,19 @@ Route::group(['middleware' => 'NotAuth'], function() {
 		Route::get('/ekstra-kulikuler/{id}/edit', 'Program\ExtraKulikulerController@getEditEkstra')->name('admin.getEditEkstra');
 		Route::post('/ekstra-kulikuler/{id}/update', 'Program\ExtraKulikulerController@postUpdateEkstra')->name('admin.postUpdateEkstra');
 		Route::get('/ekstra-kulikuler/delete', 'Program\ExtraKulikulerController@getDeleteEkstra')->name('admin.getDeleteEkstra');
+		// ==== Inventaris ==== //
+		Route::get('/inventaris', 'Inventaris\InventarisController@index')->name('admin.inventaris');
+		Route::post('/inventaris/create', 'Inventaris\InventarisController@postInventaris')->name('admin.postInventaris');
+		Route::get('/inventaris/getDataInventaris', 'Inventaris\InventarisController@getDataInventaris')->name('admin.getDataInventaris');
+		Route::post('/inventaris/postInventarisUpdate', 'Inventaris\InventarisController@postInventarisUpdate')->name('admin.postInventarisUpdate');
+		Route::get('/inventaris/getInventarisDelete', 'Inventaris\InventarisController@getInventarisDelete')->name('admin.getInventarisDelete');
+		// === Pengumuman === //
+		Route::get('/pengumuman', 'Pengumuman\PengumumanController@index')->name('admin.pengumuman');
+		Route::get('/pengumuman/getDataPengumuman', 'Pengumuman\PengumumanController@getDataPengumuman')->name('admin.getDataPengumuman');
+		Route::post('/pengumuman/create', 'Pengumuman\PengumumanController@postPengumuman')->name('admin.postPengumuman');
+		Route::get('/pengumuman/id={id}&edit', 'Pengumuman\PengumumanController@getPengumumanEdit')->name('admin.getPengumumanEdit');
+		Route::post('/pengumuman/id={id}&update', 'Pengumuman\PengumumanController@postPengumumanUpdate')->name('admin.postPengumumanUpdate');
+		Route::get('/pengumuman/delete', 'Pengumuman\PengumumanController@getPengumumanDelete')->name('admin.getPengumumanDelete');
 	});
 
 	// ==== event === //
@@ -189,6 +205,10 @@ Route::group(['middleware' => 'NotAuth'], function() {
 		Route::post('/absensi/importAbsensi', 'AbsensiController@importAbsensi')->name('absensi.importAbsensi');
 		Route::get('/absensi/getDeleteAbsensi', 'AbsensiController@getDeleteAbsensi')->name('absensi.getDeleteAbsensi');
 		Route::get('/absensi/getDeleteAbsensiAll', 'AbsensiController@getDeleteAbsensiAll')->name('absensi.getDeleteAbsensiAll');
+		// -- history absensi -- //
+		Route::get('/absensi/history', 'AbsensiController@history')->name('absensi.history');
+		Route::get('/absensi/getDataHistory', 'AbsensiController@getDataHistory')->name('absensi.getDataHistory');
+		Route::get('/absensi/history/id={siswa_id}&detail', 'AbsensiController@getDetailHistoryAbsensi')->name('absensi.getDetailHistoryAbsensi');
 	});
 
 

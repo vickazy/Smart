@@ -1,5 +1,4 @@
 @extends('admin.templates.app')
-
 @section('content')
   <div class="col-lg-12" style="margin-bottom: 110px">
     <h3><i class="fa fa-angle-right"></i> Data Siswa</h3>
@@ -12,16 +11,37 @@
       <hr>
       <div class="row" style="margin-top:10px;">
         <div class="col-xs-12">
+          <form action="{{route('deleteMultipleSiswa')}}" method="post">
+                {{csrf_field()}}
           <table id="datatables" class="table table-striped table-bordered" style="text-align:center">
             <thead>
-              <th>No</th>
+              <th>Select</th>
               <th>NISN</th>
               <th>Nama</th>
               <th>Jenis Kelamin</th>
               <th>Tanggal Lahir</th>
               <th>Action</th>
             </thead>
+            <tbody>
+              @foreach($data as $key => $value)
+                <tr>
+                  <td><input type="checkbox" name="select_delete[]" class=" btn-select" value="{{$value['id']}}"></td>
+                  <td>{{$value['nisn']}}</td>
+                  <td>{{$value['nama']}}</td>
+                  <td>{{$value['jenis_kelamin'] == 'pria' ? 'L' : 'P'}}</td>
+                  <td>{{date('d-m-Y', strtotime($value['tgl_lahir']))}}</td>
+                  <td>
+                    <a href="/admin/data/siswa/'.$data->id.'/detail" class="btn btn-info"><i class="fa fa-search"></i></a>&nbsp;<a href="#!" class="btn btn-danger delete" data-id="'.$data->id.'"><i class="fa fa-trash"></i></a>
+                  </td>
+                </tr>
+              @endforeach
+            </tbody>
           </table>
+          <hr>
+            <button type="submit" class="btn btn-danger">
+              Hapus Terpilih <i class="fa fa-trash"></i>
+            </button>
+          </form>
         </div>
       </div>
     </div>
@@ -51,24 +71,26 @@
     </div>
   </div>
   </div>
-  
+
 @endsection
 
 @section('customJs')
   <script type="text/javascript">
-    $('#datatables').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: '{{route('getDataSiswa')}}',
-        columns: [
-            {data: 'DT_Row_Index', orderable: false, searchable: false},
-            {data: 'nisn'},
-            {data: 'nama'},
-            {data: 'jenis_kelamin'},
-            {data: 'tgl_lahir'},
-            {data: 'action', name: 'detail', orderable: false, searchable: false},
-        ]
-    });
+    // $('#datatables').DataTable({
+    //     processing: true,
+    //     serverSide: true,
+    //     ajax: '{{route('getDataSiswa')}}',
+    //     columns: [
+    //         // {data: 'DT_Row_Index', orderable: false, searchable: false},
+    //         {data: 'check'},
+    //         {data: 'nisn'},
+    //         {data: 'nama'},
+    //         {data: 'jenis_kelamin'},
+    //         {data: 'tgl_lahir'},
+    //         {data: 'action', name: 'detail', orderable: false, searchable: false},
+    //     ]
+    // });
+    $('#datatables').DataTable();
 
     $(document).ready(function() {
       $('#datatables').on('click', '.delete', function() {

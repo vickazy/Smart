@@ -11,6 +11,8 @@ Route::get('/sarana-dan-prasarana', 'TentangKami\SarprasController@sarpras')->na
 Route::get('/tata-tertib', 'TentangKami\TataTertibController@tataTertib')->name('tertib');
 Route::get('/pengumuman', 'Pengumuman\PengumumanController@pengumuman')->name('pengumuman');
 Route::get('/pengumuman/id={id}&single', 'Pengumuman\PengumumanController@pengumumanSingle')->name('pengumumanSingle');
+Route::get('/adiwiyata', 'Adiwiyata\AdiwiyataController@adiwiyata')->name('adiwiyata');
+Route::get('/adiwiyata/id={id}&single', 'Adiwiyata\AdiwiyataController@adiwiyataSingle')->name('adiwiyataSingle');
 
 // Program
 // Route::get('/osis', 'Program\OsisController@osis')->name('osis');
@@ -71,6 +73,7 @@ Route::group(['middleware' => 'NotAuth'], function() {
 	Route::post('/data/siswa/{id}/update', ['uses' => 'Siswa\SiswaController@postSiswaUpdate', 'as' => 'postSiswaUpdate']);
 	Route::get('/data/siswa/delete', ['uses' => 'Siswa\SiswaController@getSiswaDelete', 'as' => 'getSiswaDelete']);
 	Route::post('/data/siswa/import', ['uses' => 'Siswa\SiswaController@ImportSiswa', 'as' => 'ImportSiswa']);
+	Route::post('/data/siswa/deleteMultipleSiswa', 'Siswa\SiswaController@deleteMultipleSiswa')->name('deleteMultipleSiswa');
 	// Route::get('/data/siswa/export/{type}', ['uses' => 'Siswa\SiswaController@exportExcelSiswa', 'as' => 'exportExcelSiswa']);
 	// Route::post('/data/siswa/pdf/export', ['uses' => 'Siswa\SiswaController@exportPDFSiswa', 'as' => 'exportPDFSiswa']);
 	// ==== Berita ==== //
@@ -84,6 +87,13 @@ Route::group(['middleware' => 'NotAuth'], function() {
 		Route::post('/berita/addKategoriBerita', 'Berita\BeritaController@postKategoriBerita')->name('admin.postKategoriBerita');
 		Route::get('/berita/akun', 'Berita\BeritaController@getViewBeritaAkun')->name('admin.berita.akun');
 		Route::post('/berita/akun', 'Berita\BeritaController@postAkunBerita')->name('postAkunBerita');
+
+		// ==== Adiwiyata === //
+		Route::get('/adiwiyata', 'Adiwiyata\AdiwiyataController@adminAdiwiyata')->name('admin.adiwiyata');
+		Route::post('/adiwiyata/postAdiwiyata', 'Adiwiyata\AdiwiyataController@postAdiwiyata')->name('admin.postAdiwiyata');
+		Route::get('/adiwiyata/id={id}&edit', 'Adiwiyata\AdiwiyataController@editAdiwiyata')->name('admin.editAdiwiyata');
+		Route::post('/adiwiyata/id={id}&edit', 'Adiwiyata\AdiwiyataController@updateAdiwiyata')->name('admin.updateAdiwiyata');
+		Route::get('/adiwiyata/delete', 'Adiwiyata\AdiwiyataController@deleteAdiwiyata')->name('admin.deleteAdiwiyata');
 	});
 	Route::group(['middleware' => 'admin'], function() {
 		// ==== profil sekolah ===/

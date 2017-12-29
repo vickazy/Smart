@@ -15,24 +15,28 @@ use App\Http\Controllers\Controller;
 class SiswaController extends Controller
 {
     public function getSiswa() {
-      return view('admin.siswa.index');
+      $id = auth()->guard('kprodi')->user()->jurusan_id;
+        $data = Siswa::where('jurusan_id', $id)->get();
+      return view('admin.siswa.index', compact('data'));
     }
 
     public function getDataSiswa(Request $request) {
-        DB::statement(DB::raw('set @rownum=0'));
+        // DB::statement(DB::raw('set @rownum=0'));
         $id = auth()->guard('kprodi')->user()->jurusan_id;
         $data = Siswa::where('jurusan_id', $id)->get();
 
-        $datatables = DataTables::of($data)
-          ->editColumn('tgl_lahir', function($tgl) {
-            return date('d-m-Y', strtotime($tgl['tgl_lahir']));
-          })
-          ->addColumn('action', function($data) {
-            return '<a href="/admin/data/siswa/'.$data->id.'/detail" class="btn btn-info"><i class="fa fa-search"></i></a> <a href="#!" class="btn btn-danger delete" data-id="'.$data->id.'"><i class="fa fa-trash"></i></a>';
-          })
-          ->addIndexColumn();
+        // $datatables = DataTables::of($data)
+        //   ->addColumn('check', '<input type="checkbox" name="selected_users[]" value="">')
+        //   ->editColumn('tgl_lahir', function($tgl) {
+        //     return date('d-m-Y', strtotime($tgl['tgl_lahir']));
+        //   })
+        //   ->addColumn('action', function($data) {
+        //     return '<a href="/admin/data/siswa/'.$data->id.'/detail" class="btn btn-info"><i class="fa fa-search"></i></a> <a href="#!" class="btn btn-danger delete" data-id="'.$data->id.'"><i class="fa fa-trash"></i></a>';
+        //   })
+        //   ->addIndexColumn();
 
-        return $datatables->make(true);
+        // return $datatables->make(true);
+
     }
 
     public function getSiswaDetail($id) {
@@ -66,7 +70,7 @@ class SiswaController extends Controller
         // dd($request->all());
              if ($request->hasFile('import_file')) {
                     $path = $request->file('import_file')->getRealPath();
-                    
+
                     $data = Excel::load($path, function($render) {
                     })->get();
                     // dd($data);
@@ -88,6 +92,11 @@ class SiswaController extends Controller
                       }
                     }
             }
+    }
+
+    public function deleteMultipleSiswa(Request $request) {
+      $siswa = Siswa::whereIn('id', $request['select_delete'])->delete();
+      return redirect()->back()->with('success', 'Data berhasil dihapus ! ');
     }
 
 

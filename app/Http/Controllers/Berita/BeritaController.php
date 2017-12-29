@@ -57,7 +57,7 @@ class BeritaController extends Controller
         'photo' => 'mimes:jpeg,png,jpg,3gp,mp4,avi,mkv',
         'isi'   =>  'required'
       ]);
-      
+
       $data = new Berita;
       $data->judul = $request['judul'];
       $data->kategori_berita_id = $request['kategori_id'];
@@ -67,7 +67,6 @@ class BeritaController extends Controller
         $newName = time() . '.' . $name->getClientOriginalExtension();
         // dd($name->getClientOriginalExtension());
         if ($name->getClientOriginalExtension() == 'mp4' || $name->getClientOriginalExtension() == '3gp' || $name->getClientOriginalExtension() == 'avi' || $name->getClientOriginalExtension() == 'mkv') {
-          $newName = time() . '.' . $name->getClientOriginalExtension();
             $path = public_path('upload/berita/');
             $name->move($path, $newName);
             $data->type_file = 'video';
@@ -94,7 +93,7 @@ class BeritaController extends Controller
     public function postUpdateBerita(Request $request, $id) {
       $this->validate($request, [
         'judul' => 'required',
-        'photo' => 'image|mimes:jpeg,png,jpg',
+        'photo' => 'mimes:jpeg,png,jpg,3gp,mp4,avi,mkv',
         'isi'   =>  'required'
       ]);
 
@@ -107,13 +106,19 @@ class BeritaController extends Controller
         // old file
         $oldPhoto = $data->photo;
         File::delete(public_path('upload/berita/'. $oldPhoto));
-
         $name = $request->file('photo');
         $newName = time() . '.' . $name->getClientOriginalExtension();
-        $image = Image::make($name);
-        $image->encode('jpg', 75);
-        $image->save(public_path('upload/berita/' . $newName));
 
+        if ($name->getClientOriginalExtension() == 'mp4' || $name->getClientOriginalExtension() == '3gp' || $name->getClientOriginalExtension() == 'avi' || $name->getClientOriginalExtension() == 'mkv') {
+            $path = public_path('upload/berita/');
+            $name->move($path, $newName);
+            $data->type_file = 'video';
+        }else {
+          $image = Image::make($name);
+          $image->encode('jpg', 75);
+          $image->save(public_path('upload/berita/' . $newName));
+          $data->type_file = 'photo';
+        }
         $data->photo = $newName;
       }
       // dd($data);

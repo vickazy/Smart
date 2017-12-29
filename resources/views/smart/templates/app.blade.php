@@ -119,6 +119,7 @@
               <li><a href="{{ route('galeri') }}">Galeri</a></li>
               <li><a href="{{ route('ebook') }}">E-book</a></li>
               <li><a href="{{ route('kontak') }}">Kontak</a></li>
+              <li><a href="{{ route('adiwiyata') }}">Adiwiyata</a></li>
               {{-- <li><a href="{{ route('getPpdb') }}" target="_blank">Daftar</a></li> --}}
             </ul>
           </div>

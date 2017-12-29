@@ -16,6 +16,7 @@ padding: 5px;
                 <div class="block">
                     <h2>{{ $nama }}</h2>
                     <ul class="menu">
+                        <li><a href="{{route('absensi', strtolower(str_slug($nama)))}}" class="btn btn-default">Absensi</a></li>
                         <li><a href="{{route('event', strtolower(str_slug($nama)))}}" class="btn btn-default">Event</a></li>
                         <li><a href="{{route('kegiatan', strtolower(str_slug($nama)))}}" class="btn btn-default">Kegiatan</a></li>
                         <li><a href="{{route('siswa', strtolower(str_slug($nama)))}}" class="btn btn-default">Siswa</a></li>

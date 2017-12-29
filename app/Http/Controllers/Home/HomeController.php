@@ -8,6 +8,7 @@ use App\Models\Content\BgHome;
 use App\Models\Content\Prestasi;
 use App\Models\Content\Slider;
 use App\Models\Content\VisiMisi;
+use App\Models\Pengumuman\Pengumuman;
 use Illuminate\Http\Request;
 
 
@@ -19,6 +20,7 @@ class HomeController extends Controller
       $berita = Berita::orderBy('created_at', 'desc')->take(4)->get()->toArray();
       $prestasi = Prestasi::get()->take(6);
       $slider = Slider::get()->toArray();
-      return view('smart.index', compact(['visiMisi', 'prestasi', 'berita', 'bghome', 'slider']));
+      $pengumuman = Pengumuman::orderBy('created_at', 'desc')->take(3)->get()->toArray();
+      return view('smart.index', compact(['visiMisi', 'prestasi', 'berita', 'bghome', 'slider', 'pengumuman']));
     }
 }

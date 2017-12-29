@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAkunBeritasTable extends Migration
+class Adiwiyata extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateAkunBeritasTable extends Migration
      */
     public function up()
     {
-        Schema::create('akun_berita', function (Blueprint $table) {
+        Schema::create('adiwiyata', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('username');
-            $table->string('password');
+            $table->string('judul');
+            $table->string('file')->nullable();
+            $table->enum('type_file', ['photo', 'video'])->nullable();
+            $table->text('isi');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateAkunBeritasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('akun_beritas');
+        Schema::dropIfExists('adiwiyata');
     }
 }

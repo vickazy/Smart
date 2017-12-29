@@ -23,7 +23,7 @@ class KprodiController extends Controller
     }
 
     public function getDataKprodi() {
-    	DB::statement(DB::raw('set @rownum=0'));
+    	// DB::statement(DB::raw('set @rownum=0'));
         $data = KProdi::orderBy('created_at', 'desc')->get();
 
         $datatables = DataTables::of($data)

@@ -49,10 +49,6 @@
 @endsection
 
 @section('customJs')
-	<script type="text/javascript" src="{{URL::to('node_modules/ckeditor/ckeditor.js')}}"></script>
-	<script type="text/javascript">
-	    CKEDITOR.replace('isi-berita');
-	</script>
 	@if (Session::has('success'))
 		<script type="text/javascript">
 			$(document).ready(function() {

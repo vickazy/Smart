@@ -31,7 +31,7 @@
 							<div class="col-lg-3 col-xs-12">
 								<div class="form-group{{$errors->has('jam_mengajar') ? ' has-error' : ' '}}">
 									<label>Jam Mengajar</label>
-									<input type="text" name="jam_mengajar" class="form-control" placeholder="09.00 - 13.00">
+									<input type="text" name="jam_mengajar" class="form-control" placeholder="4 jam">
 									@if($errors->has('jam_mengajar'))
 									<span class="help-block">{{$errors->first('jam_mengajar')}}</span>
 									@endif

@@ -1,5 +1,12 @@
 @extends('smart.templates.app')
-
+@section('customCss')
+<style type="text/css">
+    .menu li {
+        display: inline-block;
+        padding: 5px;
+    }
+</style>
+@endsection
 @section('content')
 <section class="global-page-header">
     <div class="container">
@@ -7,15 +14,12 @@
             <div class="col-md-12">
                 <div class="block">
                     <h2>Absensi Sekolah</h2>
-                    <ol class="breadcrumb">
-                        <li>
-                            <a href="index.php">
-                                <i class="ion-ios-home"></i>
-                                Home
-                            </a>
-                        </li>
-                        <li class="active">Absensi Sekolah</li>
-                    </ol>
+                    <ul class="menu">
+                        <li><a href="{{route('absensi', strtolower(str_slug($nama)))}}" class="btn btn-default">Absensi</a></li>
+                        <li><a href="{{route('event', strtolower(str_slug($nama)))}}" class="btn btn-default">Event</a></li>
+                        <li><a href="{{route('kegiatan', strtolower(str_slug($nama)))}}" class="btn btn-default">Kegiatan</a></li>
+                        <li><a href="{{route('siswa', strtolower(str_slug($nama)))}}" class="btn btn-default">Siswa</a></li>
+                    </ul>
                 </div>
             </div>
         </div>

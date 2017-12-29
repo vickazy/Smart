@@ -105,7 +105,7 @@
 					}));
 			$('#modal-kategori').modal('hide');
 		});
-	}) 
+	})
 	$('#datatables').DataTable({
 		processing: true,
 		serverSide: true,
@@ -129,12 +129,11 @@ $('#datatables').on('click','.delete', function(e) {
 			buttons: {
 			confirm: function () {
 			$.get("{{ route('admin.getDeleteBerita') }}", {id: id}, function (data) {
-				// console.log(data);
 				location.reload();
 			});
 			},
 			cancel: function () {
-			
+
 			},
 			}
 		});

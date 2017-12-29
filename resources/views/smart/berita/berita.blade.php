@@ -76,7 +76,7 @@
                             <div class="blog-post-image">
                                 @if($berita['type_file'] == 'photo')
                                     <a href="#!"><img class="img-responsive" src="{{URL::to("upload/berita/". $berita['photo'])}}" alt="" /></a>
-                                @else 
+                                @else
                                     <video width="100%">
                                         <source src="{{URL::to('upload/berita/'.$berita['photo'])}}" type="video/mp4">
                                         <source src="{{URL::to('upload/berita/'.$berita['photo'])}}" type="video/3gp">

@@ -174,6 +174,12 @@
                   <li>
                     <a href="{{route('admin.tataTertib')}}"><i class="fa fa-list"></i> Tata Tertib</a>
                   </li>
+                  <li>
+                    <a href="{{route('admin.adiwiyata')}}">
+                      <i class="fa fa-rocket"></i>
+                      Adiwiyata
+                    </a>
+                  </li>
                 </ul>
               </li>
               <li class="sub-menu">
@@ -183,10 +189,25 @@
                 </a>
               </li>
               <li class="sub-menu">
-                <a href="{{route('admin.ekstra')}}">
-                  <i class="fa fa-trophy"></i>
-                  <span>Ekstra Kulikuler</span>
+                <a href="javascript:;">
+                  <i class="fa fa-list"></i>
+                  <span>Jurusan & Ekstra Kulikuler</span>
                 </a>
+
+                <ul class="sub">
+                  <li>
+                    <a href="{{route('admin.ekstra')}}">
+                      <i class="fa fa-trophy"></i>
+                      <span>Ekstra Kulikuler</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{route('admin.jurusan')}}">
+                      <i class="fa fa-list"></i>
+                      <span>Jurusan</span>
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li class="sub-menu">
                 <a href="{{route('admin.pengumuman')}}">
@@ -194,12 +215,7 @@
                   <span>Pengumuman</span>
                 </a>
               </li>
-              <li class="sub-menu">
-                <a href="{{route('admin.jurusan')}}">
-                  <i class="fa fa-list"></i>
-                  <span>Jurusan</span>
-                </a>
-              </li>
+
               <li class="sub-menu">
                 <a href="javascript:;">
                   <i class="fa fa-gears"></i>
@@ -283,6 +299,12 @@
                 <a href="{{route('admin.berita')}}">
                   <i class="fa fa-newspaper-o"></i>
                   <span>Berita</span>
+                </a>
+              </li>
+              <li class="sub-menu">
+                <a href="{{route('admin.adiwiyata')}}">
+                  <i class="fa fa-rocket"></i>
+                  <span>Adiwiyata</span>
                 </a>
               </li>
               @endif

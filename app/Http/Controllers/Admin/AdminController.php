@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Pengurus;
 use App\Models\Admin\User;
 use App\Models\Ppdb\Siswa;
 use Auth;
@@ -32,6 +33,12 @@ class AdminController extends Controller
         case 'admin':
             if(Auth::guard('admin')->attempt($data)) {
               return redirect()->route('admin.berita');
+            }
+            return redirect()->back()->with('error', 'username atau password salah !');
+          break;
+        case 'pengurus':
+            if(Auth::guard('pengurus')->attempt($data)) {
+              return redirect()->route('admin.Bkk');
             }
             return redirect()->back()->with('error', 'username atau password salah !');
           break;
@@ -67,11 +74,27 @@ class AdminController extends Controller
 
     public function getAkun() {
       $admin = User::first();
-      return view('admin.akun.index', compact('admin'));
+      $pengurus = Pengurus::first();
+      return view('admin.akun.index', compact(['admin', 'pengurus']));
     }
 
     public function postAkun(Request $request) {
       $user = User::find($request->id);
+      $user->username = $request['username'];
+      $user->password = bcrypt($request['password']);
+      $user->save();
+      return redirect()->back()->with('success', 'Akun berhasil di perbarui !');
+    }
+
+    public function pengurusPost(Request $request) {
+      $user = Pengurus::find($request->id);
+      if ($user == null) {
+          $pengurus = new Pengurus;
+          $pengurus->username = $request['username'];
+          $pengurus->password = bcrypt($request['password']);
+          $pengurus->save();
+          return redirect()->back()->with('success', 'Akun berhasil di perbarui !');
+      }
       $user->username = $request['username'];
       $user->password = bcrypt($request['password']);
       $user->save();

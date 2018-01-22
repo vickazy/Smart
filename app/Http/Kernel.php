@@ -59,6 +59,7 @@ class Kernel extends HttpKernel
         'berita' => \App\Http\Middleware\Berita::class,
         'kprodi' => \App\Http\Middleware\KProdi::class,
         'guru' => \App\Http\Middleware\Guru::class,
+        'pengurus' => \App\Http\Middleware\Pengurus::class,
         'NotAuth' => \App\Http\Middleware\NotAuth::class,
         'IfAuth' => \App\Http\Middleware\IfAuth::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,

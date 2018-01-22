@@ -15,7 +15,7 @@ class NotAuth
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->guard('admin')->check() || auth()->guard('kprodi')->check() || auth()->guard('guru')->check() || auth()->guard('berita')->check()) {
+        if (auth()->guard('admin')->check() || auth()->guard('pengurus')->check() || auth()->guard('kprodi')->check() || auth()->guard('guru')->check() || auth()->guard('berita')->check()) {
             return $next($request);
         }
         return redirect()->back()->with('denied', 'Anda Harus Login');

@@ -41,6 +41,11 @@ return [
             'provider' => 'admin',
         ],
 
+        'pengurus' => [
+            'driver' => 'session',
+            'provider' => 'pengurus',
+        ],
+
         'guru' => [
             'driver' => 'session',
             'provider' => 'guru',
@@ -83,6 +88,11 @@ return [
         'admin' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin\User::class,
+        ],
+
+        'pengurus' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin\Pengurus::class,
         ],
 
         'guru' => [

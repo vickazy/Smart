@@ -13,6 +13,10 @@ Route::get('/pengumuman', 'Pengumuman\PengumumanController@pengumuman')->name('p
 Route::get('/pengumuman/id={id}&single', 'Pengumuman\PengumumanController@pengumumanSingle')->name('pengumumanSingle');
 Route::get('/adiwiyata', 'Adiwiyata\AdiwiyataController@adiwiyata')->name('adiwiyata');
 Route::get('/adiwiyata/id={id}&single', 'Adiwiyata\AdiwiyataController@adiwiyataSingle')->name('adiwiyataSingle');
+Route::get('/lst', 'Lst\LstController@lst')->name('lst');
+Route::get('/lst/id={id}&single', 'Lst\LstController@lstSingle')->name('lstSingle');
+Route::get('/bkk', 'Bkk\BkkController@bkk')->name('bkk');
+Route::get('/bkk/id={id}&single', 'Bkk\BkkController@bkkSingle')->name('bkkSingle');
 
 // Program
 // Route::get('/osis', 'Program\OsisController@osis')->name('osis');
@@ -37,10 +41,14 @@ Route::get('/jurusan/{nama_jurusan}/event', 'Kprodi\JurusanController@event')->n
 Route::get('/jurusan/{nama_jurusan}/kegiatan', 'Kprodi\JurusanController@kegiatan')->name('kegiatan');
 Route::get('/jurusan/{nama_jurusan}/siswa', 'Kprodi\JurusanController@siswa')->name('siswa');
 Route::get('/jurusan/{nama_jurusan}/absensi', 'Kprodi\JurusanController@absensi')->name('absensi');
+Route::get('/jurusan/{nama_jurusan}/review-absensi', 'Kprodi\JurusanController@reviewAbsensi')->name('review.absensi');
+Route::get('/jurusan/{nama_jurusan}/review-absensi/{siswa_id}', 'Kprodi\JurusanController@reviewAbsensiData')->name('reviewAbsensiData');
 
 Route::get('/jurusan/{nama_jurusan}/getDataAbsensi', 'Kprodi\JurusanController@getDataAbsensi')->name('getDataAbsensi');
 
 Route::get('/jurusan/{nama_jurusan}/{tgl}/getAbsensiDetail', 'Kprodi\JurusanController@getAbsensiDetail')->name('getAbsensiDetail');
+Route::get('/jurusan/{nama_jurusan}/{tgl}/getAbsensiDetail/terlambat', 'Kprodi\JurusanController@getAbsensiDetailTerlambat')->name('getAbsensiDetailTerlambat');
+
 
 Route::get('/getSiswaJurusan/{jurusan_id}/kelas-12', 'Kprodi\JurusanController@getSiswaKelas12')->name('getSiswaKelas12');
 Route::get('/getSiswaJurusan/{jurusan_id}/kelas-11', 'Kprodi\JurusanController@getSiswaKelas11')->name('getSiswaKelas11');
@@ -65,6 +73,7 @@ Route::group(['middleware' => 'NotAuth'], function() {
 	// Admin Account
 		Route::get('/akun', 'Admin\AdminController@getAkun')->name('getAkun');
 		Route::post('/akun', 'Admin\AdminController@postAkun')->name('postAkun');
+		Route::post('/akun/pengurus', 'Admin\AdminController@pengurusPost')->name('pengurusPost');
 	// Siswa Terdaftar
 	Route::get('/data/siswa', ['uses' => 'Siswa\SiswaController@getSiswa', 'as' => 'getSiswa']);
 	Route::get('/data/getDataSiswa', ['uses' => 'Siswa\SiswaController@getDataSiswa', 'as' => 'getDataSiswa']);
@@ -87,14 +96,41 @@ Route::group(['middleware' => 'NotAuth'], function() {
 		Route::post('/berita/addKategoriBerita', 'Berita\BeritaController@postKategoriBerita')->name('admin.postKategoriBerita');
 		Route::get('/berita/akun', 'Berita\BeritaController@getViewBeritaAkun')->name('admin.berita.akun');
 		Route::post('/berita/akun', 'Berita\BeritaController@postAkunBerita')->name('postAkunBerita');
+	});
 
+	Route::group(['middleware' => 'pengurus'], function() {
 		// ==== Adiwiyata === //
 		Route::get('/adiwiyata', 'Adiwiyata\AdiwiyataController@adminAdiwiyata')->name('admin.adiwiyata');
 		Route::post('/adiwiyata/postAdiwiyata', 'Adiwiyata\AdiwiyataController@postAdiwiyata')->name('admin.postAdiwiyata');
 		Route::get('/adiwiyata/id={id}&edit', 'Adiwiyata\AdiwiyataController@editAdiwiyata')->name('admin.editAdiwiyata');
 		Route::post('/adiwiyata/id={id}&edit', 'Adiwiyata\AdiwiyataController@updateAdiwiyata')->name('admin.updateAdiwiyata');
 		Route::get('/adiwiyata/delete', 'Adiwiyata\AdiwiyataController@deleteAdiwiyata')->name('admin.deleteAdiwiyata');
+
+		// ==== Lst === //
+		Route::get('/lst', 'Lst\LstController@adminLst')->name('admin.lst');
+		Route::post('/lst/postAdiwiyata', 'Lst\LstController@postLst')->name('admin.postLst');
+		Route::get('/lst/id={id}&edit', 'Lst\LstController@editLst')->name('admin.editLst');
+		Route::post('/lst/id={id}&edit', 'Lst\LstController@updateLst')->name('admin.updateLst');
+		Route::get('/lst/delete', 'Lst\LstController@deleteLst')->name('admin.deleteLst');
+
+		// ==== Bkk === //
+		Route::get('/bkk', 'Bkk\BkkController@adminBkk')->name('admin.Bkk');
+		Route::post('/bkk/postAdiwiyata', 'Bkk\BkkController@postBkk')->name('admin.postBkk');
+		Route::get('/bkk/id={id}&edit', 'Bkk\BkkController@editBkk')->name('admin.editBkk');
+		Route::post('/bkk/id={id}&edit', 'Bkk\BkkController@updateBkk')->name('admin.updateBkk');
+		Route::get('/bkk/delete', 'Bkk\BkkController@deleteBkk')->name('admin.deleteAdiwiyata');
+
+		//=== Galeri ===//
+		Route::get('/galeri', 'Galeri\GaleriController@adminGaleri')->name('admin.galeri');
+		Route::post('/galeri', 'Galeri\GaleriController@postGaleri')->name('admin.postGaleri');
+		Route::get('/galeri/delete', 'Galeri\GaleriController@getDeleteGaleri')->name('admin.getDeleteGaleri');
+
+		//=== Slider ===//
+		Route::get('/slider', 'Slider\SliderController@adminSlider')->name('admin.slider');
+		Route::post('/slider', 'Slider\SliderController@postSlider')->name('admin.postSlider');
+		Route::get('/slider/delete', 'Slider\SliderController@getDeleteSlider')->name('admin.getDeleteSlider');
 	});
+
 	Route::group(['middleware' => 'admin'], function() {
 		// ==== profil sekolah ===/
 		Route::get('/profil-sekolah', 'TentangKami\ProfilSekolahController@adminProfilSekolah')->name('admin.ProfilSekolah');
@@ -128,14 +164,7 @@ Route::group(['middleware' => 'NotAuth'], function() {
 		// === Kontak ==//
 		Route::get('/kontak', 'Kontak\KontakController@adminKontak')->name('admin.kontak');
 		Route::post('/kontak', 'Kontak\KontakController@postKontak')->name('admin.postKontak');
-		//=== Galeri ===//
-		Route::get('/galeri', 'Galeri\GaleriController@adminGaleri')->name('admin.galeri');
-		Route::post('/galeri', 'Galeri\GaleriController@postGaleri')->name('admin.postGaleri');
-		Route::get('/galeri/delete', 'Galeri\GaleriController@getDeleteGaleri')->name('admin.getDeleteGaleri');
-		//=== Slider ===//
-		Route::get('/slider', 'Slider\SliderController@adminSlider')->name('admin.slider');
-		Route::post('/slider', 'Slider\SliderController@postSlider')->name('admin.postSlider');
-		Route::get('/slider/delete', 'Slider\SliderController@getDeleteSlider')->name('admin.getDeleteSlider');
+
 		//=== Prestasi ===//
 		Route::get('/prestasi', 'TentangKami\PrestasiController@adminPrestasi')->name('admin.prestasi');
 		Route::post('/prestasi', 'TentangKami\PrestasiController@postPrestasi')->name('admin.postPrestasi');
@@ -219,6 +248,15 @@ Route::group(['middleware' => 'NotAuth'], function() {
 		Route::get('/absensi/history', 'AbsensiController@history')->name('absensi.history');
 		Route::get('/absensi/getDataHistory', 'AbsensiController@getDataHistory')->name('absensi.getDataHistory');
 		Route::get('/absensi/history/id={siswa_id}&detail', 'AbsensiController@getDetailHistoryAbsensi')->name('absensi.getDetailHistoryAbsensi');
+		// -- Absensi Terlambat -- //
+		Route::get('/absensi/getDataSiswaTerlambat', 'AbsensiController@getDataSiswaTerlambat')->name('absensi.getDataSiswaTerlambat');
+		Route::get('/absensi/{tgl}/detail/terlambat', 'AbsensiController@getAbsensiDetailTerlambat')->name('absensi.getAbsensiDetailTerlambat');
+		Route::get('/absensi/{tgl}/getDataAbsensiDetailTerlambat', 'AbsensiController@getDataAbsensiDetailTerlambat')->name('absensi.getDataAbsensiDetailTerlambat');
+		Route::get('/absensi/getDeleteAbsensiDetail', 'AbsensiController@getDeleteAbsensiDetail')->name('absensi.getDeleteAbsensiDetail');
+		// -- Review Absensi -- //
+		Route::get('/absensi/review', 'AbsensiController@review')->name('absensi.review');
+		Route::post('/absensi/review', 'AbsensiController@reviewPost')->name('absensi.reviewPost');
+		Route::get('/absensi/review/detail/{id}', 'AbsensiController@reviewAbsensiData')->name('absensi.reviewAbsensiData');
 	});
 
 

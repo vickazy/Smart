@@ -20,12 +20,9 @@ class JurusanController extends Controller
   // =========== For Admin =========== //
     public function jurusan($nama_jurusan) {
       $unslug = preg_replace('#[-]#', ' ',$nama_jurusan);
-      // dd($unslug);
     	$data = Jurusan::with('photo')->where('nama_jurusan', $unslug)->get()->toArray();
-      // dd($data);
       $kategoriEvent = KategoriEvent::get()->toArray();
       $kegiatan = KegiatanJurusan::where('jurusan_id', $data[0]['id'])->paginate(5);
-      // dd($kegiatan);
       $nama = strtoupper($unslug);
     	return view('smart.jurusan.jurusan', compact(['data', 'nama', 'event', 'kategoriEvent', 'kegiatan']));
     }
@@ -98,7 +95,7 @@ class JurusanController extends Controller
       $nama = strtoupper($unslug);
 
       $jurusan = Jurusan::where('nama_jurusan', $unslug)->first();
-      $absensi = Absensi::where('jurusan_id', $jurusan['id'])->orderBy('created_at', 'desc')->get()->toArray();
+      $absensi = Absensi::where('jurusan_id', $jurusan['id'])->orderBy('tgl', 'desc')->get()->toArray();
       return view('smart.absensi.index', compact(['absensi', 'nama', 'nama_jurusan']));
     }
 
@@ -108,13 +105,13 @@ class JurusanController extends Controller
 
       $jurusan = Jurusan::where('nama_jurusan', $unslug)->first();
 
-      $absensi = Absensi::where('jurusan_id', $jurusan['id'])->orderBy('created_at', 'desc')->groupBy('created_at')->get()->toArray();
+      $absensi = Absensi::where('jurusan_id', $jurusan['id'])->orderBy('tgl', 'desc')->groupBy('tgl')->get()->toArray();
        $datatables = DataTables::of($absensi)
         ->editColumn('tgl', function($absensi) {
-          return date('d-F-Y', strtotime($absensi['created_at']));
+          return date('d-F-Y', strtotime($absensi['tgl']));
         })
         ->addColumn('action', function($absensi) {
-              return '<a href="#modal-detail" data-toggle="modal" class="btn btn-info btn-md btn-detail" data-tgl="'.$absensi['created_at'].'">Lihat <i class="fa fa-eye"></i></a>';
+              return '<a href="#modal-detail" data-toggle="modal" class="btn btn-info btn-md btn-detail" data-tgl="'.$absensi['tgl'].'">Lihat <i class="fa fa-eye"></i></a>';
             })
         ->addIndexColumn();
 
@@ -127,7 +124,31 @@ class JurusanController extends Controller
 
       $jurusan = Jurusan::where('nama_jurusan', $unslug)->first();
       $tgl = date('Y-m-d', strtotime($tgl));
-      $absensi = Absensi::with('siswa')->where('jurusan_id', $jurusan['id'])->whereDate('created_at', $tgl)->get()->toArray();
+      $absensi = Absensi::with('siswa')->where('jurusan_id', $jurusan['id'])->whereIn('keterangan', ['alpha', 'sakit', 'ijin'])->whereDate('tgl', $tgl)->get()->toArray();
+       $datatables = DataTables::of($absensi)
+        ->editColumn('nama', function($absensi) {
+          return $absensi['siswa']['nama'];
+        })
+        ->editColumn('kelas', function($absensi) {
+          return $absensi['siswa']['kelas'];
+        })
+        ->editColumn('nisn', function($absensi) {
+          return $absensi['siswa']['nisn'];
+        })
+        ->editColumn('keterangan', function($absensi) {
+          return $absensi['keterangan'];
+        })
+        ->addIndexColumn();
+        return $datatables->make(true);
+    }
+
+    public function getAbsensiDetailTerlambat($nama_jurusan, $tgl) {
+      $unslug = preg_replace('#[-]#', ' ',$nama_jurusan);
+      $nama = strtoupper($unslug);
+
+      $jurusan = Jurusan::where('nama_jurusan', $unslug)->first();
+      $tgl = date('Y-m-d', strtotime($tgl));
+      $absensi = Absensi::with('siswa')->where(['jurusan_id' => $jurusan['id'], 'keterangan' => 'terlambat'])->whereDate('tgl', $tgl)->get()->toArray();
        $datatables = DataTables::of($absensi)
         ->editColumn('nama', function($absensi) {
           return $absensi['siswa']['nama'];
@@ -272,6 +293,61 @@ class JurusanController extends Controller
       $data->delete();
 
       return response()->json($data);
+    }
+
+    public function reviewAbsensi(Request $request, $nama_jurusan) {
+        $unslug = preg_replace('#[-]#', ' ',$nama_jurusan);
+        $nama = strtoupper($unslug);
+        $jurusan_id = Jurusan::where('nama_jurusan', $unslug)->first();
+        if ($request['dari'] && $request['sampai']) {
+          $siswa = Siswa::with(['absensi' => function($query) {
+            return $query->addSelect(['siswa_id', 'tgl', 'jurusan_id', 'keterangan']);
+          }])->whereHas('absensi', function($query) use($jurusan_id, $request) {
+              $query->whereBetween('tgl', [$request['dari'], $request['sampai']])->where(['jurusan_id' => $jurusan_id['id']]);
+          })->select(['id', 'nama', 'kelas'])->get()->toArray();
+          // dd($siswa);
+        }else {
+          $siswa = Siswa::with(['absensi' => function($query) {
+            return $query->addSelect(['siswa_id', 'tgl', 'jurusan_id', 'keterangan']);
+          }])->whereHas('absensi', function($query) use($jurusan_id) {
+              $query->whereYear('tgl', date('Y'))->where(['jurusan_id' => $jurusan_id['id']]);
+          })->select(['id', 'nama', 'kelas'])->get()->toArray();
+        }
+        return view('smart.absensi.review-absensi', compact(['siswa','nama_jurusan']));
+    }
+
+    public function reviewAbsensiData($nama_jurusan, $siswa_id) {
+        $unslug = preg_replace('#[-]#', ' ',$nama_jurusan);
+        $nama = strtoupper($unslug);
+        $jurusan_id = Jurusan::where('nama_jurusan', $unslug)->first();
+        $alpha = Absensi::where([
+            'jurusan_id' => $jurusan_id['id'],
+            'siswa_id' => $siswa_id,
+            'keterangan' => 'alpha'
+        ])->get()->count();
+        $sakit = Absensi::where([
+            'jurusan_id' => $jurusan_id['id'],
+            'siswa_id' => $siswa_id,
+            'keterangan' => 'sakit'
+        ])->get()->count();
+        $ijin = Absensi::where([
+            'jurusan_id' => $jurusan_id['id'],
+            'siswa_id' => $siswa_id,
+            'keterangan' => 'ijin'
+        ])->get()->count();
+        $terlambat = Absensi::where([
+            'jurusan_id' => $jurusan_id['id'],
+            'siswa_id' => $siswa_id,
+            'keterangan' => 'terlambat'
+        ])->get()->count();
+        $data = array(
+            'alpha' => $alpha,
+            'ijin' => $ijin,
+            'sakit' => $sakit,
+            'terlambat' => $terlambat,
+        );
+
+        return response()->json($data);
     }
     // ===== end ===== //
 }

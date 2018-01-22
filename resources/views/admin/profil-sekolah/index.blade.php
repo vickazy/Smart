@@ -38,7 +38,7 @@
 						</div>
 						<div class="form-group{{$errors->has('visi') ? ' has-error' : ' '}}">
 							<label>Visi</label>
-							<textarea class="form-control" name="visi" id="visi">{{ $data['visi'] }}</textarea>
+							<textarea class="form-control" name="visi" id="editor">{{ $data['visi'] }}</textarea>
 							@if($errors->has('visi'))
 							<span class="help-block">{{$errors->first('visi')}}</span>
 							@endif
@@ -155,7 +155,7 @@
 							});
 							},
 							cancel: function () {
-							
+
 							},
 							}
 						});

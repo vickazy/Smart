@@ -37,6 +37,9 @@
       <link rel="stylesheet" type="text/css" href="{{URL::to('node_modules/select2/dist/css/select2.min.css')}}">
       {{-- Toastr --}}
       <link rel="stylesheet" type="text/css" href="{{URL::to('node_modules/toastr/build/toastr.min.css')}}">
+      {{-- wysiwyg --}}
+      <link rel="stylesheet" type="text/css" href="{{URL::to('node_modules/froala-editor/css/froala_editor.pkgd.min.css')}}">
+      <link rel="stylesheet" type="text/css" href="{{URL::to('node_modules/froala-editor/css/froala_style.min.css')}}">
       <!-- Custom styles for this template -->
       <link href="{{URL::to('admin/css/style.css')}}" rel="stylesheet">
       <link href="{{URL::to('admin/css/style-responsive.css')}}" rel="stylesheet">
@@ -46,6 +49,9 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
+      <style type="text/css">
+         #editor {overflow:scroll; max-height:300px}
+      </style>
     </head>
     <body>
       <section id="container" >
@@ -180,6 +186,18 @@
                       Adiwiyata
                     </a>
                   </li>
+                  <li>
+                    <a href="{{route('admin.lst')}}">
+                      <i class="fa fa-rocket"></i>
+                      Lst
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{route('admin.Bkk')}}">
+                      <i class="fa fa-briefcase"></i>
+                      BKK
+                    </a>
+                  </li>
                 </ul>
               </li>
               <li class="sub-menu">
@@ -261,6 +279,12 @@
                       <span>History Absensi</span>
                     </a>
                   </li>
+                  <li>
+                    <a href="{{route('absensi.review')}}">
+                      <i class="fa fa-clock-o"></i>
+                      <span>Review Absensi</span>
+                    </a>
+                  </li>
                 </ul>
               </li>
               <li class="sub-menu">
@@ -301,11 +325,44 @@
                   <span>Berita</span>
                 </a>
               </li>
+              @elseif(Auth::guard('pengurus')->check())
               <li class="sub-menu">
                 <a href="{{route('admin.adiwiyata')}}">
                   <i class="fa fa-rocket"></i>
                   <span>Adiwiyata</span>
                 </a>
+              </li>
+              <li class="sub-menu">
+                <a href="{{route('admin.lst')}}">
+                  <i class="fa fa-rocket"></i>
+                  <span>LSP1</span>
+                </a>
+              </li>
+              <li class="sub-menu">
+                <a href="{{route('admin.Bkk')}}">
+                  <i class="fa fa-briefcase"></i>
+                  <span>BKK</span>
+                </a>
+              </li>
+              <li class="sub-menu">
+                <a href="javascript:;">
+                  <i class="fa fa-picture-o"></i>
+                  <span>Setting Galeri</span>
+                </a>
+                <ul class="sub">
+                  <li>
+                    <a href="{{route('admin.galeri')}}">
+                      <i class="fa fa-picture-o"></i>
+                      <span>Galeri</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{route('admin.slider')}}">
+                      <i class="fa fa-image"></i>
+                      <span>Slider Home</span>
+                    </a>
+                  </li>
+                </ul>
               </li>
               @endif
             </ul>
@@ -352,8 +409,10 @@
       <script src="{{URL::to('node_modules/chart.js/dist/Chart.js')}}" charset="utf-8"></script>
       {{-- Select2 --}}
       <script src="{{URL::to('node_modules/select2/dist/js/select2.min.js')}}" charset="utf-8"></script>
+      {{-- wysiwyg --}}
+      <script src="{{URL::to('node_modules/froala-editor/js/froala_editor.pkgd.min.js')}}"></script>
       {{-- tinymce --}}
-      <script type="text/javascript" src="{{URL::to('node_modules/tinymce/tinymce.min.js')}}"></script>
+      {{-- <script type="text/javascript" src="{{URL::to('node_modules/tinymce/tinymce.min.js')}}"></script> --}}
 
       <script class="include" type="text/javascript" src="{{URL::to('admin/js/jquery.dcjqaccordion.2.7.js')}}"></script>
       <script src="{{URL::to('admin/js/jquery.scrollTo.min.js')}}"></script>
@@ -374,21 +433,23 @@
       });
       $('.select2').select2();
       });
-      tinymce.init({
-      selector: 'textarea',
-      height: 500,
-      menubar: false,
-      fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
-      plugins: [
-      'advlist autolink lists link image charmap print preview anchor textcolor',
-      'searchreplace visualblocks code fullscreen',
-      'insertdatetime media table contextmenu paste code help'
-      ],
-      toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | fontsizeselect',
-      content_css: [
-      '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-      '//www.tinymce.com/css/codepen.min.css']
-      });
+      $('textarea').froalaEditor();
+      $('.datepicker').datepicker();
+      // tinymce.init({
+      // selector: 'textarea',
+      // height: 500,
+      // menubar: false,
+      // fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
+      // plugins: [
+      // 'advlist autolink lists link image charmap print preview anchor textcolor',
+      // 'searchreplace visualblocks code fullscreen',
+      // 'insertdatetime media table contextmenu paste code help'
+      // ],
+      // toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help | fontsizeselect | image code',
+      // content_css: [
+      // '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+      // '//www.tinymce.com/css/codepen.min.css'],
+      // });
       </script>
       @if (Session::has('denied'))
       <script type="text/javascript">

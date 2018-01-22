@@ -120,6 +120,8 @@
               <li><a href="{{ route('ebook') }}">E-book</a></li>
               <li><a href="{{ route('kontak') }}">Kontak</a></li>
               <li><a href="{{ route('adiwiyata') }}">Adiwiyata</a></li>
+              <li><a href="{{ route('bkk') }}">BKK</a></li>
+              <li><a href="{{ route('lst') }}">LSP1</a></li>
               {{-- <li><a href="{{ route('getPpdb') }}" target="_blank">Daftar</a></li> --}}
             </ul>
           </div>

@@ -20,6 +20,18 @@
 				</table>
 			</div>
 		</div>
+		<div class="row" style="margin-top:10px;">
+			<div class="col-xs-12">
+				<h3>Absensi Siswa Terlambat</h3>
+				<table id="datatables2" class="table table-striped table-bordered" style="text-align:center">
+					<thead>
+						<th>No</th>
+						<th>Tanggal Absensi</th>
+						<th>Action</th>
+					</thead>
+				</table>
+			</div>
+		</div>
 	</div>
 </div>
 {{-- modal tambah --}}
@@ -47,8 +59,14 @@
 					</div>
 				</div>
 				<br>
-				<br>
-					<form method="post" id="frm-absensi">
+				<form method="post" id="frm-absensi">
+					<div class="col-lg-8 col-xs-12 col-lg-offset-2">
+						<div class="form-group">
+							<label>Tanggal Absensi</label>
+							<input type="text" name="tgl" class="form-control datepicker" id="tgl">
+						</div>
+					</div>
+					<div class="clearfix"></div>
 				<div class="table-responsive">
 					<table id="" class="table table-hover table-bordered table-striped">
 						<thead>
@@ -124,6 +142,7 @@ $('#datatables').on('click','.delete', function(e) {
 			$.get("{{ route('absensi.getDeleteAbsensi') }}", {tgl: tgl, jurusan_id: jurusan_id}, function (data) {
 					toastr.success('Success', '{{Session::get('success')}}', {timeOut: 5000});
 					$('#datatables').DataTable().ajax.reload();
+					$('#datatables2').DataTable().ajax.reload();
 			});
 			},
 			cancel: function () {
@@ -146,6 +165,7 @@ $('#datatables').on('click','.delete', function(e) {
 			$.get("{{ route('absensi.getDeleteAbsensiAll') }}", {jurusan_id:jurusan_id}, function (data) {
 					toastr.success('Success', '{{Session::get('success')}}', {timeOut: 5000});
 					$('#datatables').DataTable().ajax.reload();
+					$('#datatables2').DataTable().ajax.reload();
 			});
 			},
 			cancel: function () {
@@ -193,7 +213,41 @@ $('#datatables').on('click','.delete', function(e) {
 			if (true) {
 				toastr.success('Success', '{{Session::get('success')}}', {timeOut: 5000});
 				$('#datatables').DataTable().ajax.reload();
+				$('#datatables2').DataTable().ajax.reload();
 				$('#modal-tambah').modal('hide');
+			}
+		});
+	});
+
+	$('#datatables2').DataTable({
+		processing: true,
+		serverSide: true,
+		ajax: '{{route('absensi.getDataSiswaTerlambat')}}',
+		columns: [
+			{data: 'DT_Row_Index', orderable: false, searchable: false},
+			{data: 'tgl'},
+			{data: 'action'},
+		]
+	});
+
+	$('#datatables2').on('click','.delete', function(e) {
+		var tgl = $(this).data('tgl');
+		var jurusan_id = $(this).data('jurusan_id');
+		$.confirm({
+			icon: 'fa fa-warning',
+			title: 'Alert !',
+			content: 'Apakah anda ingin menghapus data ini ?',
+			type: 'red',
+			typeAnimated: true,
+			buttons: {
+			confirm: function () {
+			$.get("{{ route('absensi.getDeleteAbsensiDetail') }}", {tgl: tgl, jurusan_id: jurusan_id}, function (data) {
+					toastr.success('Success', '{{Session::get('success')}}', {timeOut: 5000});
+					$('#datatables2').DataTable().ajax.reload();
+			});
+			},
+			cancel: function () {
+			},
 			}
 		});
 	});

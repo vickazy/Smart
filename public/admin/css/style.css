@@ -1912,7 +1912,7 @@ label {
 
 /*LOGIN CONFIGURATION PAGE*/
 .form-login {
-	max-width: 600px;
+	max-width: 750px;
 	margin: 100px auto 0;
 	background: #fff;
 	border-radius: 5px;

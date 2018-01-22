@@ -16,6 +16,7 @@
                     <h2>Absensi Sekolah</h2>
                     <ul class="menu">
                         <li><a href="{{route('absensi', strtolower(str_slug($nama)))}}" class="btn btn-default">Absensi</a></li>
+                        <li><a href="{{route('review.absensi', strtolower(str_slug($nama)))}}" class="btn btn-default">Review Absensi</a></li>
                         <li><a href="{{route('event', strtolower(str_slug($nama)))}}" class="btn btn-default">Event</a></li>
                         <li><a href="{{route('kegiatan', strtolower(str_slug($nama)))}}" class="btn btn-default">Kegiatan</a></li>
                         <li><a href="{{route('siswa', strtolower(str_slug($nama)))}}" class="btn btn-default">Siswa</a></li>
@@ -60,7 +61,22 @@
     			</div>
     			<div class="modal-body">
 					<div class="table-responsive">
-						<table id="datatables2" class="table table-hover table-striped table-bordered">
+						<table id="datatables2" width="100%" class="table table-hover table-striped table-bordered">
+							<thead>
+								<tr>
+									<th>No</th>
+									<th>Nama Siswa</th>
+									<th>Kelas</th>
+									<th>Nisn</th>
+									<th>Keterangan</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<div class="clearfix"></div>
+					<h3>Siswa Terlambat</h3>
+					<div class="table-responsive">
+						<table id="datatables3" width="100%" class="table table-hover table-striped table-bordered">
 							<thead>
 								<tr>
 									<th>No</th>
@@ -74,7 +90,7 @@
 					</div>
     			</div>
     			<div class="modal-footer">
-    				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    				<button type="button" class="btn btn-default" id="tutup" data-dismiss="modal">Close</button>
     			</div>
     		</div>
     	</div>
@@ -111,7 +127,21 @@
 						{data: 'keterangan'},
 					]
 				});
-			})
+
+				$('#datatables3').DataTable({
+					processing: true,
+					serverSide: true,
+					destroy: true,
+					ajax: "/jurusan/{{$nama_jurusan}}/"+tgl+"/getAbsensiDetail/terlambat",
+					columns: [
+						{data: 'DT_Row_Index', orderable: false, searchable: false},
+						{data: 'nama'},
+						{data: 'kelas'},
+						{data: 'nisn'},
+						{data: 'keterangan'},
+					]
+				});
+			});
 		});
 	</script>
 @endsection

@@ -26,6 +26,7 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
               <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Admin</a></li>
+              <li role="presentation"><a href="#pengurus" aria-controls="pengurus" role="tab" data-toggle="tab">Pengurus</a></li>
               <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Ketua Prodi</a></li>
               <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Guru</a></li>
               <li role="presentation"><a href="#berita" aria-controls="berita" role="tab" data-toggle="tab">Berita</a></li>
@@ -36,6 +37,38 @@
                 <form action="{{ route('postLoginAdmin') }}" method="post">
                   {{csrf_field()}}
                   <input type="hidden" name="level" value="admin">
+                  <div class="login-wrap">
+                    @if (Session::has('error'))
+                    <div class="alert alert-danger">
+                      <span><strong>{{ Session::get('error') }}</strong></span>
+                    </div>
+                    @endif
+                    <div class="form-group{{ $errors->has('username') ? ' has-error' : ' ' }}">
+                      <input type="text" name="username" class="form-control" placeholder="username" autofocus>
+                      @if ($errors->has('username'))
+                      <span class="help-block">{{ $errors->first('username') }}</span>
+                      @endif
+                    </div>
+                    <div class="form-group{{ $errors->has('password') ? ' has-error' : ' ' }}">
+                      <input type="password" name="password" class="form-control" placeholder="Password">
+                      @if ($errors->has('password'))
+                      <span class="help-block">{{ $errors->first('password') }}</span>
+                      @endif
+                    </div>
+                    <label class="checkbox">
+                    </label>
+                    <button class="btn btn-theme btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i> Log In</button>
+                    <hr>
+                    <div class="registration">
+                      Developed with <i class="fa fa-heart" style="color:red"></i> By <a href="http://easytech.co.id/">EasyTech</a>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="pengurus">
+                <form action="{{ route('postLoginAdmin') }}" method="post">
+                  {{csrf_field()}}
+                  <input type="hidden" name="level" value="pengurus">
                   <div class="login-wrap">
                     @if (Session::has('error'))
                     <div class="alert alert-danger">

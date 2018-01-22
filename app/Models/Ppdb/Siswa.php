@@ -47,6 +47,10 @@ class Siswa extends Model
       return $this->belongsTo('App\Models\KProdi\Jurusan');
     }
 
+    public function absensi() {
+      return $this->hasMany('App\Models\KProdi\Absensi', 'siswa_id', 'id');
+    }
+
     // public function riwayat() {
     //   return $this->hasMany('App\Models\Ppdb\RiwayatP');
     // }

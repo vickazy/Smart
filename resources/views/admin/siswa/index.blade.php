@@ -31,7 +31,7 @@
                   <td>{{$value['jenis_kelamin'] == 'pria' ? 'L' : 'P'}}</td>
                   <td>{{date('d-m-Y', strtotime($value['tgl_lahir']))}}</td>
                   <td>
-                    <a href="/admin/data/siswa/'.$data->id.'/detail" class="btn btn-info"><i class="fa fa-search"></i></a>&nbsp;<a href="#!" class="btn btn-danger delete" data-id="'.$data->id.'"><i class="fa fa-trash"></i></a>
+                    <a href="/admin/data/siswa/{{$value['id']}}/detail" class="btn btn-info"><i class="fa fa-search"></i></a>&nbsp;<a href="#!" class="btn btn-danger delete" data-id="'.$data->id.'"><i class="fa fa-trash"></i></a>
                   </td>
                 </tr>
               @endforeach

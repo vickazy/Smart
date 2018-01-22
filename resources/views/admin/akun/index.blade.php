@@ -2,13 +2,31 @@
 @section('content')
 <div class="col-lg-12">
 	<h3><i class="fa fa-angle-right"></i> Setting Akun Admin </h3>
-	<div class="content-panel" style="padding:10px 10px;margin-bottom:300px">
+	<div class="content-panel" style="padding:10px 10px;margin-bottom:10px">
 	<form action="{{route('postAkun')}}" method="post">
 		{{csrf_field()}}
 		<div class="form-group">
 			<label>Username</label>
 			<input type="text" name="username" class="form-control" value="{{$admin['username']}}" required>
 			<input type="hidden" name="id" value="{{$admin['id']}}">
+		</div>
+		<div class="form-group">
+			<label>Password Baru</label>
+			<input type="password" name="password" class="form-control" required>
+		</div>
+		<button type="submit" class="btn btn-primary">Simpan <i class="fa fa-save"></i></button>
+	</form>
+	</div>
+</div>
+<div class="col-lg-12">
+	<h3><i class="fa fa-angle-right"></i> Setting Akun Pengurus </h3>
+	<div class="content-panel" style="padding:10px 10px;margin-bottom:300px">
+	<form action="{{route('pengurusPost')}}" method="post">
+		{{csrf_field()}}
+		<div class="form-group">
+			<label>Username</label>
+			<input type="text" name="username" class="form-control" value="{{$pengurus['username']}}" required>
+			<input type="hidden" name="id" value="{{$pengurus['id']}}">
 		</div>
 		<div class="form-group">
 			<label>Password Baru</label>
